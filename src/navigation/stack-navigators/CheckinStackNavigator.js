@@ -7,6 +7,8 @@ import SignInScreen from '../../screens/SignInScreen'
 import SignUpScreen from '../../screens/SignUpScreen'
 import HomeScreen from '../../screens/HomeScreen'
 import FeedScreen from '../../screens/FeedScreen'
+import CheckinSentidoScreen from '../../screens/CheckinSentidoScreen'
+
 
 const Stack = createStackNavigator()
 
@@ -26,6 +28,7 @@ const CheckinStackNavigator = () => {
       }
       }>
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Checkin' }} />
+      <Stack.Screen name={screens.CheckinSentidoTab} component={CheckinSentidoScreen} options={{ title: 'Checkin - Sentido' }} />
       <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
 

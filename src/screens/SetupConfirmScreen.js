@@ -50,7 +50,7 @@ const AnunciarConfirmScreen = ({ route, navigation }) => {
 
         setIsLoading(true);
 
-        console.log('Chamando a api setup', setup)
+        console.log('Chamando a api setup......', setup)
         api.post('/users/setup', setup)
             .then((response) => {
                 console.info("api executada com sucesso", response.data)
@@ -59,7 +59,7 @@ const AnunciarConfirmScreen = ({ route, navigation }) => {
                 user.linhaId = setup.linhaId
                 console.log('User atualizado: ' , user)
                 updateUser(user)
-                _showAlert('success', "Obaa", 'Anúncio publicado com sucesso!', 3000);
+                _showAlert('success', "Obaa", 'Configurações salvas!', 3000);
                 navigation.push('Checkin')
             })
             .catch((error) => {

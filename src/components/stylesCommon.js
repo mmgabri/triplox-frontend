@@ -17,6 +17,11 @@ const stylesCommon = StyleSheet.create({
         color: '#05375a',
         fontSize: 18
     },
+    text_footerx: {
+        marginTop: 2,
+        color: '#05375a',
+        fontSize: 18
+    },
     action: {
         flexDirection: 'row',
         marginTop: 30,

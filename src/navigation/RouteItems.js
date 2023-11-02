@@ -19,6 +19,9 @@ export const screens = {
   Checkin: 'Checkin',
   CheckinTab: 'CheckinTab',
 
+  CheckinSentido: 'CheckinSentido',
+  CheckinSentidoTab: 'CheckinSentidoTab',
+
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
@@ -47,6 +50,15 @@ export const routes = [
     showInDrawer: false,
     icon: (focused) =>
     <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.CheckinSentidoTab,
+    focusedRoute: screens.CheckinSenido,
+    title: 'Checkin',
+    showInTab: true,
+    showInDrawer: false
+    
   },
 
     {
