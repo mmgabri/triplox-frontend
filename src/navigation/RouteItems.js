@@ -19,9 +19,8 @@ export const screens = {
   Checkin: 'Checkin',
   CheckinTab: 'CheckinTab',
 
-  CheckinSentido: 'CheckinSentido',
-  CheckinSentidoTab: 'CheckinSentidoTab',
-
+  CheckinConfirm: 'CheckinConfirm',
+  
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
@@ -53,9 +52,9 @@ export const routes = [
   },
 
   {
-    name: screens.CheckinSentidoTab,
-    focusedRoute: screens.CheckinSenido,
-    title: 'Checkin',
+    name: screens.CheckinConfirm,
+    focusedRoute: screens.CheckinConfirm,
+    title: 'Checkin - Confirm',
     showInTab: true,
     showInDrawer: false
     

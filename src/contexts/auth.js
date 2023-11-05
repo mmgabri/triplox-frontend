@@ -37,7 +37,7 @@ const AuthProvider = ({ children, navigation }) => {
         api.defaults.timeout = 25000;
         const loadStorageData = async () => {
             const storageUser = await getUserStorage();
-            console.info('Usuário obtido do storage -->', storageUser)
+       //     console.info('Usuário obtido do storage -->', storageUser)
             if (storageUser) {
                 registerAdvive(storageUser.id);
                 setUser(storageUser)

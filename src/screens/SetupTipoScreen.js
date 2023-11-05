@@ -8,14 +8,14 @@ import stylesCommon from '../components/stylesCommon'
 import ButtonTransparent from '../components/ButtonTransparent';
 
 
-const SetUpTipoScreen = ({  route, navigation  }) => {
+const SetUpTipoScreen = ({ route, navigation }) => {
   const { linha } = route.params;
   const [load, setLoad] = useState(true)
   const { colors } = useTheme();
 
   useEffect(() => {
 
-    console.log('Entrou na Tela Setup Tipo de usuário' , linha)
+    console.log('Entrou na Tela Setup Tipo de usuário', linha)
 
     navigation.addListener('focus', () => setLoad(!load))
   }, [load, navigation])
@@ -26,38 +26,38 @@ const SetUpTipoScreen = ({  route, navigation  }) => {
     console.log("Linha:", linha)
     navigation.navigate('SetupConfirm', { linha: linha, })
   }
- 
+
 
   return (
 
     <View style={stylesCommon.container}>
-    <StatusBar backgroundColor='#009387' barStyle="light-content" />
-    <Animatable.View
+      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <Animatable.View
         animation="fadeInUpBig"
         style={[stylesCommon.footer, {
-            backgroundColor: colors.background
+          backgroundColor: colors.background
         }]}
-    >
+      >
 
         <Text style={[stylesCommon.text_footer, {
-            color: colors.text
+          color: colors.text
         }]}>Escolho o seu tipo de usuário</Text>
 
         <ButtonTransparent
-            text='Avulso'
-            onClick={continuar}
-            top={30}
-            value='AVULSO'
+          text='Avulso'
+          onClick={continuar}
+          top={30}
+          value='AVULSO'
         />
         <ButtonTransparent
-            text='Mensalista'
-            onClick={continuar}
-            top={30}
-            value='MENSALISTA'
+          text='Mensalista'
+          onClick={continuar}
+          top={30}
+          value='MENSALISTA'
         />
 
-    </Animatable.View>
-</View>
+      </Animatable.View>
+    </View>
   );
 
 };
