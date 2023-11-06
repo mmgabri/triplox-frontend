@@ -10,6 +10,7 @@ import { useAuth } from '../contexts/auth';
 import { decodeMessage } from '../services/decodeMessage'
 import { api } from '../services/api';
 import BoxInfo from '../components/BoxInfo';
+import BoxInfo2 from '../components/BoxInfo2';
 
 const CheckinScreen = ({ navigation }) => {
   const [week, setWeek] = useState([]);
@@ -86,7 +87,7 @@ const CheckinScreen = ({ navigation }) => {
     obj.sentido = value
     console.log('Obj: ', obj)
 
-    navigation.navigate('CheckinConfirm', { checkin: obj, })
+    //  navigation.navigate('CheckinConfirm', { checkin: obj, })
 
   }
 
@@ -169,39 +170,37 @@ const CheckinScreen = ({ navigation }) => {
       </View>
 
       <BoxInfo
-        top={10}
+        top={0}
+        icon={'calendar'}
+        text1={'Data'}
+        text2={'10/11/2023'}
+      />
+
+      <BoxInfo
+        top={0}
         icon={'bus'}
         text1={'Linha'}
         text2={checkin.nome}
       />
 
-      <View>
-        <Text style={styles.textBox1}>
-          Escolha uma das opções abaixo:
-        </Text>
-      </View>
-
-
-      <ButtonCheckin
-        text1={checkin.cidadeOrigem}
-        text2={checkin.cidadeDestino}
+      <BoxInfo2
+        top={0}
+        icon={'check-square'}
+        text1={'Saída: ' + checkin.cidadeOrigem}
+        text2={'Ponto: Posto Shell'}
+        text3={'Previsão: 05:00'}
+        text4={'Vagas restantes: 20 - Ver lista de presença'}
         onClick={execute}
-        top={30}
-        value='IDA'
-      />
-      <ButtonCheckin
-        text1={checkin.cidadeDestino}
-        text2={checkin.cidadeOrigem}
-        onClick={execute}
-        top={10}
-        value='VOLTA'
       />
 
-
-      <Button2
-        text={'Alterar dados da linha'}
-        onClick={alterarDadosLinha}
-        top={15}
+      <BoxInfo2
+        top={0}
+        icon={'check-square'}
+        text1={'Saída: São Paulo'}
+        text2={'Ponto: Itaú CEIC'}
+        text3={'Previsão: 17:40'}
+        text4={'Vagas restantes: 5 - Ver lista de presença'}
+        onClick={execute}
       />
 
 
@@ -215,12 +214,12 @@ const CheckinScreen = ({ navigation }) => {
 export default CheckinScreen;
 
 const styles = StyleSheet.create({
-    textBox1: {
-      marginLeft: 20,
-      marginTop: 17,
-      marginBottom: 5,
-      fontSize: 15,
-      color: '#363636'
+  textBox1: {
+    marginLeft: 20,
+    marginTop: 17,
+    marginBottom: 5,
+    fontSize: 15,
+    color: '#363636'
 
   },
 })

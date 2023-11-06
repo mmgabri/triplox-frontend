@@ -9,18 +9,15 @@ const ButtonRealizarCheckin = ({ anuncio, text, onClick, top }) => {
     return (
         <View style={[styles.button, { marginBottom: top }]} >
             <TouchableOpacity
-                style={stylesCommon.button_styte}
+                style={styles.button_styte}
                 onPress={() => { onClick(anuncio) }}
             >
                 <LinearGradient
                     colors={['#008000', '#008000']}
-                    style={stylesCommon.button_styte}
+                    style={styles.button_styte}
                 >
-                    <View style={stylesCommon.container2}>
-                        <TouchableOpacity onPress={() => { onClick(value) }} style={stylesCommon.button_styte_icon}>
-                            <Icon name="check" size={20} color="white" />
-                        </TouchableOpacity>
-                        <Text style={[stylesCommon.button_text, {
+                    <View style={styles.container2}>
+                        <Text style={[styles.button_text, {
                             color: '#fff'
                         }]}>{text}</Text>
                     </View>
@@ -35,7 +32,26 @@ export default ButtonRealizarCheckin;
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        margin: 20
+        marginTop: 20,
+        marginBottom: 0
         
+    },
+    button_styte: {
+        marginTop: -5,
+        width: '100%',
+        width: 150,
+        height: 40,
+        justifyContent: 'left',
+        alignItems: 'left',
+        borderRadius: 10,
+    },
+    container2: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingVertical: 10,
+    },
+    button_text: {
+        fontSize: 15,
+        fontWeight: 'bold'
     },
 })

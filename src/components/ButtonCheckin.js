@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
 
     },
     button_text1_ponto_checkin: {
+        marginTop: -10,
         fontSize: 15,
         marginTop: 0,
-        marginLeft: -150,
+        marginLeft: 50,
         alignItems: 'left',
         fontWeight: 'bold'
     },
