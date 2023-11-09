@@ -1,9 +1,11 @@
 import * as React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ProfileScreen from '../screens/ProfileScreen'
 
 export const screens = {
+  ConfiguracaoTab: 'ConfiguracaoTab',
+  Configuracao: 'Configuracao',
+
   HomeTab: 'HomeTab',
   Home: 'Home',
 
@@ -64,6 +66,16 @@ export const routes = [
     name: screens.SetupTab,
     focusedRoute: screens.SetupTab,
     title: 'SetUp',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.ConfiguracaoTab,
+    focusedRoute: screens.ConfiguracaoTab,
+    title: 'Configuração',
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>

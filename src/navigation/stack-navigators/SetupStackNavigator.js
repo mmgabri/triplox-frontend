@@ -5,10 +5,7 @@ import { screens } from '../RouteItems'
 import CheckinScreen from '../../screens/CheckinScreen'
 import SignInScreen from '../../screens/SignInScreen'
 import HomeScreen from '../../screens/HomeScreen'
-import SetUpScreen from '../../screens/SetupScreen'
-import SetUpTipoScreen from '../../screens/SetupTipoScreen'
-import SetupTipoScreen from '../../screens/SetupTipoScreen'
-import SetupConfirmScreen from '../../screens/SetupConfirmScreen'
+import ConfiguracaoScreen from '../../screens/ConfiguracaoScreen'
 
 const Stack = createStackNavigator()
 
@@ -27,9 +24,7 @@ const SetupStackNavigator = () => {
         }
       }
       }>
-      <Stack.Screen name={screens.Setup} component={SetUpScreen} options={{ title: 'Setup - Linha' }} />
-      <Stack.Screen name={screens.SetupTipo} component={SetupTipoScreen}  options={{ title: 'Setup - Tipo de usuário' }}  />
-      <Stack.Screen name={screens.SetupConfirm} component={SetupConfirmScreen}  options={{ title: 'Setup - Confirmação' }}  />
+      <Stack.Screen name={screens.Configuracao} component={ConfiguracaoScreen} />
       <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} />
