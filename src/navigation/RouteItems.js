@@ -6,6 +6,28 @@ export const screens = {
   ConfiguracaoTab: 'ConfiguracaoTab',
   Configuracao: 'Configuracao',
 
+  Configuracao0Tab: 'Configuracao0Tab',
+  Configuracao0: 'Configuracao0',
+
+  Configuracao1Tab: 'Configuracao1Tab',
+  Configuracao1: 'Configuracao1',
+
+  Configuracao2Tab: 'Configuracao2Tab',
+  Configuracao2: 'Configuracao2',
+
+
+  Configuracao3Tab: 'Configuracao3Tab',
+  Configuracao3: 'Configuracao3',
+
+  Configuracao4Tab: 'Configuracao4Tab',
+  Configuracao4: 'Configuracao4',
+
+  Configuracao5Tab: 'Configuracao5Tab',
+  Configuracao5: 'Configuracao5',
+
+  Configuracao6Tab: 'Configuracao6Tab',
+  Configuracao6: 'Configuracao6',
+
   HomeTab: 'HomeTab',
   Home: 'Home',
 
@@ -81,7 +103,76 @@ export const routes = [
     icon: (focused) =>
     <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
   },
+  {
+    name: screens.Configuracao0Tab,
+    focusedRoute: screens.Configuracao0Tab,
+    title: 'Configuração',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
 
+  {
+    name: screens.Configuracao1Tab,
+    focusedRoute: screens.Configuracao1Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.Configuracao2Tab,
+    focusedRoute: screens.Configuracao2Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.Configuracao3Tab,
+    focusedRoute: screens.Configuracao3Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.Configuracao4Tab,
+    focusedRoute: screens.Configuracao4Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+
+  {
+    name: screens.Configuracao5Tab,
+    focusedRoute: screens.Configuracao5Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.Configuracao6Tab,
+    focusedRoute: screens.Configuracao6Tab,
+    title: 'Configuração',
+    showInTab: false,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
   {
     name: screens.SetupTipoTab,
     focusedRoute: screens.SetupTipoTab,

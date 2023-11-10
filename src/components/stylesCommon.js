@@ -3,15 +3,28 @@ import { StyleSheet } from 'react-native'
 const stylesCommon = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#009387',
     },
+
     footer: {
         flex: 3,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
+    },
+
+    footer_cust: {
+        flex: 3,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingTop: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        paddingBottom: 3000
+        
     },
 
     text_footer: {
