@@ -13,29 +13,34 @@ import BoxInfo from '../../components/BoxInfo';
 
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
-  const { linhaId } = route.params;
-  const { nomeLinha } = route.params;
-  const { cidades } = route.params;
-  const { cidadeOrigem } = route.params;
-  const { horarioPrevistoOrigem } = route.params;
-  const { enderecoOrigem } = route.params;
-  const { nomePontoOrigem } = route.params;
-  const { cidadeDestino } = route.params;
-
   const { colors } = useTheme();
-  const { user, isAuthenticated, _showAlert } = useAuth();
+  const { _showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
   const [pontosDestinoData, setPontosDestinoData] = useState([]);
-  const [pontoIdDestino, setPontoIdDestino] = useState(null);
-  const [enderecoDestino, setEnderecoDestino] = useState(null);
-  const [horarioPrevistoDestino, setHorarioPrevistoDestino] = useState(null);
-  const [nomePontoDestino, setNomePontoDestino] = useState(null);
+  const { data4 } = route.params;
+
+  const [data, setData] = useState({
+    linhaId: null,
+    nomeLinha: null,
+    cidades: [],
+    pontoIdOrigem: null,
+    cidadeOrigem: null,
+    nomePontoOrigem: null,
+    horarioPrevistoEmbarquePontoOrigem: null,
+    enderecoOrigem: null,
+    pontoIdDestino: null,
+    enderecoDestino: null,
+    nomePontoDestino: null,
+    cidadeDestino: null,
+  });
+
 
 
   useEffect(() => {
-    console.log('-------------- Tela de Configuração5 ----------', nomeLinha, linhaId, cidades, cidadeOrigem, horarioPrevistoOrigem, enderecoOrigem, cidadeDestino)
+    console.log('-------------- Tela de Configuração5 ----------', data4)
+    setData(data4)
 
-    api.get('/pontos/' + linhaId + '/' + cidadeDestino)
+    api.get('/pontos/' + data4.linhaId + '/' + data4.cidadeDestino)
       .then((response) => {
         console.log('Retorno da api listar pontos:', response.data)
         setPontosDestinoData(response.data)
@@ -53,20 +58,9 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
   const continua = () => {
     console.log("===> continua:")
 
-    console.log("continuar:")
-    navigation.navigate('Configuracao6Tab', { 
-      linhaId: linhaId, 
-      nomeLinha: nomeLinha,
-      cidades: cidades, 
-      cidadeOrigem: cidadeOrigem, 
-      nomePontoOrigem: nomePontoOrigem,
-      horarioPrevistoOrigem: horarioPrevistoOrigem,
-      enderecoOrigem: enderecoOrigem,
-      cidadeDestino: cidadeDestino,
-      horarioPrevistoDestino: horarioPrevistoDestino,
-      enderecoDestino: enderecoDestino,
-      nomePontoDestino: nomePontoDestino
-    })
+    data5 = data
+
+    navigation.navigate('Configuracao6Tab', { data5 })
 
   };
 
@@ -83,7 +77,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {pontoIdDestino != null &&
+          {data.pontoIdDestino != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
                 Ponto de desembarque
@@ -109,37 +103,34 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setPontoIdDestino(item.id);
               setIsFocus1(false);
-              setHorarioPrevistoDestino(item.horaPrevisaoInicio)
-              setEnderecoDestino(item.endereco)
-              setNomePontoDestino(item.nome)
+              setData({
+                ...data,
+                pontoIdDestino: item.id,
+                nomePontoDestino: item.nome,
+                enderecoDestino: item.endereco,
+              });
             }}
           />
 
-          {pontoIdDestino != null &&
+          {data.pontoIdDestino != null &&
             <>
               <BoxInfo
                 top={10}
                 icon={'map-marker'}
                 text1={'Endereço'}
-                text2={enderecoDestino}
+                text2={data.enderecoDestino}
               />
-              <BoxInfo
-                top={0}
-                icon={'clock-o'}
-                text1={'Previsão de horário'}
-                text2={horarioPrevistoDestino}
-              />
+            
             </>
           }
 
           <Button
-            text={'Continuar'}
+            text={'Próximo passo'}
             onClick={continua}
             top={45}
             value={'id'}
-            flag={pontoIdDestino}
+            flag={data.pontoIdDestino}
           />
 
         </Animatable.View>

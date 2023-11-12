@@ -3,49 +3,45 @@ import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
-import { useAuth } from '../../contexts/auth';
 import stylesCommon from '../../components/stylesCommon'
 import stylesDropdown from '../../components/stylesDropdown'
 import Button from '../../components/Button';
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
-  const { linhaId } = route.params;
-  const { nomeLinha } = route.params;
-  const { cidades } = route.params;
-  const { cidadeOrigem } = route.params;
-  const { horarioPrevistoOrigem } = route.params;
-  const { enderecoOrigem } = route.params;
-  const { nomePontoOrigem } = route.params;
-
   const { colors } = useTheme();
-  const { user, isAuthenticated, _showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
-  const [cidadesData, setCidadesData] = useState([]);
-  const [cidadeDestino, setCidadeDestino] = useState(null);
+  const { data3 } = route.params;
 
+  const [data, setData] = useState({
+    linhaId: null,
+    nomeLinha: null,
+    cidades: [],
+    pontoIdOrigem: null,
+    cidadeOrigem: null,
+    nomePontoOrigem: null,
+    horarioPrevistoEmbarquePontoOrigem: null,
+    enderecoOrigem: null,
+    pontoIdDestino: null,
+    enderecoDestino: null,
+    nomePontoDestino: null,
+    cidadeDestino: null,
+  });
 
 
   useEffect(() => {
-    console.log('-------------- Tela de Configuração4 ----------', nomeLinha, linhaId, cidades,cidadeOrigem, horarioPrevistoOrigem,  enderecoOrigem)
+    console.log('-------------- Tela de Configuração4 ----------', data3)
 
-    setCidadesData(cidades)
-
+    setData(data3)
 
   }, []);
+
 
   const continua = () => {
     console.log("===> continua:")
 
-    console.log("continuar:")
-    navigation.navigate('Configuracao5Tab', 
-    { linhaId: linhaId, 
-      nomeLinha: nomeLinha,
-      cidades: cidades, 
-      cidadeOrigem: cidadeOrigem,
-      horarioPrevistoOrigem: horarioPrevistoOrigem, 
-      enderecoOrigem: enderecoOrigem, 
-      nomePontoOrigem: nomePontoOrigem,
-      cidadeDestino: cidadeDestino})
+    data4 = data
+
+    navigation.navigate('Configuracao5Tab', { data4 })
   };
 
 
@@ -62,7 +58,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {cidadeDestino != null &&
+          {data.cidadeDestino != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
                 Cidade Destino
@@ -77,7 +73,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
-            data={cidadesData}
+            data={data.cidades}
             search
             maxHeight={300}
             labelField="label"
@@ -88,17 +84,17 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setCidadeDestino(item.value);
+              setData({ ...data, cidadeDestino: item.value });
               setIsFocus1(false);
             }}
           />
 
           <Button
-            text={'Continuar'}
+            text={'Próximo passo'}
             onClick={continua}
             top={45}
             value={'id'}
-            flag={cidadeDestino}
+            flag={data.cidadeDestino}
           />
 
         </Animatable.View>

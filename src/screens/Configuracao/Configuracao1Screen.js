@@ -16,10 +16,21 @@ const ConfiguracaoScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const {isAuthenticated, _showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
-  const [cidades, setCidades] = useState([]);
   const [linhasData, setLinhasData] = useState([]);
-  const [linhaId, setLinhaId] = useState(null);
-  const [nomeLinha, setNomeLinha] = useState(null);
+  const [data, setData] = useState({
+    linhaId: null,
+    nomeLinha: null,
+    cidades: [],
+    pontoIdOrigem: null,
+    cidadeOrigem: null,
+    nomePontoOrigem: null,
+    horarioPrevistoEmbarquePontoOrigem: null,
+    enderecoOrigem: null,
+    pontoIdDestino: null,
+    enderecoDestino: null,
+    nomePontoDestino: null,
+    cidadeDestino: null,
+  });
 
 
   useEffect(() => {
@@ -48,16 +59,19 @@ const ConfiguracaoScreen = ({ navigation }) => {
   const continua = () => {
     console.log("===> continua:")
 
-    var count = Object.keys(cidades).length;
+    data1 = data
+
+    var count = Object.keys(data.cidades).length;
     let cidadesArray = [];
     for (var i = 0; i < count; i++) {
       cidadesArray.push({
-        value: cidades[i],
-        label: cidades[i],
+        value: data.cidades[i],
+        label: data.cidades[i],
       });
     }
+    data1.cidades = cidadesArray
 
-    navigation.navigate('Configuracao2Tab', { linhaId: linhaId, cidades: cidadesArray, nomeLinha: nomeLinha })
+    navigation.navigate('Configuracao2Tab', { data1 })
 
   };
 
@@ -75,7 +89,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
           }]}
         >
 
-          {linhaId != null &&
+          {data.linhaId != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
                 Linha
@@ -101,9 +115,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setLinhaId(item.id);
-              setNomeLinha(item.nome);
-              setCidades(item.cidades)
+              setData({...data,linhaId: item.id, nomeLinha: item.nome, cidades: item.cidades});
               setIsFocus1(false);
             }}
           />
@@ -113,7 +125,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
             onClick={continua}
             top={45}
             value={'id'}
-            flag={linhaId}
+            flag={data.linhaId}
           />
 
         </Animatable.View>

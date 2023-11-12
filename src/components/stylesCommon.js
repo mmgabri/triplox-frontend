@@ -5,6 +5,10 @@ const stylesCommon = StyleSheet.create({
         flex: 1,
         backgroundColor: '#009387',
     },
+    loading: {
+        flex: 1,
+        backgroundColor: '#009387',
+    },
 
     footer: {
         flex: 3,

@@ -13,25 +13,34 @@ import BoxInfo from '../../components/BoxInfo';
 
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
-  const { linhaId } = route.params;
-  const { cidades } = route.params;
-  const { cidadeOrigem } = route.params; 
-  const { nomeLinha } = route.params; 
   const { colors } = useTheme();
-  const { user, isAuthenticated, _showAlert } = useAuth();
+  const {_showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
   const [pontosOrigemData, setPontosOrigemData] = useState([]);
-  const [pontoIdOrigem, setPontoIdOrigem] = useState(null);
-  const [enderecoOrigem, setEnderecoOrigem] = useState(null);
-  const [horarioPrevistoOrigem, setHorarioPrevistoOrigem] = useState(null);
-  const [nomePontoOrigem, setNomePontoOrigem] = useState(null);
-  
+  const { data2 } = route.params;
+
+  const [data, setData] = useState({
+    linhaId: null,
+    nomeLinha: null,
+    cidades: [],
+    pontoIdOrigem: null,
+    cidadeOrigem: null,
+    nomePontoOrigem: null,
+    horarioPrevistoEmbarquePontoOrigem: null,
+    enderecoOrigem: null,
+    pontoIdDestino: null,
+    enderecoDestino: null,
+    nomePontoDestino: null,
+    cidadeDestino: null,
+  });
 
 
   useEffect(() => {
-    console.log('-------------- Tela de Configuração3 ----------', nomeLinha, linhaId, cidades, cidadeOrigem)
+    console.log('-------------- Tela de Configuração3 ----------', data2)
 
-    api.get('/pontos/' + linhaId + '/' + cidadeOrigem)
+    setData(data2)
+
+    api.get('/pontos/' + data2.linhaId + '/' + data2.cidadeOrigem)
       .then((response) => {
         console.log('Retorno da api listar pontos:', response.data)
         setPontosOrigemData(response.data)
@@ -48,19 +57,10 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
 
   const continua = () => {
     console.log("===> continua:")
-    
-    console.log("continuar:")
-    navigation.navigate('Configuracao4Tab', 
-    { 
-      linhaId: linhaId, 
-      nomeLinha: nomeLinha,
-      cidades: cidades, 
-      cidadeOrigem: cidadeOrigem, 
-      horarioPrevistoOrigem: horarioPrevistoOrigem, 
-      enderecoOrigem: enderecoOrigem,
-      nomePontoOrigem: nomePontoOrigem
-     })
 
+   data3 = data
+
+    navigation.navigate('Configuracao4Tab', { data3 })
   };
 
 
@@ -77,7 +77,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {pontoIdOrigem != null &&
+          {data.pontoIdOrigem != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
                 Ponto de embarque
@@ -103,37 +103,41 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setPontoIdOrigem(item.id);
+              setData({
+                ...data,
+                pontoIdOrigem: item.id,
+                horarioPrevistoEmbarque: item.horarioPrevistoEmbarque,
+                nomePontoOrigem: item.nome,
+                enderecoOrigem: item.endereco,
+                pontoIdOrigem: item.id
+              });
               setIsFocus1(false);
-              setHorarioPrevistoOrigem(item.horaPrevisaoInicio)
-              setNomePontoOrigem(item.nome)
-              setEnderecoOrigem(item.endereco)
             }}
           />
 
-          {pontoIdOrigem != null &&
+          {data.pontoIdOrigem != null &&
             <>
               <BoxInfo
                 top={10}
                 icon={'map-marker'}
                 text1={'Endereço'}
-                text2={enderecoOrigem}
+                text2={data.enderecoOrigem}
               />
               <BoxInfo
                 top={0}
                 icon={'clock-o'}
                 text1={'Previsão de horário'}
-                text2={horarioPrevistoOrigem}
+                text2={data.horarioPrevistoEmbarque}
               />
             </>
           }
 
           <Button
-            text={'Continuar'}
+            text={'Próximo passo'}
             onClick={continua}
             top={45}
             value={'id'}
-            flag={pontoIdOrigem}
+            flag={data.pontoIdOrigem}
           />
 
         </Animatable.View>

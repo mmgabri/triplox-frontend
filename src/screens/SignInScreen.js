@@ -158,6 +158,7 @@ const SignInScreen = ({ navigation }) => {
           text={'Login'}
           onClick={signInHandle}
           top={-35}
+          flag={""}
         />
 
         <ButtonTransparent

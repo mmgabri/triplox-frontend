@@ -32,6 +32,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
   const [horarioPrevistoOrigem, setHorarioPrevistoOrigem] = useState(null);
   const [horarioPrevistoDestino, setHorarioPrevistoDestino] = useState(null);
 
+  
 
   useEffect(() => {
     console.log('--------------Tela de configuração----------')

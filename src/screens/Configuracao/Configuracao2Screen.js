@@ -10,32 +10,44 @@ import Button from '../../components/Button';
 
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
-  const { linhaId } = route.params;
-  const { cidades } = route.params;
-  const { nomeLinha } = route.params;
   const { colors } = useTheme();
   const [isFocus1, setIsFocus1] = useState(false);
-  const [cidadesData, setCidadesData] = useState([]);
-  const [cidadeOrigem, setCidadeOrigem] = useState(null);
+  const { data1 } = route.params;
 
+  const [data, setData] = useState({
+    linhaId: null,
+    nomeLinha: null,
+    cidades: [],
+    pontoIdOrigem: null,
+    cidadeOrigem: null,
+    nomePontoOrigem: null,
+    horarioPrevistoEmbarquePontoOrigem: null,
+    enderecoOrigem: null,
+    pontoIdDestino: null,
+    enderecoDestino: null,
+    nomePontoDestino: null,
+    cidadeDestino: null,
+  });
 
   useEffect(() => {
-    console.log('-------------- Tela de Configuração2 ----------', linhaId, cidades, nomeLinha)
+    console.log('-------------- Tela de Configuração2 ----------', data1)
 
-    setCidadesData(cidades)
+    setData(data1)
 
   }, []);
 
   const continua = () => {
     console.log("===> continua:")
 
-    console.log("continuar:")
-    navigation.navigate('Configuracao3Tab', { linhaId: linhaId, cidades: cidades, nomeLinha: nomeLinha, cidadeOrigem: cidadeOrigem })
+    data2 = data
+
+    navigation.navigate('Configuracao3Tab', { data2 })
 
   };
 
 
   return (
+
 
     <View style={stylesCommon.container}>
       <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -47,7 +59,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {cidadeOrigem != null &&
+          {data.cidadeOrigem != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
                 Cidade Origem
@@ -62,7 +74,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
-            data={cidadesData}
+            data={data.cidades}
             search
             maxHeight={300}
             labelField="label"
@@ -73,17 +85,17 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setCidadeOrigem(item.value);
+              setData({ ...data, cidadeOrigem: item.value });
               setIsFocus1(false);
             }}
           />
 
           <Button
-            text={'Continuar'}
+            text={'Próximo passo'}
             onClick={continua}
             top={45}
             value={'id'}
-            flag={cidadeOrigem}
+            flag={data.cidadeOrigem}
           />
 
         </Animatable.View>

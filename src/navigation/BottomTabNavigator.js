@@ -49,7 +49,6 @@ const BottomTabNavigator = () => {
         <Tab.Screen name={screens.FeedTab} component={FeedStackNavigator} />
         <Tab.Screen name={screens.CheckinTab} component={CheckinStackNavigator} />
         <Tab.Screen name={screens.Configuracao0Tab} component={SetupStackNavigator} />
-        <Tab.Screen name={screens.ConfiguracaoTab} component={SetupStackNavigator} />
 
         <Tab.Screen name={screens.ProfileTab} component={ProfileScreen} />
 
