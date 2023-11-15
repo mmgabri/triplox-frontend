@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, ScrollView  } from 'react-native';
+import { StackActions } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import AwesomeLoading from 'react-native-awesome-loading';
 import { useTheme } from 'react-native-paper';
@@ -11,7 +12,7 @@ import Button from '../../components/Button';
 import BoxInfo from '../../components/BoxInfo';
 
 
-const ConfiguracaoScreen = ({ route, navigation }) => {
+const CriarTrajeto4Screen = ({ route, navigation }) => {
   const { colors } = useTheme();
   const { user, _showAlert } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -33,12 +34,13 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
   });
 
   useEffect(() => {
-    console.log('-------------- Tela de Configuração6 ----------', data3)
+    console.log('-------------- Tela de CriarTrajeto4 ----------', data3)
 
     setData(data3)
 
   }, []);
 
+ 
   const salvar = () => {
     console.log("===> salvar")
 
@@ -55,7 +57,9 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
         setIsLoading(false)
         console.log('Retorno da api listar pontos:', response.data)
         _showAlert('success', "Obaa", 'Configurações salvas!', 3000);
-        navigation.navigate('Configuracao0Tab')
+        navigation.dispatch(
+          StackActions.popToTop('CriarTrajetoTrajetosTab', { refreshScreen: true })
+      )
       })
       .catch((error) => {
         setIsLoading(false)
@@ -147,4 +151,4 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
   )
 }
 
-export default ConfiguracaoScreen;
+export default CriarTrajeto4Screen;

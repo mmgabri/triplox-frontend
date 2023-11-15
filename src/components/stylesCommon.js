@@ -17,6 +17,7 @@ const stylesCommon = StyleSheet.create({
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
         paddingVertical: 30,
+
     },
 
     footer_cust: {

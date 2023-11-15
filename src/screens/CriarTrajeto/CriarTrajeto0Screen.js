@@ -5,11 +5,12 @@ import { useTheme } from 'react-native-paper';
 import stylesCommon from '../../components/stylesCommon'
 import Button from '../../components/Button';
 
-const Configuracao0Screen = ({ navigation }) => {
+const CriarTrajeto0Screen = ({ navigation }) => {
   const { colors } = useTheme();
 
   
   useEffect(() => {
+    console.log('--------------Tela de configuração - taela zero----------')
 
   }, []);
 
@@ -17,7 +18,7 @@ const Configuracao0Screen = ({ navigation }) => {
     console.log("===> continua:")
 
     console.log("continuar:")
-    navigation.navigate('Configuracao1Tab', { })
+    navigation.navigate('CriarTrajeto1Tab', { })
     
   };
 
@@ -35,11 +36,11 @@ const Configuracao0Screen = ({ navigation }) => {
         >
           <View style={styles.titContainer}>
             <Text style={styles.titText}>
-              bla bla bla
+              Você  ainda não possui trajetos cadastrados para realizar Check-in
             </Text>
           </View>
           <Button
-            text={'Iniciar'}
+            text={'Cadastrar Trajeto'}
             onClick={continua}
             top={50}
             value={'id'}
@@ -54,7 +55,7 @@ const Configuracao0Screen = ({ navigation }) => {
   );
 };
 
-export default Configuracao0Screen;
+export default CriarTrajeto0Screen;
 
 const styles = StyleSheet.create({
   titContainer: {

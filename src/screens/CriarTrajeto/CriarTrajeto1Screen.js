@@ -12,7 +12,7 @@ import Button from '../../components/Button';
 
 
 
-const ConfiguracaoScreen = ({ navigation }) => {
+const CriarTrajeto1Screen = ({ navigation }) => {
   const { colors } = useTheme();
   const {isAuthenticated, _showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
@@ -34,7 +34,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    console.log('--------------Tela de configuração----------')
+    console.log('--------------Tela de CriarTrajeto1----------')
     if (!isAuthenticated) {
       _showAlert('info', 'Ooops!', decodeMessage(401), 4000);
       navigation.navigate('SignInTab')
@@ -58,7 +58,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
   const continua = () => {
     data1 = data
 
-    navigation.navigate('Configuracao2Tab', { data1 })
+    navigation.navigate('CriarTrajeto2Tab', { data1 })
 
   };
 
@@ -126,4 +126,4 @@ const ConfiguracaoScreen = ({ navigation }) => {
   );
 };
 
-export default ConfiguracaoScreen;
+export default CriarTrajeto1Screen;

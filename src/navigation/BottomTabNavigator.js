@@ -6,8 +6,7 @@ import HomeStackNavigator from './stack-navigators/HomeStackNavigator'
 import FeedStackNavigator from './stack-navigators/FeedStackNavigator'
 import CheckinStackNavigator from './stack-navigators/CheckinStackNavigator'
 import LoginStackNavigator from './stack-navigators/LoginStackNavigator'
-import ContaStackNavigator from './stack-navigators/ContaStackNavigator'
-import SetupStackNavigator from './stack-navigators/SetupStackNavigator'
+import CriarTrajetoStackNavigator from './stack-navigators/CriarTrajetoStackNavigator'
 import ProfileScreen from '../screens/ProfileScreen'
 
 
@@ -48,7 +47,7 @@ const BottomTabNavigator = () => {
       <Tab.Navigator screenOptions={tabOptions} tabBarOptions={{ keyboardHidesTabBar: true }}>
         <Tab.Screen name={screens.FeedTab} component={FeedStackNavigator} />
         <Tab.Screen name={screens.CheckinTab} component={CheckinStackNavigator} />
-        <Tab.Screen name={screens.Configuracao0Tab} component={SetupStackNavigator} />
+        <Tab.Screen name={screens.TrajetosTab} component={CriarTrajetoStackNavigator} />
 
         <Tab.Screen name={screens.ProfileTab} component={ProfileScreen} />
 

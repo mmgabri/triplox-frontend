@@ -3,19 +3,17 @@ import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
-import { api } from '../../services/api';
 import stylesCommon from '../../components/stylesCommon'
 import stylesDropdown from '../../components/stylesDropdown'
 import Button from '../../components/Button';
+import { api } from '../../services/api';
 import BoxInfo from '../../components/BoxInfo';
 
-
-
-const ConfiguracaoScreen = ({ route, navigation }) => {
+const CriarTrajeto3Screen = ({ route, navigation }) => {
   const { colors } = useTheme();
   const [isFocus1, setIsFocus1] = useState(false);
-  const [pontosOrigemData, setPontosOrigemData] = useState([]);
-  const { data1 } = route.params;
+  const [pontosDestinoData, setPontosDestinoData] = useState([]);
+  const { data2 } = route.params;
 
   const [data, setData] = useState({
     linhaId: null,
@@ -32,28 +30,32 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
     cidadeDestino: null,
   });
 
-  useEffect(() => {
-    console.log('-------------- Tela de Configuração2 ----------', data1)
 
-    setData(data1)
+  useEffect(() => {
+    console.log('-------------- Tela de CriarTrajeto3 ----------', data2)
+
+    setData(data2)
 
   }, []);
 
+
   const continua = () => {
-    data2 = data
+    console.log("===> continua:")
 
-    navigation.navigate('Configuracao3Tab', { data2 })
+    data3 = data
 
+    navigation.navigate('CriarTrajeto4Tab', { data3 })
   };
 
+
   const handlePontos = (cidade) => {
+
     api.get('/pontos/' + data.linhaId + '/' + cidade)
       .then((response) => {
         console.log('Retorno da api listar pontos:', response.data)
-        setPontosOrigemData(response.data)
+        setPontosDestinoData(response.data)
       })
       .catch((error) => {
-        //     setIsLoading(false)
         console.error('Erro na api listar pontos:', error)
         const statusCode = error.response?.status
         _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
@@ -62,7 +64,6 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
 
 
   return (
-
 
     <View style={stylesCommon.container}>
       <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -74,10 +75,10 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {data.cidadeOrigem != null &&
+          {data.cidadeDestino != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
-                Cidade Origem
+                Cidade Destino
               </Text>
             </View>
           }
@@ -94,23 +95,22 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             maxHeight={300}
             labelField="nome"
             valueField="nome"
-            placeholder={!isFocus1 ? 'Selecione a cidade Origem' : '...'}
+            placeholder={!isFocus1 ? 'Selecione a cidade destino' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
+              setData({ ...data, cidadeDestino: item.nome });
               handlePontos(item.nome);
-              setData({ ...data, cidadeOrigem: item.nome });
               setIsFocus1(false);
             }}
           />
 
-
-          {data.pontoIdOrigem != null &&
+          {data.pontoIdDestino != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
-                Ponto de embarque
+                Ponto de desembarque
               </Text>
             </View>
           }
@@ -122,53 +122,45 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
-            data={pontosOrigemData}
+            data={pontosDestinoData}
             search
             maxHeight={300}
             labelField="nome"
             valueField="id"
-            placeholder={!isFocus1 ? 'Selecione o ponto de embarque' : '...'}
+            placeholder={!isFocus1 ? 'Selecione o ponto de desembarque' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
+              setIsFocus1(false);
               setData({
                 ...data,
-                pontoIdOrigem: item.id,
-                nomePontoOrigem: item.nome,
-                enderecoOrigem: item.endereco,
-                pontoIdOrigem: item.id,
-                horarioPrevistoEmbarque: item.horarioPrevistoEmbarque
+                pontoIdDestino: item.id,
+                nomePontoDestino: item.nome,
+                enderecoDestino: item.endereco,
               });
-              setIsFocus1(false);
             }}
           />
 
-          {data.pontoIdOrigem != null &&
+          {data.pontoIdDestino != null &&
             <>
               <BoxInfo
                 top={10}
                 icon={'map-marker'}
                 text1={'Endereço'}
-                text2={data.enderecoOrigem}
+                text2={data.enderecoDestino}
               />
-              <BoxInfo
-                top={0}
-                icon={'clock-o'}
-                text1={'Previsão de horário'}
-                text2={data.horarioPrevistoEmbarque}
-              />
+
             </>
           }
-
 
           <Button
             text={'Próximo passo'}
             onClick={continua}
-            top={20}
+            top={45}
             value={'id'}
-            flag={data.pontoIdOrigem}
+            flag={data.pontoIdDestino}
           />
 
         </Animatable.View>
@@ -181,4 +173,4 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
   );
 };
 
-export default ConfiguracaoScreen;
+export default CriarTrajeto3Screen;

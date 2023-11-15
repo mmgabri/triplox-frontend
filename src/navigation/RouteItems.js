@@ -3,26 +3,29 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 export const screens = {
-  ConfiguracaoTab: 'ConfiguracaoTab',
-  Configuracao: 'Configuracao',
+  CriarTrajetoTab: 'CriarTrajetoTab',
+  CriarTrajeto: 'CriarTrajeto',
 
-  Configuracao0Tab: 'Configuracao0Tab',
-  Configuracao0: 'Configuracao0',
+  CriarTrajeto0Tab: 'CriarTrajeto0Tab',
+  CriarTrajeto0: 'CriarTrajeto0',
 
-  Configuracao1Tab: 'Configuracao1Tab',
-  Configuracao1: 'Configuracao1',
+  CriarTrajeto1Tab: 'CriarTrajeto1Tab',
+  CriarTrajeto1: 'CriarTrajeto1',
 
-  Configuracao2Tab: 'Configuracao2Tab',
-  Configuracao2: 'Configuracao2',
+  CriarTrajeto2Tab: 'CriarTrajeto2Tab',
+  CriarTrajeto2: 'CriarTrajeto2',
 
 
-  Configuracao3Tab: 'Configuracao3Tab',
-  Configuracao3: 'Configuracao3',
+  CriarTrajeto3Tab: 'CriarTrajeto3Tab',
+  CriarTrajeto3: 'CriarTrajeto3',
 
-  Configuracao4Tab: 'Configuracao4Tab',
-  Configuracao4: 'Configuracao4',
+  CriarTrajeto4Tab: 'CriarTrajeto4Tab',
+  CriarTrajeto4: 'CriarTrajeto4',
 
-    HomeTab: 'HomeTab',
+  TrajetosTab: 'TrajetosTab',
+  Trajetos: 'Trajetos',
+
+  HomeTab: 'HomeTab',
   Home: 'Home',
 
   SignIn: 'SignIn',
@@ -89,8 +92,8 @@ export const routes = [
   },
 
   {
-    name: screens.ConfiguracaoTab,
-    focusedRoute: screens.ConfiguracaoTab,
+    name: screens.CriarTrajetoTab,
+    focusedRoute: screens.CriarTrajetoTab,
     title: 'Configuração',
     showInTab: true,
     showInDrawer: false,
@@ -98,8 +101,8 @@ export const routes = [
     <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
   },
   {
-    name: screens.Configuracao0Tab,
-    focusedRoute: screens.Configuracao0Tab,
+    name: screens.CriarTrajeto0Tab,
+    focusedRoute: screens.CriarTrajeto0Tab,
     title: 'Configuração',
     showInTab: true,
     showInDrawer: false,
@@ -108,8 +111,8 @@ export const routes = [
   },
 
   {
-    name: screens.Configuracao1Tab,
-    focusedRoute: screens.Configuracao1Tab,
+    name: screens.CriarTrajeto1Tab,
+    focusedRoute: screens.CriarTrajeto1Tab,
     title: 'Configuração',
     showInTab: false,
     showInDrawer: false,
@@ -118,8 +121,8 @@ export const routes = [
   },
 
   {
-    name: screens.Configuracao2Tab,
-    focusedRoute: screens.Configuracao2Tab,
+    name: screens.CriarTrajeto2Tab,
+    focusedRoute: screens.CriarTrajeto2Tab,
     title: 'Configuração',
     showInTab: false,
     showInDrawer: false,
@@ -128,8 +131,8 @@ export const routes = [
   },
 
   {
-    name: screens.Configuracao3Tab,
-    focusedRoute: screens.Configuracao3Tab,
+    name: screens.CriarTrajeto3Tab,
+    focusedRoute: screens.CriarTrajeto3Tab,
     title: 'Configuração',
     showInTab: false,
     showInDrawer: false,
@@ -138,8 +141,8 @@ export const routes = [
   },
 
   {
-    name: screens.Configuracao4Tab,
-    focusedRoute: screens.Configuracao4Tab,
+    name: screens.CriarTrajeto4Tab,
+    focusedRoute: screens.CriarTrajeto4Tab,
     title: 'Configuração',
     showInTab: false,
     showInDrawer: false,
@@ -147,6 +150,15 @@ export const routes = [
     <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
   },
 
+  {
+    name: screens.TrajetosTab,
+    focusedRoute: screens.TrajetosTab,
+    title: 'Configuração',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
 
  
   {
@@ -158,18 +170,6 @@ export const routes = [
     icon: (focused) =>
     <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
   },
-
-  {
-    name: screens.SetupConfirmTab,
-    focusedRoute: screens.SetupConfirmTab,
-    title: 'Setup Confirm',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-
 
   {
     name: screens.FeedTab,
