@@ -3,20 +3,16 @@ import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
-import { useAuth } from '../../contexts/auth';
-import { decodeMessage } from '../../services/decodeMessage'
-import { api } from '../../services/api';
 import stylesCommon from '../../components/stylesCommon'
 import stylesDropdown from '../../components/stylesDropdown'
 import Button from '../../components/Button';
+import { api } from '../../services/api';
 import BoxInfo from '../../components/BoxInfo';
-
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
   const { colors } = useTheme();
-  const {_showAlert } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
-  const [pontosOrigemData, setPontosOrigemData] = useState([]);
+  const [pontosDestinoData, setPontosDestinoData] = useState([]);
   const { data2 } = route.params;
 
   const [data, setData] = useState({
@@ -40,29 +36,31 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
 
     setData(data2)
 
-    api.get('/pontos/' + data2.linhaId + '/' + data2.cidadeOrigem)
-      .then((response) => {
-        console.log('Retorno da api listar pontos:', response.data)
-        setPontosOrigemData(response.data)
-      })
-      .catch((error) => {
-        //     setIsLoading(false)
-        console.error('Erro na api listar pontos:', error)
-        const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
-      });
-
-
   }, []);
+
 
   const continua = () => {
     console.log("===> continua:")
 
-   data3 = data
+    data3 = data
 
     navigation.navigate('Configuracao4Tab', { data3 })
   };
 
+
+  const handlePontos = (cidade) => {
+
+    api.get('/pontos/' + data.linhaId + '/' + cidade)
+      .then((response) => {
+        console.log('Retorno da api listar pontos:', response.data)
+        setPontosDestinoData(response.data)
+      })
+      .catch((error) => {
+        console.error('Erro na api listar pontos:', error)
+        const statusCode = error.response?.status
+        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+      });
+  };
 
 
   return (
@@ -77,10 +75,10 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
           }]}
         >
 
-          {data.pontoIdOrigem != null &&
+          {data.cidadeDestino != null &&
             <View style={stylesDropdown.titContainer}>
               <Text style={stylesDropdown.titText2}>
-                Ponto de embarque
+                Cidade Destino
               </Text>
             </View>
           }
@@ -92,43 +90,68 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
-            data={pontosOrigemData}
+            data={data.cidades}
             search
             maxHeight={300}
-            labelField="nome"
-            valueField="id"
-            placeholder={!isFocus1 ? 'Selecione o ponto de embarque' : '...'}
+            labelField="label"
+            valueField="field"
+            placeholder={!isFocus1 ? 'Selecione a cidade destino' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setData({
-                ...data,
-                pontoIdOrigem: item.id,
-                horarioPrevistoEmbarque: item.horarioPrevistoEmbarque,
-                nomePontoOrigem: item.nome,
-                enderecoOrigem: item.endereco,
-                pontoIdOrigem: item.id
-              });
+              setData({ ...data, cidadeDestino: item.value });
+              handlePontos(item.value);
               setIsFocus1(false);
             }}
           />
 
-          {data.pontoIdOrigem != null &&
+          {data.pontoIdDestino != null &&
+            <View style={stylesDropdown.titContainer}>
+              <Text style={stylesDropdown.titText2}>
+                Ponto de desembarque
+              </Text>
+            </View>
+          }
+
+
+          <Dropdown
+            style={[stylesDropdown.dropdown, isFocus1 && { borderColor: 'blue' }]}
+            placeholderStyle={stylesDropdown.placeholderStyle}
+            selectedTextStyle={stylesDropdown.selectedTextStyle}
+            inputSearchStyle={stylesDropdown.inputSearchStyle}
+            iconStyle={stylesDropdown.iconStyle}
+            data={pontosDestinoData}
+            search
+            maxHeight={300}
+            labelField="nome"
+            valueField="id"
+            placeholder={!isFocus1 ? 'Selecione o ponto de desembarque' : '...'}
+            searchPlaceholder="Search..."
+            value={'linha'}
+            onFocus={() => setIsFocus1(true)}
+            onBlur={() => setIsFocus1(false)}
+            onChange={item => {
+              setIsFocus1(false);
+              setData({
+                ...data,
+                pontoIdDestino: item.id,
+                nomePontoDestino: item.nome,
+                enderecoDestino: item.endereco,
+              });
+            }}
+          />
+
+          {data.pontoIdDestino != null &&
             <>
               <BoxInfo
                 top={10}
                 icon={'map-marker'}
                 text1={'Endereço'}
-                text2={data.enderecoOrigem}
+                text2={data.enderecoDestino}
               />
-              <BoxInfo
-                top={0}
-                icon={'clock-o'}
-                text1={'Previsão de horário'}
-                text2={data.horarioPrevistoEmbarque}
-              />
+
             </>
           }
 
@@ -137,7 +160,7 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             onClick={continua}
             top={45}
             value={'id'}
-            flag={data.pontoIdOrigem}
+            flag={data.pontoIdDestino}
           />
 
         </Animatable.View>

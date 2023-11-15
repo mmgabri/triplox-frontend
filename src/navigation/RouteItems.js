@@ -22,13 +22,7 @@ export const screens = {
   Configuracao4Tab: 'Configuracao4Tab',
   Configuracao4: 'Configuracao4',
 
-  Configuracao5Tab: 'Configuracao5Tab',
-  Configuracao5: 'Configuracao5',
-
-  Configuracao6Tab: 'Configuracao6Tab',
-  Configuracao6: 'Configuracao6',
-
-  HomeTab: 'HomeTab',
+    HomeTab: 'HomeTab',
   Home: 'Home',
 
   SignIn: 'SignIn',
@@ -154,25 +148,7 @@ export const routes = [
   },
 
 
-  {
-    name: screens.Configuracao5Tab,
-    focusedRoute: screens.Configuracao5Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.Configuracao6Tab,
-    focusedRoute: screens.Configuracao6Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
+ 
   {
     name: screens.SetupTipoTab,
     focusedRoute: screens.SetupTipoTab,

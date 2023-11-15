@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import AwesomeLoading from 'react-native-awesome-loading';
 import { useTheme } from 'react-native-paper';
-import { Dropdown } from 'react-native-element-dropdown';
+import { useAuth } from '../../contexts/auth';
+import { decodeMessage } from '../../services/decodeMessage'
+import { api } from '../../services/api';
 import stylesCommon from '../../components/stylesCommon'
-import stylesDropdown from '../../components/stylesDropdown'
 import Button from '../../components/Button';
+import BoxInfo from '../../components/BoxInfo';
+
 
 const ConfiguracaoScreen = ({ route, navigation }) => {
   const { colors } = useTheme();
-  const [isFocus1, setIsFocus1] = useState(false);
+  const { user, _showAlert } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const { data3 } = route.params;
 
   const [data, setData] = useState({
@@ -27,84 +32,119 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
     cidadeDestino: null,
   });
 
-
   useEffect(() => {
-    console.log('-------------- Tela de Configuração4 ----------', data3)
+    console.log('-------------- Tela de Configuração6 ----------', data3)
 
     setData(data3)
 
   }, []);
 
+  const salvar = () => {
+    console.log("===> salvar")
 
-  const continua = () => {
-    console.log("===> continua:")
+    const obj = {
+      userId: user.id,
+      linhaId: data.linhaId,
+      pontoIdOrigem: data.pontoIdOrigem,
+      pontoIdDestino: data.pontoIdDestino
+    }
 
-    data4 = data
+    setIsLoading(true)
+    api.post('/trajetos', obj)
+      .then((response) => {
+        setIsLoading(false)
+        console.log('Retorno da api listar pontos:', response.data)
+        _showAlert('success', "Obaa", 'Configurações salvas!', 3000);
+        navigation.navigate('Configuracao0Tab')
+      })
+      .catch((error) => {
+        setIsLoading(false)
+        console.error('Erro na api create trajeto:', error)
+        onError(error)
+      });
 
-    navigation.navigate('Configuracao5Tab', { data4 })
   };
 
+  function onError(error) {
+    console.log("onError")
+    const statusCode = error.response?.status;
+
+    if (statusCode == 401) {
+      _showAlert('info', 'Ooops!', decodeMessage(statusCode), 4000);
+      navigation.navigate('SignInTab')
+    }
+    _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 7000);
+  }
 
 
   return (
 
-    <View style={stylesCommon.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
-      <ScrollView>
-        <Animatable.View
-          animation="fadeInUpBig"
-          style={[stylesCommon.footer_cust, {
-            backgroundColor: colors.background
-          }]}
-        >
+    isLoading ?
+      < View >
+        <AwesomeLoading indicatorId={8} size={50} isActive={true} text="" />
+      </View >
 
-          {data.cidadeDestino != null &&
-            <View style={stylesDropdown.titContainer}>
-              <Text style={stylesDropdown.titText2}>
-                Cidade Destino
-              </Text>
-            </View>
-          }
+      :
 
+      <View style={stylesCommon.container}>
+        <StatusBar backgroundColor='#009387' barStyle="light-content" />
+        <ScrollView>
+          <Animatable.View
+            animation="fadeInUpBig"
+            style={[stylesCommon.footer_cust, {
+              backgroundColor: colors.background
+            }]}
+          >
 
-          <Dropdown
-            style={[stylesDropdown.dropdown, isFocus1 && { borderColor: 'blue' }]}
-            placeholderStyle={stylesDropdown.placeholderStyle}
-            selectedTextStyle={stylesDropdown.selectedTextStyle}
-            inputSearchStyle={stylesDropdown.inputSearchStyle}
-            iconStyle={stylesDropdown.iconStyle}
-            data={data.cidades}
-            search
-            maxHeight={300}
-            labelField="label"
-            valueField="field"
-            placeholder={!isFocus1 ? 'Selecione a cidade destino' : '...'}
-            searchPlaceholder="Search..."
-            value={'linha'}
-            onFocus={() => setIsFocus1(true)}
-            onBlur={() => setIsFocus1(false)}
-            onChange={item => {
-              setData({ ...data, cidadeDestino: item.value });
-              setIsFocus1(false);
-            }}
-          />
+            <BoxInfo
+              top={5}
+              icon={'bus'}
+              text1={'Linha'}
+              text2={data.nomeLinha}
+            />
 
-          <Button
-            text={'Próximo passo'}
-            onClick={continua}
-            top={45}
-            value={'id'}
-            flag={data.cidadeDestino}
-          />
+            <BoxInfo
+              top={7}
+              icon={'building'}
+              text1={'Cidade Origem'}
+              text2={data.cidadeOrigem}
+            />
 
-        </Animatable.View>
-      </ScrollView>
+            <BoxInfo
+              top={7}
+              icon={'map-marker'}
+              text1={'Ponto de embarque'}
+              text2={data.nomePontoOrigem}
+              text3={data.enderecoOrigem}
+            />
+            <BoxInfo
+              top={7}
+              icon={'building'}
+              text1={'Cidade Destino'}
+              text2={data.cidadeDestino}
+            />
 
-    </View>
+            <BoxInfo
+              top={7}
+              icon={'map-marker'}
+              text1={'Ponto de desembarque'}
+              text2={data.nomePontoDestino}
+              text3={data.enderecoDestino}
+            />
 
+            <Button
+              text={'Salvar Trajeto'}
+              onClick={salvar}
+              top={20}
+              value={'id'}
+              flag={"enabled"}
+            />
 
+          </Animatable.View>
+        </ScrollView>
 
-  );
-};
+      </View>
+  )
+}
 
 export default ConfiguracaoScreen;

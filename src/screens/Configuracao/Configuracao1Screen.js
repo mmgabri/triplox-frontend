@@ -36,7 +36,6 @@ const ConfiguracaoScreen = ({ navigation }) => {
   useEffect(() => {
     console.log('--------------Tela de configuração----------')
     if (!isAuthenticated) {
-      console.log('usuario não logado')
       _showAlert('info', 'Ooops!', decodeMessage(401), 4000);
       navigation.navigate('SignInTab')
     }
@@ -57,8 +56,6 @@ const ConfiguracaoScreen = ({ navigation }) => {
   }, []);
 
   const continua = () => {
-    console.log("===> continua:")
-
     data1 = data
 
     var count = Object.keys(data.cidades).length;
@@ -119,6 +116,7 @@ const ConfiguracaoScreen = ({ navigation }) => {
               setIsFocus1(false);
             }}
           />
+          
 
           <Button
             text={'Próximo passo'}
