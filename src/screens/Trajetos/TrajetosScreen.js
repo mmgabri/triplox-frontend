@@ -17,10 +17,12 @@ const TrajetosScreen = ({ route, navigation }) => {
   const { colors } = useTheme();
   const { user, isAuthenticated, _showAlert } = useAuth();
   const [trajetosData, setTrajetosData] = useState({});
+  const [load, setLoad] = useState(true)
 
 
   useEffect(() => {
     console.log('--------------Tela de configuração - Trajetos----------')
+    navigation.addListener('focus', () => setLoad(!load))
 
     if (!isAuthenticated) {
       _showAlert('info', 'Ooops!', decodeMessage(401), 4000);
@@ -30,9 +32,7 @@ const TrajetosScreen = ({ route, navigation }) => {
     getTrajetos()
 
 
-  }, []);
-
-
+  }, [load, navigation])
 
   const getTrajetos = () => {
 
