@@ -58,16 +58,6 @@ const ConfiguracaoScreen = ({ navigation }) => {
   const continua = () => {
     data1 = data
 
-    var count = Object.keys(data.cidades).length;
-    let cidadesArray = [];
-    for (var i = 0; i < count; i++) {
-      cidadesArray.push({
-        value: data.cidades[i],
-        label: data.cidades[i],
-      });
-    }
-    data1.cidades = cidadesArray
-
     navigation.navigate('Configuracao2Tab', { data1 })
 
   };

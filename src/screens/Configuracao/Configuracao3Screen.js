@@ -93,16 +93,16 @@ const ConfiguracaoScreen = ({ route, navigation }) => {
             data={data.cidades}
             search
             maxHeight={300}
-            labelField="label"
-            valueField="field"
+            labelField="nome"
+            valueField="nome"
             placeholder={!isFocus1 ? 'Selecione a cidade destino' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
             onFocus={() => setIsFocus1(true)}
             onBlur={() => setIsFocus1(false)}
             onChange={item => {
-              setData({ ...data, cidadeDestino: item.value });
-              handlePontos(item.value);
+              setData({ ...data, cidadeDestino: item.nome });
+              handlePontos(item.nome);
               setIsFocus1(false);
             }}
           />
