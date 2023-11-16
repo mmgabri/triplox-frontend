@@ -7,14 +7,13 @@ import stylesCommon from './stylesCommon';
 
 const ButtonRealizarCheckin = ({ anuncio, text, onClick, top }) => {
     return (
-        <View style={[styles.button, { marginBottom: top }]} >
+        <View>
             <TouchableOpacity
-                style={styles.button_styte}
                 onPress={() => { onClick(anuncio) }}
             >
                 <LinearGradient
                     colors={['#008000', '#008000']}
-                    style={styles.button_styte}
+                    style={styles.button}
                 >
                     <View style={styles.container2}>
                         <Text style={[styles.button_text, {
@@ -34,20 +33,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20,
         marginBottom: 0
-        
+
     },
-    button_styte: {
-        marginTop: -5,
-        width: '100%',
-        width: 150,
-        height: 40,
-        justifyContent: 'left',
-        alignItems: 'left',
-        borderRadius: 10,
+    button: {
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 12,
+        backgroundColor: 'white',
+        alignSelf: "flex-start",
+        marginHorizontal: '0%',
+        marginVertical: "1%",
+        marginBottom: 6,
+        minWidth: '48%',
+        textAlign: 'center',
     },
     container2: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         paddingVertical: 10,
     },
     button_text: {

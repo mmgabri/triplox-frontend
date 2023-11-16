@@ -4,16 +4,16 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 const BoxInfo = ({ top, icon, text1, text2, text3, text4 }) => {
     return (
-        <View style={[styles.InfBox1, { marginTop: top }]} >
+        <View style={[styles.container, { marginTop: top }]} >
             <View style={styles.InfBox2}>
                 <TouchableOpacity style={styles.icon}>
                     <Icon name={icon} size={20} color="#696969" />
                 </TouchableOpacity>
                 <View>
-                    <Text style={styles.textBox1}>
+                    <Text style={styles.label}>
                         {text1}
                     </Text>
-                    <Text style={styles.textBox2}>
+                    <Text style={styles.value}>
                         {text2}
                     </Text>
                     {text3 != null &&
@@ -35,7 +35,7 @@ export default BoxInfo;
 
 
 const styles = StyleSheet.create({
-    InfBox1: {
+    container: {
         flex: 0,
         borderRadius: 5,
         height: -200,
@@ -49,6 +49,23 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         backgroundColor: 'white',
         borderColor: "#DCDCDC"
+    },
+    label: {
+        marginLeft: 10,
+        marginTop: 5,
+        marginBottom: 5,
+        fontSize: 15,
+        color: 'dimgray'
+
+    },
+
+    value: {
+        marginLeft: 5,
+        marginTop: -5,
+        marginBottom: 5,
+        marginLeft: 10,
+        fontSize: 15,
+        color: 'slategray'
     },
     InfBox2: {
         flexDirection: 'row',

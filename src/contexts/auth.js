@@ -198,7 +198,7 @@ const AuthProvider = ({ children, navigation }) => {
 
         showMessage({
             message: title,
-            description: message,
+            description: "messagessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
             type: type,
             duration: interval
         });

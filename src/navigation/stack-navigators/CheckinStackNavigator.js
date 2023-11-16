@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { screens } from '../RouteItems'
-import CheckinScreen from '../../screens/CheckinScreen'
+import CheckinScreen from '../../screens/Checkin/CheckinScreen'
 import SignInScreen from '../../screens/SignInScreen'
 import SignUpScreen from '../../screens/SignUpScreen'
 import HomeScreen from '../../screens/HomeScreen'
