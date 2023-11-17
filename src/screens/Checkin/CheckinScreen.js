@@ -3,35 +3,27 @@ import { View, Text, StyleSheet, StatusBar, ScrollView, SafeAreaView, TouchableO
 import { addDays, subDays, format, getDate, isSameDay, startOfWeek } from 'date-fns';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useTheme } from 'react-native-paper';
-
 import { CheckinSeparatorItem } from './CheckinSeparatorItem';
 import { CheckinItem } from './CheckinItem';
-
 import stylesCommon from '../../components/stylesCommon'
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
 import { api } from '../../services/api';
 import BoxInfo from '../../components/BoxInfo';
-//import BoxInfo2 from '../components/BoxInfo2';
-//import Button2 from '../components/Button2';
-//import ButtonCheckin from '../components/ButtonCheckin';
 
 const CheckinScreen = ({ navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [week, setWeek] = useState([]);
   const [date, setDate] = useState();
   const [dateFormat, setDateFormat] = useState();
-  const [trajetosData, setTrajetosData] = useState({});
-  const { user, isAuthenticated, _showAlert } = useAuth();
-  const [selected, setSelected] = useState('');
-  const [checkin, setCheckin] = useState({});
+  const [trajetosData, setTrajetosData] = useState([]);
+  const {user, isAuthenticated, _showAlert } = useAuth();
   const [load, setLoad] = useState(true)
-  const { colors } = useTheme();
-
+  const [test, setTest] = useState(false)
 
   //==> Carregamento inicial da tela
   useEffect(() => {
-    console.log('========================= Entro na tela checkin =========================', checkin)
+    console.log('========================= Entro na tela checkin =========================')
     navigation.addListener('focus', () => setLoad(!load))
 
     //Carrega dos da semana
@@ -59,7 +51,11 @@ const CheckinScreen = ({ navigation }) => {
     api.get('/trajetos/' + user.id)
       .then((response) => {
         console.log('Retorno da api listar trajetos:', response.data)
+        if (response.data.length == 0) {
+          navigation.navigate('CriarTrajeto0Tab')
+        }
         setTrajetosData(response.data)
+        updateStatusCheckin(date)
         setIsRefreshing(false)
       })
       .catch((error) => {
@@ -72,34 +68,49 @@ const CheckinScreen = ({ navigation }) => {
   };
 
 
-
-
   //==> Trata data selecionada
   function selectedDate(value) {
     console.log('Data selecionada: ', value)
+    updateStatusCheckin(value)
     setDate(value)
     setDateFormat(format(value, "dd'/'MM'/'yyyy"))
-
-
-
-    let count = trajetosData.trajetos.length
-    console.log('count:', count)
-
-    for (let i = 0; i < count; i++) {
-      console.log('trajeto', trajetosData.trajetos[i])
-      checkCheckin(trajetosData.trajetos[i].id, format(value, "yyyy'-'MM'-'dd"))
-    }
-
-
   }
 
-  //==> Trata data selecionada
-  function checkCheckin(trajetoId, data) {
-    console.log('checkCheckin', trajetoId, data)
+  function updateStatusCheckin(dataCheckin) {
 
-    api.get('/checkins/data/' + data + '/linha/' + trajetosData.linhaId + '/trajeto/' + trajetoId + '/user/' + user.id)
+    let count = trajetosData.length
+
+    for (let i = 0; i < count; i++) {
+  //    console.log('trajeto', trajetosData[i])
+      getAndUpdateCheckin(trajetosData[i], i, format(dataCheckin, "yyyy'-'MM'-'dd"))
+    }
+  }
+
+
+  function getAndUpdateCheckin(trajeto, index, data) {
+    console.log('getAndUpdateCheckin==============================>', trajeto.id, index)
+
+    api.get('/checkins/data/' + data + '/linha/' + trajeto.linhaId + '/trajeto/' + trajeto.id + '/user/' + user.id)
       .then((response) => {
         console.log('Retorno da api listar trajetos por user ===========>:', response.data)
+        console.log('count:', response.data.length)
+
+        if (response.data.length == 0) {
+          console.log('Sem checkin')
+          trajetosTemp = trajetosData
+          trajetosTemp[index].checkinRealizado = false
+          setTest(true)
+          console.log('trajetosTemp:', trajetosTemp)
+          setTrajetosData(trajetosTemp)
+        }else {
+          console.log('Com checkin')          
+          trajetosTemp = trajetosData
+          trajetosTemp[index].checkinRealizado = true
+          trajetosTemp[index].checkinId = response.data.id
+          console.log('trajetosTemp:', trajetosTemp)
+          setTest(false)
+          setTrajetosData(trajetosTemp)
+        }
       })
       .catch((error) => {
         setIsRefreshing(false)
@@ -145,13 +156,13 @@ const CheckinScreen = ({ navigation }) => {
     return final;
   }
 
-  function onClickNew(id) {
-    console.log('onClickRealizarCheckin ==>', id)
+  function onClickNew(id, linhaId) {
+    console.log('onClickNew ==>', id, linhaId)
     console.log('trajetosData:', trajetosData)
     const obj = {
       userId: user.id,
       data: format(date, "yyyy'-'MM'-'dd"),
-      linhaId: trajetosData.linhaId,
+      linhaId: linhaId,
       trajetoId: id
     }
 
@@ -159,14 +170,29 @@ const CheckinScreen = ({ navigation }) => {
       .then((response) => {
         console.log('Retorno da api new checkin:', response.data)
         _showAlert('success', "Obaa", 'Check-in realizado !', 6000);
+        updateStatusCheckin(date)
       })
       .catch((error) => {
         console.error('Erro na api new checkin:', error)
         const statusCode = error.response?.status
         _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
       });
+  }
 
+  function onClickCancel(id) {
+    console.log('onClickCancel ==>', id)
 
+    api.delete('/checkins/' + id)
+      .then((response) => {
+        console.log('Retorno da api cancel checkin:', response.data)
+        _showAlert('success', "Obaa", 'Check-in cancelado !', 6000);
+        updateStatusCheckin(date)
+      })
+      .catch((error) => {
+        console.error('Erro na api cancel checkin:', error)
+        const statusCode = error.response?.status
+        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+      });
   }
 
   const onRefresh = () => {
@@ -176,7 +202,7 @@ const CheckinScreen = ({ navigation }) => {
   }
 
   function renderItem({ item }) {
-    return <CheckinItem  {...item} onClickNew={onClickNew} />;
+    return <CheckinItem  {...item} onClickNew={onClickNew} onClickCancel={onClickCancel}/>;
   }
 
   return (
@@ -225,11 +251,14 @@ const CheckinScreen = ({ navigation }) => {
         text1={'Data'}
         text2={dateFormat}
       />
+      <View>
+        <Text>{test}</Text>
+      </View>
 
       <FlatList
         style={styles.textBox1}
         ItemSeparatorComponent={CheckinSeparatorItem}
-        data={trajetosData.trajetos}
+        data={trajetosData}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         onRefresh={onRefresh}

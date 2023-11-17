@@ -40,10 +40,10 @@ const TrajetosScreen = ({ route, navigation }) => {
 
     api.get('/trajetos/' + user.id)
       .then((response) => {
-        console.log('Retorno da api listar trajetos:', response.data.trajetos)
+        console.log('Retorno da api listar trajetos:', response.data)
         setIsRefreshing(false)
         setTrajetosData(response.data)
-        if (response.data.trajetos == null) {
+        if (response.data.length == 0) {
           navigation.navigate('CriarTrajeto0Tab')
         }
       })
@@ -106,7 +106,7 @@ const TrajetosScreen = ({ route, navigation }) => {
         <FlatList
           ListHeaderComponent={Header(trajetosData.nomeLinha)}
           ItemSeparatorComponent={SeparatorItem}
-          data={trajetosData.trajetos}
+          data={trajetosData}
           keyExtractor={(item) => item.name}
           renderItem={renderItem}
           onRefresh={onRefresh}

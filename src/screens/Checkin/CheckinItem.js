@@ -1,19 +1,25 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import ButtonRealizarCheckin from "../../components/ButtonRealizarCheckin";
 import LinearGradient from 'react-native-linear-gradient';
 
-export function CheckinItem({ id, nomePontoOrigem, cidadeOrigem, cidadeDestino, onClickNew }) {
-    label = "alignItems"
+export function CheckinItem({ linhaId, checkinId, id, nomePontoOrigem, cidadeOrigem, cidadeDestino, checkinRealizado, onClickNew, onClickCancel }) {
+    
+    console.log('========= CheckinItem ===============', checkinRealizado)
+
     return (
 
         <View>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.icon} >
-                    <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="gray" />
-                </TouchableOpacity>
-
+                {checkinRealizado ?
+                    <TouchableOpacity style={styles.icon} >
+                        <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="seagreen" />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity style={styles.icon} >
+                        <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="gray" />
+                    </TouchableOpacity>
+                }
 
                 <View>
 
@@ -44,20 +50,41 @@ export function CheckinItem({ id, nomePontoOrigem, cidadeOrigem, cidadeDestino, 
                 </View>
             </View>
 
-            <TouchableOpacity
-                onPress={() => { onClickNew(id) }}
-            >
-                <LinearGradient
-                    colors={['#008000', '#008000']}
-                    style={styles.button}
+            {checkinRealizado ?
+
+                <TouchableOpacity
+                    onPress={() => { onClickCancel(checkinId) }}
                 >
-                    <View style={styles.container2}>
-                        <Text style={[styles.button_text, {
-                            color: '#fff'
-                        }]}>Realizar Checkin</Text>
-                    </View>
-                </LinearGradient>
-            </TouchableOpacity>
+                    <LinearGradient
+                        colors={['firebrick', 'firebrick']}
+                        style={styles.button}
+                    >
+                        <View style={styles.container2}>
+                            <Text style={[styles.button_text, {
+                                color: '#fff'
+                            }]}>Cancelar Check-in</Text>
+                        </View>
+                    </LinearGradient>
+                </TouchableOpacity>
+
+                :
+
+                <TouchableOpacity
+                    onPress={() => { onClickNew(id, linhaId) }}
+                >
+                    <LinearGradient
+                        colors={['seagreen', 'seagreen']}
+                        style={styles.button}
+                    >
+                        <View style={styles.container2}>
+                            <Text style={[styles.button_text, {
+                                color: '#fff'
+                            }]}>Fazer Check-in</Text>
+                        </View>
+                    </LinearGradient>
+                </TouchableOpacity>
+
+            }
 
 
 
