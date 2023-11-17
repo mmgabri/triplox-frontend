@@ -38,7 +38,7 @@ const TrajetosScreen = ({ route, navigation }) => {
 
     console.log('trajetos...')
 
-    api.get('/trajetos/' + user.id)
+    api.get('/trajetos/user/' + user.id)
       .then((response) => {
         console.log('Retorno da api listar trajetos:', response.data)
         setIsRefreshing(false)

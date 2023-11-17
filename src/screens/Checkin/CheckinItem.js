@@ -1,97 +1,115 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, StatusBar, ScrollView, } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import LinearGradient from 'react-native-linear-gradient';
+import { useTheme } from 'react-native-paper';
+import * as Animatable from 'react-native-animatable';
 
-export function CheckinItem({ linhaId, checkinId, id, nomePontoOrigem, cidadeOrigem, cidadeDestino, checkinRealizado, onClickNew, onClickCancel }) {
-    
-    console.log('========= CheckinItem ===============', checkinRealizado)
+import LinearGradient from 'react-native-linear-gradient';
+import { CheckinSeparatorItem } from './CheckinSeparatorItem';
+
+console.log('========= CheckinItem ===============')
+
+const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onRefresh, isRefreshing }) => {
+
+    function Item({ item }) {
+        return (
+            <View>
+                <View style={styles.container}>
+                    {item.checkinRealizado ?
+                        <TouchableOpacity style={styles.icon} >
+                            <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="seagreen" />
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity style={styles.icon} >
+                            <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="gray" />
+                        </TouchableOpacity>
+                    }
+
+                    <View>
+
+                        <Text style={styles.text_title}>
+                            {"Linha Indaiatuba x São Bernardo"}
+                        </Text>
+
+                        <View style={styles.container_cidade}>
+                            <Text style={styles.text_title}>
+                                {item.cidadeOrigem}
+                            </Text>
+                            <TouchableOpacity style={styles.icon_cidades} onPress={() => { onClick(id) }}>
+                                <Icon name="arrow-circle-right" marginLeft={0} marginRight={-2} size={21} color="gray" />
+                            </TouchableOpacity>
+
+                            <Text style={styles.text_title}>
+                                {item.cidadeDestino}
+                            </Text>
+                        </View>
+
+                        <Text style={styles.text_label}>
+                            {"Embarque"}
+                        </Text>
+                        <Text style={styles.text_value}>
+                            {item.nomePontoOrigem}
+                        </Text>
+
+                    </View>
+                </View>
+
+                {item.checkinRealizado ?
+
+                    <TouchableOpacity
+                        onPress={() => { onClickCancel(item.checkinId) }}
+                    >
+                        <LinearGradient
+                            colors={['firebrick', 'firebrick']}
+                            style={styles.button}
+                        >
+                            <View style={styles.container2}>
+                                <Text style={[styles.button_text, {
+                                    color: '#fff'
+                                }]}>Cancelar Check-in</Text>
+                            </View>
+                        </LinearGradient>
+                    </TouchableOpacity>
+
+                    :
+
+                    <TouchableOpacity
+                        onPress={() => { onClickNew(item.id, item.linhaId) }}
+                    >
+                        <LinearGradient
+                            colors={['seagreen', 'seagreen']}
+                            style={styles.button}
+                        >
+                            <View style={styles.container2}>
+                                <Text style={[styles.button_text, {
+                                    color: '#fff'
+                                }]}>Fazer Check-in</Text>
+                            </View>
+                        </LinearGradient>
+                    </TouchableOpacity>
+
+                }
+
+            </View>
+        );
+    }
 
     return (
 
-        <View>
-            <View style={styles.container}>
-                {checkinRealizado ?
-                    <TouchableOpacity style={styles.icon} >
-                        <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="seagreen" />
-                    </TouchableOpacity>
-                    :
-                    <TouchableOpacity style={styles.icon} >
-                        <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="gray" />
-                    </TouchableOpacity>
-                }
-
-                <View>
-
-                    <Text style={styles.text_title}>
-                        {"Linha Indaiatuba x São Bernardo"}
-                    </Text>
-
-                    <View style={styles.container_cidade}>
-                        <Text style={styles.text_title}>
-                            {cidadeOrigem}
-                        </Text>
-                        <TouchableOpacity style={styles.icon_cidades} onPress={() => { onClick(id) }}>
-                            <Icon name="arrow-circle-right" marginLeft={0} marginRight={-2} size={21} color="gray" />
-                        </TouchableOpacity>
-
-                        <Text style={styles.text_title}>
-                            {cidadeDestino}
-                        </Text>
-                    </View>
-
-                    <Text style={styles.text_label}>
-                        {"Embarque"}
-                    </Text>
-                    <Text style={styles.text_value}>
-                        {nomePontoOrigem}
-                    </Text>
-
-                </View>
-            </View>
-
-            {checkinRealizado ?
-
-                <TouchableOpacity
-                    onPress={() => { onClickCancel(checkinId) }}
-                >
-                    <LinearGradient
-                        colors={['firebrick', 'firebrick']}
-                        style={styles.button}
-                    >
-                        <View style={styles.container2}>
-                            <Text style={[styles.button_text, {
-                                color: '#fff'
-                            }]}>Cancelar Check-in</Text>
-                        </View>
-                    </LinearGradient>
-                </TouchableOpacity>
-
-                :
-
-                <TouchableOpacity
-                    onPress={() => { onClickNew(id, linhaId) }}
-                >
-                    <LinearGradient
-                        colors={['seagreen', 'seagreen']}
-                        style={styles.button}
-                    >
-                        <View style={styles.container2}>
-                            <Text style={[styles.button_text, {
-                                color: '#fff'
-                            }]}>Fazer Check-in</Text>
-                        </View>
-                    </LinearGradient>
-                </TouchableOpacity>
-
-            }
-
-
-
-        </View>
-
+        <FlatList
+            style={styles.textBox1}
+            ItemSeparatorComponent={CheckinSeparatorItem}
+            data={trajetosData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <Item item={item} />}
+            onRefresh={onRefresh}
+            refreshing={isRefreshing}
+        />
     );
 }
+
+
+export default CheckinItem;
 
 const styles = StyleSheet.create({
     container_cidade: {

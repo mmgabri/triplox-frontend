@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, ScrollView, SafeAreaView, TouchableOpacity, FlatList } from 'react-native'; import * as Animatable from 'react-native-animatable';
 import { addDays, subDays, format, getDate, isSameDay, startOfWeek } from 'date-fns';
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-import CheckinItem from './CheckinItem';
+import { useTheme } from 'react-native-paper';
+import { CheckinSeparatorItem } from './CheckinSeparatorItem';
+import { CheckinItem } from './CheckinItem';
 import stylesCommon from '../../components/stylesCommon'
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
@@ -16,8 +17,9 @@ const CheckinScreen = ({ navigation }) => {
   const [date, setDate] = useState();
   const [dateFormat, setDateFormat] = useState();
   const [trajetosData, setTrajetosData] = useState([]);
-  const { user, isAuthenticated, _showAlert } = useAuth();
+  const {user, isAuthenticated, _showAlert } = useAuth();
   const [load, setLoad] = useState(true)
+  const [test, setTest] = useState(false)
 
   //==> Carregamento inicial da tela
   useEffect(() => {
@@ -37,30 +39,23 @@ const CheckinScreen = ({ navigation }) => {
     setWeek(weekDays);
 
     //Obtem Trajetos
-    getTrajetos(dateNow);
+    getTrajetos();
 
 
   }, [load, navigation])
 
-  const getTrajetos = (data) => {
-    
-    if (data == null){
-      dataAux = format(date, "yyyy'-'MM'-'dd")
-    }else{
-      dataAux = format(data, "yyyy'-'MM'-'dd")
-    }
-    
-    console.log('getTrajetos', dataAux)    
-    const url = '/trajetos/user/' + user.id + '/data/' + dataAux
-    console.log('url: ', url)    
+  const getTrajetos = () => {
 
-    api.get('/trajetos/user/' + user.id + '/data/' + dataAux)
+    console.log('trajetos...')
+
+    api.get('/trajetos/' + user.id)
       .then((response) => {
         console.log('Retorno da api listar trajetos:', response.data)
         if (response.data.length == 0) {
           navigation.navigate('CriarTrajeto0Tab')
         }
         setTrajetosData(response.data)
+        updateStatusCheckin(date)
         setIsRefreshing(false)
       })
       .catch((error) => {
@@ -76,12 +71,56 @@ const CheckinScreen = ({ navigation }) => {
   //==> Trata data selecionada
   function selectedDate(value) {
     console.log('Data selecionada: ', value)
-
-    getTrajetos(value)
-
+    updateStatusCheckin(value)
     setDate(value)
     setDateFormat(format(value, "dd'/'MM'/'yyyy"))
   }
+
+  function updateStatusCheckin(dataCheckin) {
+
+    let count = trajetosData.length
+
+    for (let i = 0; i < count; i++) {
+  //    console.log('trajeto', trajetosData[i])
+      getAndUpdateCheckin(trajetosData[i], i, format(dataCheckin, "yyyy'-'MM'-'dd"))
+    }
+  }
+
+
+  function getAndUpdateCheckin(trajeto, index, data) {
+    console.log('getAndUpdateCheckin==============================>', trajeto.id, index)
+
+    api.get('/checkins/data/' + data + '/linha/' + trajeto.linhaId + '/trajeto/' + trajeto.id + '/user/' + user.id)
+      .then((response) => {
+        console.log('Retorno da api listar trajetos por user ===========>:', response.data)
+        console.log('count:', response.data.length)
+
+        if (response.data.length == 0) {
+          console.log('Sem checkin')
+          trajetosTemp = trajetosData
+          trajetosTemp[index].checkinRealizado = false
+          setTest(true)
+          console.log('trajetosTemp:', trajetosTemp)
+          setTrajetosData(trajetosTemp)
+        }else {
+          console.log('Com checkin')          
+          trajetosTemp = trajetosData
+          trajetosTemp[index].checkinRealizado = true
+          trajetosTemp[index].checkinId = response.data.id
+          console.log('trajetosTemp:', trajetosTemp)
+          setTest(false)
+          setTrajetosData(trajetosTemp)
+        }
+      })
+      .catch((error) => {
+        setIsRefreshing(false)
+        console.error('Erro na api listar trajetos:', error)
+        const statusCode = error.response?.status
+        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+      });
+
+  }
+
 
   //==> Altera semana
   function alterWeek(value) {
@@ -117,7 +156,6 @@ const CheckinScreen = ({ navigation }) => {
     return final;
   }
 
-
   function onClickNew(id, linhaId) {
     console.log('onClickNew ==>', id, linhaId)
     console.log('trajetosData:', trajetosData)
@@ -132,7 +170,7 @@ const CheckinScreen = ({ navigation }) => {
       .then((response) => {
         console.log('Retorno da api new checkin:', response.data)
         _showAlert('success', "Obaa", 'Check-in realizado !', 6000);
-        getTrajetos(date)
+        updateStatusCheckin(date)
       })
       .catch((error) => {
         console.error('Erro na api new checkin:', error)
@@ -148,7 +186,7 @@ const CheckinScreen = ({ navigation }) => {
       .then((response) => {
         console.log('Retorno da api cancel checkin:', response.data)
         _showAlert('success', "Obaa", 'Check-in cancelado !', 6000);
-        getTrajetos(date)
+        updateStatusCheckin(date)
       })
       .catch((error) => {
         console.error('Erro na api cancel checkin:', error)
@@ -163,7 +201,10 @@ const CheckinScreen = ({ navigation }) => {
     getTrajetos()
   }
 
- 
+  function renderItem({ item }) {
+    return <CheckinItem  {...item} onClickNew={onClickNew} onClickCancel={onClickCancel}/>;
+  }
+
   return (
     <SafeAreaView style={stylesCommon.safe}>
       <View style={stylesCommon.container2}>
@@ -210,16 +251,23 @@ const CheckinScreen = ({ navigation }) => {
         text1={'Data'}
         text2={dateFormat}
       />
+      <View>
+        <Text>{test}</Text>
+      </View>
 
-      <CheckinItem
-        trajetosData={trajetosData}
-        onClickNew={onClickNew}
-        onClickCancel={onClickCancel}
+      <FlatList
+        style={styles.textBox1}
+        ItemSeparatorComponent={CheckinSeparatorItem}
+        data={trajetosData}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
         onRefresh={onRefresh}
-        isRefreshing={isRefreshing}
+        refreshing={isRefreshing}
       />
 
+
     </SafeAreaView>
+
 
   );
 

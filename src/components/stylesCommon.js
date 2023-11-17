@@ -126,7 +126,7 @@ const stylesCommon = StyleSheet.create({
         width: 35,
     },
     selectedTouchable: {
-        backgroundColor: 'green',
+        backgroundColor: 'seagreen',
     },
     weekDayItem: {
         alignItems: 'center',
