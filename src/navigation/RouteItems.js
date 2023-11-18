@@ -45,17 +45,12 @@ export const screens = {
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
-  Setup: 'Setup',
-  SetupTab: 'SetupTab',
-
-  SetupTipo: 'SetupTipo',
-  SetupTipoTab: 'SetupTipoTab',
-
-  SetupConfirm: 'SetupConfirm',
-  SetupConfirmTab: 'SetupConfirmTab',
-
   Profile: 'Profile',
-  ProfileTab: 'ProfileTab'
+  ProfileTab: 'ProfileTab',
+
+  
+  CheckinListaPresenca: 'CheckinListaPresenca',
+  CheckinListaPresencaTab: 'CheckinListaPresencaTab'
 
 }
 
@@ -81,16 +76,15 @@ export const routes = [
     
   },
 
-    {
-    name: screens.SetupTab,
-    focusedRoute: screens.SetupTab,
-    title: 'SetUp',
-    showInTab: true,
+  {
+    name: screens.CheckinListaPresencaTab,
+    focusedRoute: screens.CheckinListaPresencaTab,
+    title: 'Configuração',
+    showInTab: false,
     showInDrawer: false,
     icon: (focused) =>
     <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
   },
-
   {
     name: screens.CriarTrajetoTab,
     focusedRoute: screens.CriarTrajetoTab,
@@ -228,5 +222,12 @@ export const routes = [
     showInDrawer: true,
     icon: (focused) =>
       <Icon name="sign-out" size={25} color={focused ? '#009387' : '#818185'} />,
+  },
+  {
+    name: screens.SignUpTab,
+    focusedRoute: screens.SignUpTab,
+    title: 'SignUpTab',
+    showInTab: false,
+    showInDrawer: true,
   },
 ]

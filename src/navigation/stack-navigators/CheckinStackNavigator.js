@@ -6,9 +6,8 @@ import CheckinScreen from '../../screens/Checkin/CheckinScreen'
 import SignInScreen from '../../screens/SignInScreen'
 import SignUpScreen from '../../screens/SignUpScreen'
 import HomeScreen from '../../screens/HomeScreen'
-import FeedScreen from '../../screens/FeedScreen'
 import CheckinConfirmScreen from '../../screens/CheckinConfirmScreen'
-
+import CheckinListaPresencaScreen from '../../screens/Checkin/CheckinListaPresencaScreen'
 
 const Stack = createStackNavigator()
 
@@ -29,8 +28,11 @@ const CheckinStackNavigator = () => {
       }>
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Checkin' }} />
       <Stack.Screen name={screens.CheckinConfirm} component={CheckinConfirmScreen} options={{ title: 'Checkin - Confirm' }} />
+      <Stack.Screen name={screens.CheckinListaPresencaTab} component={CheckinListaPresencaScreen} options={{ title: 'Lista de Check-in' }} />
       <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
+      <Stack.Screen name={screens.SignInTab} component={SignInScreen} options={{ title: 'Login' }} />
+      <Stack.Screen name={screens.SignUpTab} component={SignUpScreen} options={{ title: 'Login' }} />
 
 
     </Stack.Navigator>

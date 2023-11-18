@@ -9,7 +9,7 @@ import { CheckinSeparatorItem } from './CheckinSeparatorItem';
 
 console.log('========= CheckinItem ===============')
 
-const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onRefresh, isRefreshing }) => {
+const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsRealizados, onRefresh, isRefreshing }) => {
 
     function Item({ item }) {
         return (
@@ -27,25 +27,37 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onRefresh, isRef
 
                     <View>
 
-                        <Text style={styles.text_title}>
-                            {"Linha Indaiatuba x São Bernardo"}
-                        </Text>
+                        <View style={styles.container_cidade}>
+
+                            <Text style={styles.text_title}>
+                                {"Linha Indaiatuba x São Bernardo"}
+                            </Text>
+
+
+                        </View>
+
 
                         <View style={styles.container_cidade}>
                             <Text style={styles.text_title}>
                                 {item.cidadeOrigem}
                             </Text>
-                            <TouchableOpacity style={styles.icon_cidades} onPress={() => { onClick(id) }}>
+                            <TouchableOpacity style={styles.icon_cidades} >
                                 <Icon name="arrow-circle-right" marginLeft={0} marginRight={-2} size={21} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_title}>
                                 {item.cidadeDestino}
                             </Text>
+                            <View style={styles.container3} >
+                                <TouchableOpacity alignItems={"right"} style={styles.icon_cidades} onPress={() => { onClickCheckinsRealizados(item.linhaId, item.sentido) }} >
+                                    <Icon name="users" marginLeft={20} marginRight={-9} size={17} color="slateblue" />
+                                </TouchableOpacity>
+                                <Text style={styles.text_qtd}>{item.quantidadeCheckinEfetuadoTrajeto}/{item.quantidadeVagasLinha}</Text>
+                            </View>
                         </View>
 
                         <Text style={styles.text_label}>
-                            {"Embarque"}
+                            {"Embarque previsto as 05:00"}
                         </Text>
                         <Text style={styles.text_value}>
                             {item.nomePontoOrigem}
@@ -74,7 +86,7 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onRefresh, isRef
                     :
 
                     <TouchableOpacity
-                        onPress={() => { onClickNew(item.id, item.linhaId) }}
+                        onPress={() => { onClickNew(item.id, item.linhaId, item.sentido) }}
                     >
                         <LinearGradient
                             colors={['seagreen', 'seagreen']}
@@ -89,7 +101,6 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onRefresh, isRef
                     </TouchableOpacity>
 
                 }
-
             </View>
         );
     }
@@ -124,6 +135,10 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         flexDirection: 'row',
     },
+    container3: {
+        flexDirection: "row"
+        
+    },
     icon: {
         marginTop: 45,
         marginLeft: 9,
@@ -141,7 +156,19 @@ const styles = StyleSheet.create({
         marginTop: -5,
         marginBottom: 5,
         fontSize: 15,
-        color: '#1C1C1C'
+        color: '#1C1C1C',
+        fontWeight: '500'
+
+    },
+    text_qtd: {
+        alignItems: "flex-end",
+        marginLeft: 5,
+        marginTop: -3,
+        marginBottom: 5,
+        fontSize: 14,
+        fontWeight: "500",
+        color: 'slateblue',
+
 
     },
     text_label: {
@@ -149,7 +176,7 @@ const styles = StyleSheet.create({
         marginTop: -5,
         marginBottom: 5,
         marginLeft: 15,
-        fontSize: 15,
+        fontSize: 14,
         color: 'gray'
 
     },
@@ -173,7 +200,7 @@ const styles = StyleSheet.create({
 
     button: {
         paddingVertical: 3,
-        borderRadius: 15,
+        borderRadius: 7,
         backgroundColor: 'white',
         alignSelf: "center",
         marginVertical: "1%",

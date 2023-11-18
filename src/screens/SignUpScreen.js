@@ -211,6 +211,7 @@ const SignUpScreen = () => {
             text={'Criar conta'}
             onClick={signUpHandle}
             top={18}
+            flag={""}
           />
 
         </ScrollView>

@@ -244,12 +244,14 @@ const AuthProvider = ({ children, navigation }) => {
                                         text={'Confirmar'}
                                         onClick={confirmSignup}
                                         top={15}
+                                        flag={""}
                                     />
                                     :
                                     <ButtonDisable
                                         text={'Confirmar'}
                                         onClick={confirmSignup}
                                         top={15}
+                                        flag={""}
                                     />
                                 }
 
@@ -269,12 +271,14 @@ const AuthProvider = ({ children, navigation }) => {
                                         text={'Confirmar'}
                                         onClick={confirmSignup}
                                         top={15}
+                                        flag={""}
                                     />
                                     :
                                     <ButtonDisable
                                         text={'Confirmar'}
                                         onClick={confirmSignup}
                                         top={15}
+                                        flag={""}
                                     />
                                 }
 

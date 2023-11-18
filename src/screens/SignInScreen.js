@@ -103,7 +103,7 @@ const SignInScreen = ({ navigation }) => {
   const criarConta = () => {
 
     console.log("- Criar conta -")
-    navigation.navigate('SignUp')
+    navigation.navigate('SignUpTab')
 
   }
 

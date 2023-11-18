@@ -43,16 +43,12 @@ const CheckinScreen = ({ navigation }) => {
   }, [load, navigation])
 
   const getTrajetos = (data) => {
-    
-    if (data == null){
+
+    if (data == null) {
       dataAux = format(date, "yyyy'-'MM'-'dd")
-    }else{
+    } else {
       dataAux = format(data, "yyyy'-'MM'-'dd")
     }
-    
-    console.log('getTrajetos', dataAux)    
-    const url = '/trajetos/user/' + user.id + '/data/' + dataAux
-    console.log('url: ', url)    
 
     api.get('/trajetos/user/' + user.id + '/data/' + dataAux)
       .then((response) => {
@@ -118,15 +114,17 @@ const CheckinScreen = ({ navigation }) => {
   }
 
 
-  function onClickNew(id, linhaId) {
+  function onClickNew(id, linhaId, sentido) {
     console.log('onClickNew ==>', id, linhaId)
     console.log('trajetosData:', trajetosData)
     const obj = {
       userId: user.id,
       data: format(date, "yyyy'-'MM'-'dd"),
       linhaId: linhaId,
-      trajetoId: id
+      trajetoId: id,
+      sentido: sentido
     }
+
 
     api.post('/checkins', obj)
       .then((response) => {
@@ -157,13 +155,20 @@ const CheckinScreen = ({ navigation }) => {
       });
   }
 
+
+  function onClickCheckinsRealizados(linhaId, sentido) {
+    console.log('onClickCheckinsRealizados ==>', linhaId, sentido)
+    data = format(date, "yyyy'-'MM'-'dd"),
+
+    navigation.navigate('CheckinListaPresencaTab', { linhaId, sentido, data} )
+  }
+
   const onRefresh = () => {
     console.log('------------------------onRefresh')
     setIsRefreshing(true)
     getTrajetos()
   }
 
- 
   return (
     <SafeAreaView style={stylesCommon.safe}>
       <View style={stylesCommon.container2}>
@@ -215,6 +220,7 @@ const CheckinScreen = ({ navigation }) => {
         trajetosData={trajetosData}
         onClickNew={onClickNew}
         onClickCancel={onClickCancel}
+        onClickCheckinsRealizados={onClickCheckinsRealizados}
         onRefresh={onRefresh}
         isRefreshing={isRefreshing}
       />
