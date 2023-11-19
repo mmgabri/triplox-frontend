@@ -1,46 +1,34 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import stylesCommon from './stylesCommon';
+const Button2 = ({ anuncio, text, onClick, top, flag }) => {
 
-const Button2 = ({ anuncio, text, onClick, top }) => {
     return (
-        <View style={[styles.button, {marginTop: top}]} >
-            <TouchableOpacity
-                style={styles.button_styte}
-                onPress={() => { onClick(anuncio) }}
-            >
-                <LinearGradient
-                    colors={['#8A2BE2', '#8A2BE2']}
-                    style={styles.button_styte}
-                >
-                    <Text style={[styles.button_text, {
-                        color: '#fff'
-                    }]}>{text}</Text>
+        <View style={styles.container}>
+            <TouchableOpacity onPress={() => { onClick(anuncio) }}>
+                <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.button_styte} >
+                    <Text style={[styles.button_text, { color: '#fff' }]}>{text}</Text>
                 </LinearGradient>
             </TouchableOpacity>
         </View>
     )
 }
 
-export default Button2;
+export default Button2
+
 
 const styles = StyleSheet.create({
-    
-    button: {
-        alignItems: 'center',
-        marginTop: 200,
-        marginLeft: 30,
-        marginRight: 30
+    container: {
+
     },
 
     button_styte: {
         width: '100%',
-        height: 50,
+        height: 500,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 15,
+        borderRadius: 10,
     },
 
     button_text: {
@@ -48,7 +36,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    
-
 })
-

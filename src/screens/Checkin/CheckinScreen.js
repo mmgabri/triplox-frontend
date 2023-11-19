@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, } from 'react-n
 import { addDays, subDays, format, getDate, isSameDay, startOfWeek } from 'date-fns';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import CheckinItem from './CheckinItem';
+import CheckinItem from './CheckinItems';
 import stylesCommon from '../../components/stylesCommon'
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
@@ -156,11 +156,22 @@ const CheckinScreen = ({ navigation }) => {
   }
 
 
-  function onClickCheckinsRealizados(linhaId, sentido) {
+  function onClickCheckinsRealizados(linhaId, sentido, nomeLinha, cidadeOrigem, cidadeDestino) {
     console.log('onClickCheckinsRealizados ==>', linhaId, sentido)
-    data = format(date, "yyyy'-'MM'-'dd"),
+    dataFormat = format(date, "yyyy'-'MM'-'dd")
 
-    navigation.navigate('CheckinListaPresencaTab', { linhaId, sentido, data} )
+    const data = {
+      linhaId: linhaId,
+      sentido: sentido,
+      dataCheckin: dataFormat,
+      nomeLinha: nomeLinha,
+      cidadeOrigem: cidadeOrigem,
+      cidadeDestino: cidadeDestino
+    }
+
+    console.log('Data==>', data)
+
+    navigation.navigate('CheckinListaPresencaTab', { data })
   }
 
   const onRefresh = () => {
@@ -170,7 +181,7 @@ const CheckinScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={stylesCommon.safe}>
+    <SafeAreaView style={styles.safe}>
       <View style={stylesCommon.container2}>
         <View style={[stylesCommon.button_calendar1]} >
           <TouchableOpacity
@@ -209,12 +220,16 @@ const CheckinScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <BoxInfo
-        top={0}
-        icon={'calendar'}
-        text1={'Data'}
-        text2={dateFormat}
-      />
+      <View marginTop={5} flexDirection="row" backgroundColor="white" height={40}>
+        <TouchableOpacity style={styles.icon_cidades} >
+          <Icon name="calendar" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+        </TouchableOpacity>
+
+        <Text style={styles.text_value}>
+          {dateFormat}
+        </Text>
+      </View>
+
 
       <CheckinItem
         trajetosData={trajetosData}
@@ -236,7 +251,26 @@ export default CheckinScreen;
 const styles = StyleSheet.create({
   textBox1: {
     backgroundColor: "white"
-
   },
+
+  text_value: {
+    marginLeft: 5,
+    marginTop: 2,
+    marginLeft: 15,
+    fontSize: 15,
+    color: 'gray',
+    fontWeight: 'bold',
+  },
+  icon_cidades: {
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 10,
+    marginRight: 5,
+  },
+  safe: {
+    flex: 1,
+    backgroundColor: "white"
+},
+
 })
 

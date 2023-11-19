@@ -41,14 +41,14 @@ export const screens = {
   CheckinTab: 'CheckinTab',
 
   CheckinConfirm: 'CheckinConfirm',
-  
+
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
   Profile: 'Profile',
   ProfileTab: 'ProfileTab',
 
-  
+
   CheckinListaPresenca: 'CheckinListaPresenca',
   CheckinListaPresencaTab: 'CheckinListaPresencaTab'
 
@@ -56,115 +56,6 @@ export const screens = {
 
 
 export const routes = [
- 
-  {
-    name: screens.CheckinTab,
-    focusedRoute: screens.Checkin,
-    title: 'Checkin',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.CheckinConfirm,
-    focusedRoute: screens.CheckinConfirm,
-    title: 'Checkin - Confirm',
-    showInTab: true,
-    showInDrawer: false
-    
-  },
-
-  {
-    name: screens.CheckinListaPresencaTab,
-    focusedRoute: screens.CheckinListaPresencaTab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-  {
-    name: screens.CriarTrajetoTab,
-    focusedRoute: screens.CriarTrajetoTab,
-    title: 'Configuração',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-  {
-    name: screens.CriarTrajeto0Tab,
-    focusedRoute: screens.CriarTrajeto0Tab,
-    title: 'Configuração',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.CriarTrajeto1Tab,
-    focusedRoute: screens.CriarTrajeto1Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.CriarTrajeto2Tab,
-    focusedRoute: screens.CriarTrajeto2Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.CriarTrajeto3Tab,
-    focusedRoute: screens.CriarTrajeto3Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.CriarTrajeto4Tab,
-    focusedRoute: screens.CriarTrajeto4Tab,
-    title: 'Configuração',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.TrajetosTab,
-    focusedRoute: screens.TrajetosTab,
-    title: 'Configuração',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
- 
-  {
-    name: screens.SetupTipoTab,
-    focusedRoute: screens.SetupTipoTab,
-    title: 'Setup Tipo',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-    <Icon name="gear" size={21} color={focused ? '#009387' : '#818185'} />,
-  },
-
   {
     name: screens.FeedTab,
     focusedRoute: screens.FeedTab,
@@ -172,37 +63,80 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-    <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
+      <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
   },
+
+  {
+    name: screens.CheckinTab,
+    focusedRoute: screens.Checkin,
+    title: 'Checkin',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+      <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  {
+    name: screens.TrajetosTab,
+    focusedRoute: screens.TrajetosTab,
+    title: 'Meus Trajetos',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+      <Icon name="exchange" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+
+
+
+  {
+    name: screens.CheckinConfirm,
+    focusedRoute: screens.CheckinConfirm,
+  },
+
+  {
+    name: screens.CheckinListaPresencaTab,
+    focusedRoute: screens.CheckinListaPresencaTab,
+    },
+  {
+    name: screens.CriarTrajetoTab,
+    focusedRoute: screens.CriarTrajetoTab,
+    },
+  {
+    name: screens.CriarTrajeto0Tab,
+    focusedRoute: screens.CriarTrajeto0Tab,
+    },
+
+  {
+    name: screens.CriarTrajeto1Tab,
+    focusedRoute: screens.CriarTrajeto1Tab,
+  },
+
+  {
+    name: screens.CriarTrajeto2Tab,
+    focusedRoute: screens.CriarTrajeto2Tab,
+  },
+
+  {
+    name: screens.CriarTrajeto3Tab,
+    focusedRoute: screens.CriarTrajeto3Tab,
+  },
+
+  {
+    name: screens.CriarTrajeto4Tab,
+    focusedRoute: screens.CriarTrajeto4Tab,
+  },
+
+  {
+    name: screens.SetupTipoTab,
+    focusedRoute: screens.SetupTipoTab,
+  },
+
+  
 
   {
     name: screens.SignInTab,
     focusedRoute: screens.SignInTab,
-    title: 'Login',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-      <Icon name="user" size={23} color={focused ? '#009387' : '#818185'} />,
-  },
-
-  {
-    name: screens.HomeTab,
-    focusedRoute: screens.HomeTab,
-    title: 'Home--routes',
-    showInTab: false,
-    showInDrawer: false,
-    icon: (focused) =>
-      <Icon name="home" size={23} color={focused ? '#551E18' : '#000'} />,
-  },
-
-  {
-    name: screens.HomeStack,
-    focusedRoute: screens.HomeStack,
-    title: 'Home',
-    showInTab: true,
-    showInDrawer: false,
-    icon: (focused) =>
-      <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
   },
 
   {

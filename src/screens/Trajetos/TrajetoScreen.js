@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+
+import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
 import { api } from '../../services/api';
-import { Header } from './HeaderTrajetos'
-import { SeparatorItem } from './SeparatorItemTrajetos';
-import { TrajetoItem } from './TrajetoItem';
-import Button from '../../components/Button';
+import TrajetoItems from './TrajetoItems';
+import Button2 from '../../components/Button';
+import stylesCommon from '../../components/stylesCommon'
 
 
 
-const TrajetosScreen = ({ route, navigation }) => {
+const TrajetoScreen = ({ route, navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const { colors } = useTheme();
   const { user, isAuthenticated, _showAlert } = useAuth();
@@ -57,7 +58,7 @@ const TrajetosScreen = ({ route, navigation }) => {
 
   };
 
-  const cadastrarTrajeto = () => {
+  const onClickNew = () => {
     console.log('cadastrarTrajeto...')
     navigation.navigate('CriarTrajeto1Tab')
 
@@ -83,10 +84,6 @@ const TrajetosScreen = ({ route, navigation }) => {
 
   }
 
-  function renderItem({ item }) {
-    return <TrajetoItem {...item} onClick={onClickDelete} />;
-  }
-
   const onRefresh = () => {
     console.log('------------------------onRefresh')
     setIsRefreshing(true)
@@ -94,50 +91,85 @@ const TrajetosScreen = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-        <StatusBar backgroundColor='#009387' barStyle="light-content" />
-        <Animatable.View
-          animation="fadeInUpBig"
-          style={[styles.footer, {
-            backgroundColor: colors.background
-          }]}
-        >
 
-        <FlatList
-          ListHeaderComponent={Header(trajetosData.nomeLinha)}
-          ItemSeparatorComponent={SeparatorItem}
-          data={trajetosData}
-          keyExtractor={(item) => item.name}
-          renderItem={renderItem}
-          onRefresh={onRefresh}
-          refreshing={isRefreshing}
+    <TrajetoItems
+      trajetosData={trajetosData}
+      onClickDelete={onClickDelete}
+      onClickNew={onClickNew}
+      onRefresh={onRefresh}
+      isRefreshing={isRefreshing}
+    />
 
-        />
 
-        <Button
-          text={'Cadastrar Trajeto'}
-          onClick={cadastrarTrajeto}
-          top={50}
-          value={'id'}
-          flag={"enabled"}
-        />
-      </Animatable.View >
 
-    </View>
   );
 
 };
 
-export default TrajetosScreen;
+export default TrajetoScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "red",
+    flexDirection: "column",
+    alignItems: "end"
   },
+
+  container2: {
+    backgroundColor: "white",
+    flexDirection: "row"
+
+  },
+
+  container3: {
+    flexDirection: "row"
+
+  },
+  container4: {
+    height: 100,
+    backgroundColor: "blue",
+    flexDirection: "column",
+    alignSelf: "center",
+    marginBottom: ""
+
+
+  },
+
+  container5: {
+    position: "absolute"
+
+
+
+
+  },
+
+
+
+  container_button: {
+    backgroundColor: "blue",
+    alignSelf: "center",
+    marginBottom: 0
+
+  },
+
+
   footer: {
     flex: 3,
     margin: 7
-},
+  },
+
+  button_styte: {
+    width: '100%',
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+
+  button_text: {
+    fontSize: 18,
+    alignSelf: "center",
+    fontWeight: 'bold'
+  },
 
 });

@@ -40,7 +40,7 @@ const CriarTrajeto0Screen = ({ navigation }) => {
             </Text>
           </View>
           <Button
-            text={'Cadastrar Trajeto'}
+            text={'Adicionar Trajeto'}
             onClick={continua}
             top={50}
             value={'id'}

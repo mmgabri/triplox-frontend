@@ -1,11 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, StatusBar, ScrollView, } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { useTheme } from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
 
 import LinearGradient from 'react-native-linear-gradient';
-import { CheckinSeparatorItem } from './CheckinSeparatorItem';
+import { SeparatorItemFlatList } from '../../components/SeparatorItemFlatList';
 
 console.log('========= CheckinItem ===============')
 
@@ -26,45 +24,53 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                     }
 
                     <View>
-
-                        <View style={styles.container_cidade}>
-
+                        <View style={styles.container_item}>
                             <Text style={styles.text_title}>
-                                {"Linha Indaiatuba x São Bernardo"}
+                                {item.nomeLinha}
                             </Text>
-
-
                         </View>
 
-
-                        <View style={styles.container_cidade}>
+                        <View marginTop={5} marginLeft={7} flexDirection="row">
                             <Text style={styles.text_title}>
                                 {item.cidadeOrigem}
                             </Text>
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="arrow-circle-right" marginLeft={0} marginRight={-2} size={21} color="gray" />
+                                <Icon name="arrow-circle-right" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_title}>
                                 {item.cidadeDestino}
                             </Text>
-                            <View style={styles.container3} >
-                                <TouchableOpacity alignItems={"right"} style={styles.icon_cidades} onPress={() => { onClickCheckinsRealizados(item.linhaId, item.sentido) }} >
-                                    <Icon name="users" marginLeft={20} marginRight={-9} size={17} color="slateblue" />
-                                </TouchableOpacity>
-                                <Text style={styles.text_qtd}>{item.quantidadeCheckinEfetuadoTrajeto}/{item.quantidadeVagasLinha}</Text>
-                            </View>
+                        </View>
+                        <View marginTop={5} flexDirection="row">
+                            <TouchableOpacity style={styles.icon_cidades} >
+                                <Icon name="sign-in" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                            </TouchableOpacity>
+
+                            <Text style={styles.text_value}>
+                                {item.nomePontoOrigem} - {item.horarioPrevistoEmbarquePontoOrigem} hrs
+                            </Text>
                         </View>
 
-                        <Text style={styles.text_label}>
-                            {"Embarque previsto as 05:00"}
-                        </Text>
-                        <Text style={styles.text_value}>
-                            {item.nomePontoOrigem}
-                        </Text>
+                        <View marginTop={5} flexDirection="row">
+                            <TouchableOpacity style={styles.icon_cidades} >
+                                <Icon name="sign-out" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                            </TouchableOpacity>
 
+                            <Text style={styles.text_value}>
+                                {item.nomePontoDestino}
+                            </Text>
+                        </View>
                     </View>
                 </View>
+
+                <View marginTop={-75} marginBottom={38} marginRight={4} alignSelf={"flex-end"} flexDirection={"column"} >
+                    <TouchableOpacity alignSelf="center" onPress={() => { onClickCheckinsRealizados(item.linhaId, item.sentido, item.nomeLinha, item.cidadeOrigem, item.cidadeDestino) }} >
+                        <Icon name="users" size={17} color="dodgerblue" marginLeft={3}/>
+                        <Text  style={styles.text_qtd}>{item.quantidadeCheckinEfetuadoTrajeto}/{item.quantidadeVagasLinha}</Text>
+                    </TouchableOpacity>
+                </View>
+
 
                 {item.checkinRealizado ?
 
@@ -75,7 +81,7 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                             colors={['firebrick', 'firebrick']}
                             style={styles.button}
                         >
-                            <View style={styles.container2}>
+                            <View style={styles.container_button}>
                                 <Text style={[styles.button_text, {
                                     color: '#fff'
                                 }]}>Cancelar Check-in</Text>
@@ -92,7 +98,7 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                             colors={['seagreen', 'seagreen']}
                             style={styles.button}
                         >
-                            <View style={styles.container2}>
+                            <View style={styles.container_button}>
                                 <Text style={[styles.button_text, {
                                     color: '#fff'
                                 }]}>Fazer Check-in</Text>
@@ -108,8 +114,9 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
     return (
 
         <FlatList
+            ListHeaderComponent={SeparatorItemFlatList}
             style={styles.textBox1}
-            ItemSeparatorComponent={CheckinSeparatorItem}
+            ItemSeparatorComponent={SeparatorItemFlatList}
             data={trajetosData}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <Item item={item} />}
@@ -123,26 +130,23 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
 export default CheckinItem;
 
 const styles = StyleSheet.create({
-    container_cidade: {
+    container_item: {
         marginTop: 5,
         marginBottom: 5,
-        marginLeft: 10,
-        flexDirection: 'row',
+        marginLeft: 7,
+        flexDirection: "row"
     },
 
     container: {
-        marginTop: 15,
+        marginTop: 10,
         marginBottom: 12,
-        flexDirection: 'row',
-    },
-    container3: {
         flexDirection: "row"
-        
     },
+
     icon: {
         marginTop: 45,
-        marginLeft: 9,
-        marginRight: 5,
+        marginLeft: 7,
+        marginRight: 0,
     },
     icon_cidades: {
         marginTop: -3,
@@ -152,51 +156,34 @@ const styles = StyleSheet.create({
     },
 
     text_title: {
-        marginLeft: 5,
+        marginLeft: 7,
         marginTop: -5,
-        marginBottom: 5,
+        marginBottom: -3,
         fontSize: 15,
-        color: '#1C1C1C',
+        color: 'gray',
         fontWeight: '500'
 
     },
     text_qtd: {
-        alignItems: "flex-end",
-        marginLeft: 5,
-        marginTop: -3,
-        marginBottom: 5,
+        marginLeft: 0,
+        marginTop: 1,
+        marginRight: 7,
         fontSize: 14,
-        fontWeight: "500",
-        color: 'slateblue',
+        fontWeight: "bold",
+        color: 'dodgerblue',
 
-
-    },
-    text_label: {
-        marginLeft: 5,
-        marginTop: -5,
-        marginBottom: 5,
-        marginLeft: 15,
-        fontSize: 14,
-        color: 'gray'
 
     },
 
     text_value: {
         marginLeft: 5,
-        marginTop: -5,
-        marginBottom: 5,
+        marginTop: -4,
+        marginBottom: 3,
         marginLeft: 15,
         fontSize: 15,
-        color: 'slategray'
+        color: 'gray',
+        fontWeight: '500'
     },
-    text_horario: {
-        marginLeft: 5,
-        marginTop: -5,
-        marginBottom: 5,
-        fontSize: 15,
-        color: 'slategray'
-    },
-
 
     button: {
         paddingVertical: 3,
@@ -209,11 +196,13 @@ const styles = StyleSheet.create({
         minWidth: '48%',
         textAlign: 'center',
     },
-    container2: {
+
+    container_button: {
         flexDirection: 'row',
         justifyContent: 'center',
         paddingVertical: 10,
     },
+
     button_text: {
         fontSize: 15,
         fontWeight: 'bold'

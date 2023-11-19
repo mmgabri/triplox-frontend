@@ -1,19 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, TouchableWithoutFeedback } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { useTheme } from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
 import UserAvatar from 'react-native-user-avatar';
-
-import LinearGradient from 'react-native-linear-gradient';
-import { CheckinSeparatorItem } from './CheckinSeparatorItem';
-
-console.log('========= CheckinItem ===============')
 
 const CheckinListaPresencaItem = ({ checkinsData, onRefresh, isRefreshing }) => {
     const { colors } = useTheme();
 
-    console.log('---- CheckinListaPresencaItem ---', checkinsData )
+    console.log('---- CheckinListaPresencaItem --->>', checkinsData )
 
     function Item({ item }) {
         return (
