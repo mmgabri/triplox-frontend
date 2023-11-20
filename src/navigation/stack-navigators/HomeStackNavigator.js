@@ -12,19 +12,20 @@ const HomeStackNavigator = ()  => {
 
   return (
     <Stack.Navigator 
-      screenOptions={{
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: '#009387',
-          height: 60,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold'
+    screenOptions={{
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#009387',
+        height: 50,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '400',
+        fontSize: 18
         }
       }
       }>
-      <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
+      <Stack.Screen name={screens.HomeTab} component={HomeScreen} options={{ title: 'Home' }}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
       <Stack.Screen name={screens.SignOut} component={SignOutScreen} />
 

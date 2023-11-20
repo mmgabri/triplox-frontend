@@ -9,15 +9,16 @@ const Stack = createStackNavigator()
 const ContaStackNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: '#009387',
-          height: 55,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold'
+    screenOptions={{
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#009387',
+        height: 50,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '400',
+        fontSize: 18
         }
       }
       }>

@@ -114,7 +114,7 @@ const CheckinScreen = ({ navigation }) => {
   }
 
 
-  function onClickNew(id, linhaId, sentido) {
+  function onClickNew(id, linhaId, sentido, nomePontoOrigem) {
     console.log('onClickNew ==>', id, linhaId)
     console.log('trajetosData:', trajetosData)
     const obj = {
@@ -122,7 +122,8 @@ const CheckinScreen = ({ navigation }) => {
       data: format(date, "yyyy'-'MM'-'dd"),
       linhaId: linhaId,
       trajetoId: id,
-      sentido: sentido
+      sentido: sentido,
+      nomePontoOrigem
     }
 
 

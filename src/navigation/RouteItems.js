@@ -40,15 +40,13 @@ export const screens = {
   Checkin: 'Checkin',
   CheckinTab: 'CheckinTab',
 
-  CheckinConfirm: 'CheckinConfirm',
-
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
   Profile: 'Profile',
   ProfileTab: 'ProfileTab',
 
-
+  
   CheckinListaPresenca: 'CheckinListaPresenca',
   CheckinListaPresencaTab: 'CheckinListaPresencaTab'
 
@@ -56,6 +54,7 @@ export const screens = {
 
 
 export const routes = [
+
   {
     name: screens.FeedTab,
     focusedRoute: screens.FeedTab,
@@ -63,9 +62,9 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-      <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
   },
-
+ 
   {
     name: screens.CheckinTab,
     focusedRoute: screens.Checkin,
@@ -73,76 +72,44 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-      <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
   },
 
   {
     name: screens.TrajetosTab,
     focusedRoute: screens.TrajetosTab,
-    title: 'Meus Trajetos',
+    title: 'Meus trajetos',
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-      <Icon name="exchange" size={21} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="exchange" size={22} color={focused ? '#009387' : '#818185'} />,
   },
-
-
-
-
-  {
-    name: screens.CheckinConfirm,
-    focusedRoute: screens.CheckinConfirm,
-  },
-
-  {
-    name: screens.CheckinListaPresencaTab,
-    focusedRoute: screens.CheckinListaPresencaTab,
-    },
-  {
-    name: screens.CriarTrajetoTab,
-    focusedRoute: screens.CriarTrajetoTab,
-    },
-  {
-    name: screens.CriarTrajeto0Tab,
-    focusedRoute: screens.CriarTrajeto0Tab,
-    },
-
-  {
-    name: screens.CriarTrajeto1Tab,
-    focusedRoute: screens.CriarTrajeto1Tab,
-  },
-
-  {
-    name: screens.CriarTrajeto2Tab,
-    focusedRoute: screens.CriarTrajeto2Tab,
-  },
-
-  {
-    name: screens.CriarTrajeto3Tab,
-    focusedRoute: screens.CriarTrajeto3Tab,
-  },
-
-  {
-    name: screens.CriarTrajeto4Tab,
-    focusedRoute: screens.CriarTrajeto4Tab,
-  },
-
-  {
-    name: screens.SetupTipoTab,
-    focusedRoute: screens.SetupTipoTab,
-  },
-
-  
 
   {
     name: screens.SignInTab,
     focusedRoute: screens.SignInTab,
+    title: 'Login',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+      <Icon name="user" size={23} color={focused ? '#009387' : '#818185'} />,
   },
 
   {
+    name: screens.HomeTab,
+    focusedRoute: screens.HomeTab,
+    title: 'Home',
+    showInTab: true,
+    showInDrawer: false,
+    icon: (focused) =>
+    <Icon name="home" size={21} color={focused ? '#009387' : '#818185'} />,
+  },
+
+  
+  {
     name: screens.ProfileTab,
-    focusedRoute: screens.CheckinTab,
-    title: 'Profile',
+    focusedRoute: screens.ProfileTab,
+    title: 'Perfil',
     showInTab: false,
     showInDrawer: true,
     icon: (focused) =>
@@ -151,17 +118,65 @@ export const routes = [
   {
     name: screens.SignOutTab,
     focusedRoute: screens.SignOutTab,
-    title: 'SignOut',
+    title: 'Sair',
     showInTab: false,
     showInDrawer: true,
-    icon: (focused) =>
-      <Icon name="sign-out" size={25} color={focused ? '#009387' : '#818185'} />,
+      
   },
   {
     name: screens.SignUpTab,
     focusedRoute: screens.SignUpTab,
     title: 'SignUpTab',
     showInTab: false,
-    showInDrawer: true,
+    showInDrawer: false,
   },
+  {
+    name: screens.CheckinListaPresencaTab,
+    focusedRoute: screens.CheckinListaPresencaTab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
+ 
+  {
+    name: screens.CriarTrajetoTab,
+    focusedRoute: screens.CriarTrajetoTab,
+    showInTab: true,
+    showInDrawer: false,
+  },
+  {
+    name: screens.CriarTrajeto0Tab,
+    focusedRoute: screens.CriarTrajeto0Tab,
+    showInTab: true,
+    showInDrawer: false,
+  },
+
+  {
+    name: screens.CriarTrajeto1Tab,
+    focusedRoute: screens.CriarTrajeto1Tab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
+  {
+    name: screens.CriarTrajeto2Tab,
+    focusedRoute: screens.CriarTrajeto2Tab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
+  {
+    name: screens.CriarTrajeto3Tab,
+    focusedRoute: screens.CriarTrajeto3Tab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
+  {
+    name: screens.CriarTrajeto4Tab,
+    focusedRoute: screens.CriarTrajeto4Tab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
 ]

@@ -10,12 +10,15 @@ const CheckinListaPresencaItem = ({ checkinsData, onRefresh, isRefreshing }) => 
 
     function Item({ item }) {
         return (
-            <View>
+            <View marginTop={-7}>
                 <TouchableWithoutFeedback>
                     <View style={styles.listItem}>
-                        <UserAvatar size={30} name={item.user.name} bgColors={['#007bb6']} />
+                        <View marginTop={5}>
+                        <UserAvatar  size={30} name={item.user.name} bgColors={['#007bb6']} />
+                        </View>
                         <View style={{ alignItems: "center", flex: 1 }}>
                             <Text style={{ fontWeight: "bold", alignSelf: "flex-start", marginLeft: 10, marginTop: 5 }}>{item.user.name}</Text>
+                            <Text style={{ fontWeight: "400", alignSelf: "flex-start", marginLeft: 10, marginTop: 0 }}>{item.nomePontoOrigem}</Text>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>

@@ -28,12 +28,7 @@ const CheckinStackNavigator = () => {
       }>
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Checkin' }} />
       <Stack.Screen name={screens.CheckinListaPresencaTab} component={CheckinListaPresencaScreen} options={{ title: 'Lista de Presença' }} />
-      <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
-      <Stack.Screen name={screens.SignInTab} component={SignInScreen} options={{ title: 'Login' }} />
-      <Stack.Screen name={screens.SignUpTab} component={SignUpScreen} options={{ title: 'Login' }} />
-
-
     </Stack.Navigator>
   )
 }

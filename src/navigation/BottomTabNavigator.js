@@ -12,6 +12,7 @@ import ProfileScreen from '../screens/ProfileScreen'
 
 import { routes, screens } from './RouteItems'
 import { useAuth } from '../contexts/auth';
+import SignOutScreen from '../screens/SignOutScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -39,7 +40,8 @@ const tabOptions = ({ route }) => {
   }
 }
 
-const BottomTabNavigator = () => {
+
+const BottomTabNavigator = ({ navigation }) => {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
@@ -50,6 +52,7 @@ const BottomTabNavigator = () => {
         <Tab.Screen name={screens.TrajetosTab} component={CriarTrajetoStackNavigator} />
 
         <Tab.Screen name={screens.ProfileTab} component={ProfileScreen} />
+        <Tab.Screen name={screens.SignOutTab} component={SignOutScreen} />
 
       </Tab.Navigator>
     )

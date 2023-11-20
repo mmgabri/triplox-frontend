@@ -32,10 +32,10 @@ const CriarTrajetoStackNavigator = () => {
       }>
       <Stack.Screen name={screens.TrajetosTab} component={TrajetoScreen}  options={{ title: 'Meus Trajetos' }}  />
       <Stack.Screen name={screens.CriarTrajeto0Tab} component={CriarTrajeto0Screen}  options={{ title: 'Meus Trajetos' }} />
-      <Stack.Screen name={screens.CriarTrajeto1Tab} component={CriarTrajeto1Screen}  options={{ title: 'Configuração - Linha ' }} />
-      <Stack.Screen name={screens.CriarTrajeto2Tab} component={CriarTrajeto2Screen}  options={{ title: 'Configuração - Origem' }} />
-      <Stack.Screen name={screens.CriarTrajeto3Tab} component={CriarTrajeto3Screen}  options={{ title: 'Configuração - Destino' }} />
-      <Stack.Screen name={screens.CriarTrajeto4Tab} component={CriarTrajeto4Screen}  options={{ title: 'Configuração - Confirmar' }}  />
+      <Stack.Screen name={screens.CriarTrajeto1Tab} component={CriarTrajeto1Screen}  options={{ title: 'Trajeto - Linha ' }} />
+      <Stack.Screen name={screens.CriarTrajeto2Tab} component={CriarTrajeto2Screen}  options={{ title: 'Trajeto - Origem' }} />
+      <Stack.Screen name={screens.CriarTrajeto3Tab} component={CriarTrajeto3Screen}  options={{ title: 'Trajeto - Destino' }} />
+      <Stack.Screen name={screens.CriarTrajeto4Tab} component={CriarTrajeto4Screen}  options={{ title: 'Trajeto - Confirmar dados' }}  />
       <Stack.Screen name={screens.HomeTab} component={HomeScreen}  />
       <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} />

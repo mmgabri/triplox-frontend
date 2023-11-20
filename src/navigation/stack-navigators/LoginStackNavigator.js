@@ -11,15 +11,16 @@ const Stack = createStackNavigator()
 const LoginStackNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: '#009387',
-          height: 55,
-        },
-        headerTintColor: '#FFF',
-        headerTitleStyle: {
-          fontWeight: 'bold',
+    screenOptions={{
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#009387',
+        height: 50,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '400',
+        fontSize: 18
         }
       }
       }>

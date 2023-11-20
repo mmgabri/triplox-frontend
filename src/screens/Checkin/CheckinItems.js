@@ -92,7 +92,7 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                     :
 
                     <TouchableOpacity
-                        onPress={() => { onClickNew(item.id, item.linhaId, item.sentido) }}
+                        onPress={() => { onClickNew(item.id, item.linhaId, item.sentido, item.nomePontoOrigem) }}
                     >
                         <LinearGradient
                             colors={['seagreen', 'seagreen']}

@@ -7,6 +7,8 @@ const SignOutScreen = ({ navigation }) => {
   const { signOut } = useAuth();
 
   useEffect(() => {
+    console.log('---------- entrou no logout --------')
+
     signOut();
   }, [])
 

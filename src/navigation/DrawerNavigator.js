@@ -3,6 +3,8 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { theme } from '../components/colors'
 import BottomTabNavigator from './BottomTabNavigator'
 import { routes, screens } from './RouteItems'
@@ -33,7 +35,7 @@ const CustomDrawerContent = (props) => {
                     </Text>
                   )}
                   onPress={() => props.navigation.navigate(route.name)}
-                  style={[styles.drawerItem, focused ? styles.drawerItemFocused : styles.drawerItemFocused]}
+                  style={[styles.drawerItem, focused ? styles.drawerItemFocused : styles.drawerItemNotFocused]}
                 />
               )
             }
@@ -42,10 +44,36 @@ const CustomDrawerContent = (props) => {
               <DrawerItem
                 key={route.name}
                 label={() => (
-                  <Text style={focused ? styles.drawerLabelFocused : styles.drawerLabel}>
-                    {route.title}
-                  </Text>
-                )}
+                  <View flexDirection={"row"}>
+                    {route.name == "SignOutTab" &&
+                      <>
+                        <Icon name="power-off" size={22} color={"gray"} />
+                        <Text style={focused ? styles.drawerLabelFocused : styles.drawerLabel}>
+                          {route.title}
+                        </Text>
+                      </>
+                    }
+
+                    {route.name == "ProfileTab" &&
+                      <>
+                        <Icon name="user" size={22} color={"gray"} />
+                        <Text style={focused ? styles.drawerLabelFocused : styles.drawerLabel}>
+                          {route.title}
+                        </Text>
+                      </>
+                    }
+                    {route.name == "SignUpTab" &&
+                      <>
+                        <Icon name="check" size={22} color={"gray"} />
+                        <Text style={focused ? styles.drawerLabelFocused : styles.drawerLabel}>
+                          {route.title}
+                        </Text>
+                      </>
+                    }
+                  </View>
+
+                )
+                }
                 onPress={() => props.navigation.navigate(route.name)}
                 style={[styles.drawerItem, focused ? styles.drawerItemFocused : styles.drawerItemFocused]}
               />
@@ -53,7 +81,7 @@ const CustomDrawerContent = (props) => {
           }
         })
       }
-    </DrawerContentScrollView>
+    </DrawerContentScrollView >
   )
 }
 
@@ -90,8 +118,10 @@ const DrawerNavigator = ({ nav }) => {
               <Text style={styles.title}>Tri</Text>
               <Text style={styles.title2}>plo</Text>
               <Text style={styles.title3}>X</Text>
+              
             </View>
         }} />
+        
     </Drawer.Navigator>
 
   )
@@ -110,7 +140,7 @@ const styles = StyleSheet.create({
   headerRight2: {
     marginRight: 15
   },
-//centraliza menu
+  //centraliza menu
   headerRight3: {
     marginRight: 15,
     top: 45,
@@ -139,20 +169,28 @@ const styles = StyleSheet.create({
 
   // drawer content
   drawerLabel: {
-    fontSize: 14,
-    color: '#fff'
+    fontSize: 17,
+    color: 'gray',
+    fontWeight: "bold",
+    marginLeft: 15
+
   },
   drawerLabelFocused: {
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: '500',
+    fontSize: 17,
+    color: 'black',
+    fontWeight: 'bold',
+    marginLeft: 15
+
   },
   drawerItem: {
     height: 50,
     justifyContent: 'center'
   },
   drawerItemFocused: {
-    backgroundColor: '#009c58',
+    backgroundColor: 'white',
+  },
+  drawerItemNotFocused: {
+    backgroundColor: 'black',
   },
 })
 
