@@ -50,7 +50,7 @@ const CheckinScreen = ({ navigation }) => {
       dataAux = format(data, "yyyy'-'MM'-'dd")
     }
 
-    api.get('/trajetos/user/' + user.id + '/data/' + dataAux)
+    api.get('/trajetos/list/user-and-data/?user=' + user.id + '&data=' + dataAux)
       .then((response) => {
         console.log('Retorno da api listar trajetos:', response.data)
         if (response.data.length == 0) {

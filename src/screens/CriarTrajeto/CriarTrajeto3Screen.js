@@ -50,7 +50,7 @@ const CriarTrajeto3Screen = ({ route, navigation }) => {
 
   const handlePontos = (cidade) => {
 
-    api.get('/pontos/' + data.linhaId + '/' + cidade)
+    api.get('/pontos/list?linha=' + data.linhaId + '&cidade=' + cidade)
       .then((response) => {
         console.log('Retorno da api listar pontos:', response.data)
         setPontosDestinoData(response.data)

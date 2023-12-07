@@ -24,7 +24,7 @@ const CheckinListaPresencaScreen = ({ route, navigation }) => {
 
 
   const getCheckins = () => {
-    api.get('/checkins/data/' + data.dataCheckin + '/linha/' + data.linhaId + '/sentido/' + data.sentido)
+    api.get('/checkins/list/data-linha-sentido?data=' + data.dataCheckin + '&linha=' + data.linhaId + '&sentido=' + data.sentido)
       .then((response) => {
         console.log('Retorno da api onClickCheckinsRealizados:', response.data)
         setCheckinsData(response.data)

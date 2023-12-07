@@ -31,13 +31,14 @@ const AuthProvider = ({ children, navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isConfirmSignup, setConfirmSignup] = useState(false);
     const { colors } = useTheme();
+    const API_KEY = 'o7AwEAkgXH9WL667E4Y4LLrpPPC67UV4S5UdqXP4'
 
     useEffect(() => {
         console.log('---- useEffect - auth ----')
         api.defaults.timeout = 25000;
         const loadStorageData = async () => {
             const storageUser = await getUserStorage();
-       //     console.info('Usuário obtido do storage -->', storageUser)
+            console.info('Usuário obtido do storage -->', storageUser)
             if (storageUser) {
                 registerAdvive(storageUser.id);
                 setUser(storageUser)

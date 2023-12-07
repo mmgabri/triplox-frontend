@@ -39,7 +39,7 @@ const TrajetoScreen = ({ route, navigation }) => {
 
     console.log('trajetos...')
 
-    api.get('/trajetos/user/' + user.id)
+    api.get('/trajetos/list/user?user=' + user.id)
       .then((response) => {
         console.log('Retorno da api listar trajetos:', response.data)
         setIsRefreshing(false)
@@ -67,7 +67,7 @@ const TrajetoScreen = ({ route, navigation }) => {
   function onClickDelete(id) {
     console.log('onClickDelete ==>', id)
 
-    api.delete('/trajetos/user/' + user.id + '/id/' + id)
+    api.delete('/trajetos/?id=' + id + '&user=' + user.id)
       .then((response) => {
         console.log('Retorno da api delete trajeto:', response.data)
         _showAlert('success', "Obaa", 'O trajeto foi excluido !', 3000);
