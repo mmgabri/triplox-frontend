@@ -91,7 +91,7 @@ const CriarTrajeto4Screen = ({ route, navigation }) => {
       :
 
       <View style={stylesCommon.container}>
-        <StatusBar backgroundColor='#009387' barStyle="light-content" />
+        <StatusBar backgroundColor='#993399' barStyle="light-content" />
         <ScrollView>
           <Animatable.View
             animation="fadeInUpBig"

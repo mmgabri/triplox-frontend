@@ -69,10 +69,10 @@ const BottomTabNavigator = ({ navigation }) => {
 const styles = StyleSheet.create({
   tabBarLabel: {
     color: '#292929',
-    fontSize: 10,
+    fontSize: 12,
   },
   tabContainer: {
-    height: 45,
+    height: 55,
   }
 })
 

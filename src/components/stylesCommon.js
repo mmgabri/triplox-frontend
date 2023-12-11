@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native'
 const stylesCommon = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387',
+        backgroundColor: '#993399',
     },
     loading: {
         flex: 1,
-        backgroundColor: '#009387',
+        backgroundColor: '#993399',
     },
 
     footer: {
@@ -134,7 +134,7 @@ const stylesCommon = StyleSheet.create({
 
     container3: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#993399'
     },
 
     footer2: {

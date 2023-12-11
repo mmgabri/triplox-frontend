@@ -20,8 +20,8 @@ const CriarTrajetoStackNavigator = () => {
     screenOptions={{
       headerShown: true,
       headerStyle: {
-        backgroundColor: '#009387',
-        height: 50,
+        backgroundColor: '#993399',
+        height: 58,
       },
       headerTintColor: '#fff',
       headerTitleStyle: {

@@ -15,36 +15,37 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                 <View style={styles.container}>
                     {item.checkinRealizado ?
                         <TouchableOpacity style={styles.icon} >
-                            <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="seagreen" />
+                            <Icon name="chevron-circle-down" marginTop={0} marginLeft={1} size={22} color="gray" />
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.icon} >
-                            <Icon name="chevron-circle-down" marginTop={-20} marginLeft={1} size={22} color="gray" />
+                            <Icon name="chevron-circle-down" marginTop={0} marginLeft={1} size={22} color="gray" />
                         </TouchableOpacity>
                     }
 
                     <View>
-                        <View style={styles.container_item}>
-                            <Text style={styles.text_title}>
-                                {item.nomeLinha}
-                            </Text>
-                        </View>
 
                         <View marginTop={5} marginLeft={7} flexDirection="row">
-                            <Text style={styles.text_title}>
+                            <Text style={styles.text_title2}>
                                 {item.cidadeOrigem}
                             </Text>
                             <TouchableOpacity style={styles.icon_cidades} >
                                 <Icon name="arrow-circle-right" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
                             </TouchableOpacity>
 
-                            <Text style={styles.text_title}>
+                            <Text style={styles.text_title2}>
                                 {item.cidadeDestino}
                             </Text>
                         </View>
+                        <View style={styles.container_item}>
+                            <Text style={styles.text_title}>
+                                {item.nomeLinha}
+                            </Text>
+                        </View>
+
                         <View marginTop={5} flexDirection="row">
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-in" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                                <Icon name="sign-in" marginTop={4} marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_value}>
@@ -54,21 +55,30 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
 
                         <View marginTop={5} flexDirection="row">
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-out" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                                <Icon name="sign-out" marginTop={4} marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_value}>
                                 {item.nomePontoDestino}
                             </Text>
                         </View>
-                    </View>
-                </View>
 
-                <View marginTop={-75} marginBottom={38} marginRight={4} alignSelf={"flex-end"} flexDirection={"column"} >
-                    <TouchableOpacity alignSelf="center" onPress={() => { onClickCheckinsRealizados(item.linhaId, item.sentido, item.nomeLinha, item.cidadeOrigem, item.cidadeDestino) }} >
-                        <Icon name="users" size={17} color="dodgerblue" marginLeft={3}/>
-                        <Text  style={styles.text_qtd}>{item.quantidadeCheckinEfetuadoTrajeto}/{item.quantidadeVagasLinha}</Text>
-                    </TouchableOpacity>
+                        <View marginTop={5} flexDirection="row">
+                            <TouchableOpacity style={styles.icon_cidades} >
+                                <Icon name="users" marginTop={4} marginBottom={3} marginLeft={0} marginRight={-20} size={15} color="dodgerblue" />
+                            </TouchableOpacity>
+
+                            <View>
+                                <TouchableOpacity alignSelf="center" onPress={() => { onClickCheckinsRealizados(item.linhaId, item.sentido, item.nomeLinha, item.cidadeOrigem, item.cidadeDestino) }} >
+                                    <Text style={styles.text_value2}>
+                                        Lista de presença ( {item.quantidadeCheckinEfetuadoTrajeto}/{item.quantidadeVagasLinha} )
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+
+                    </View>
                 </View>
 
 
@@ -157,11 +167,20 @@ const styles = StyleSheet.create({
 
     text_title: {
         marginLeft: 7,
-        marginTop: -5,
+        marginTop: 0,
         marginBottom: -3,
         fontSize: 15,
         color: 'gray',
         fontWeight: '500'
+
+    },
+    text_title2: {
+        marginLeft: 9,
+        marginTop: -5,
+        marginBottom: -3,
+        fontSize: 18,
+        color: 'gray',
+        fontWeight: 'bold'
 
     },
     text_qtd: {
@@ -176,13 +195,23 @@ const styles = StyleSheet.create({
     },
 
     text_value: {
-        marginLeft: 5,
-        marginTop: -4,
+        marginLeft: -10,
+        marginTop: 0,
         marginBottom: 3,
         marginLeft: 15,
         fontSize: 15,
         color: 'gray',
         fontWeight: '500'
+    },
+
+    text_value2: {
+        fontStyle: 'italic',
+        marginTop: -2.5,
+        marginBottom: 3,
+        marginLeft: 15,
+        fontSize: 15,
+        color: 'dodgerblue',
+        fontWeight: '500',
     },
 
     button: {
@@ -191,7 +220,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignSelf: "center",
         marginVertical: "1%",
-        marginTop: -1,
+        marginTop: 5,
         marginBottom: 17,
         minWidth: '48%',
         textAlign: 'center',

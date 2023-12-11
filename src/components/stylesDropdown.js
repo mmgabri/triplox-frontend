@@ -33,6 +33,7 @@ const stylesCommon = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 1,
         marginRight: 1,
+        color: 'red'
     },
     icon: {
         marginRight: 15,
@@ -48,9 +49,11 @@ const stylesCommon = StyleSheet.create({
     },
     placeholderStyle: {
         fontSize: 16,
+        color: 'gray'
     },
     selectedTextStyle: {
         fontSize: 16,
+        color: 'gray'
     },
     iconStyle: {
         width: 20,
@@ -59,7 +62,11 @@ const stylesCommon = StyleSheet.create({
     inputSearchStyle: {
         height: 40,
         fontSize: 16,
+        color:'gray'
+
     },
+
+
 });
 
 

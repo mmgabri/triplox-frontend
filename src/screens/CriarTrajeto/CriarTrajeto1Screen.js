@@ -67,7 +67,7 @@ const CriarTrajeto1Screen = ({ navigation }) => {
   return (
 
     <View style={stylesCommon.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <ScrollView>
         <Animatable.View
           animation="fadeInUpBig"
@@ -91,6 +91,7 @@ const CriarTrajeto1Screen = ({ navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
+            itemTextStyle={stylesDropdown.itemTextStyle}
             data={linhasData}
             search
             maxHeight={300}

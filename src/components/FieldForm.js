@@ -17,8 +17,8 @@ const FieldForm = ({ text, onFocus, isFocused, placeholder, multiline, numberOfL
             <View style={stylesCommon.action}>
                 <TextInput
                     onFocus={() => onFocus(false)}
-                    selectionColor="#009387"
-                    underlineColorAndroid={{ isFocused } ? "#009387" : "#D3D3D3"}
+                    selectionColor="#993399"
+                    underlineColorAndroid={{ isFocused } ? "#993399" : "#D3D3D3"}
                     placeholder={placeholder}
                     placeholderTextColor="#666666"
                     style={[stylesCommon.textInput, { color: colors.text }]}

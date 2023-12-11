@@ -26,7 +26,7 @@ const CriarTrajeto0Screen = ({ navigation }) => {
   return (
 
     <View style={stylesCommon.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <ScrollView>
         <Animatable.View
           animation="fadeInUpBig"
@@ -36,7 +36,10 @@ const CriarTrajeto0Screen = ({ navigation }) => {
         >
           <View style={styles.titContainer}>
             <Text style={styles.titText}>
-              Você  ainda não possui trajetos cadastrados para realizar Check-in
+              Você  ainda não possui trajetos cadastrados para realizar Check-in. 
+            </Text>
+            <Text style={styles.titText}>
+              Cadastre para agilizar seus Check-ins!
             </Text>
           </View>
           <Button
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     fontSize: 18,
-    color: '#1C1C1C'
+    color: 'gray'
 
   },
 

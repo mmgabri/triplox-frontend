@@ -84,7 +84,7 @@ const TrajetoItems = ({ trajetosData, onClickNew, onClickDelete, onRefresh, isRe
                 onPress={() => { onClickNew() }}
             >
                 <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#BA4DE3', '#BA4DE3']}
                     style={styles.button}
                 >
                     <View style={styles.container_button}>

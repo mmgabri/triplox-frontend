@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <Animatable.View
         animation="fadeInUpBig"
         style={[stylesCommon.footer, {

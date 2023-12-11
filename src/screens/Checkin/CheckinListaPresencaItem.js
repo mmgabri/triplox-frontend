@@ -17,8 +17,8 @@ const CheckinListaPresencaItem = ({ checkinsData, onRefresh, isRefreshing }) => 
                         <UserAvatar  size={30} name={item.user.name} bgColors={['#007bb6']} />
                         </View>
                         <View style={{ alignItems: "center", flex: 1 }}>
-                            <Text style={{ fontWeight: "bold", alignSelf: "flex-start", marginLeft: 10, marginTop: 5 }}>{item.user.name}</Text>
-                            <Text style={{ fontWeight: "400", alignSelf: "flex-start", marginLeft: 10, marginTop: 0 }}>{item.nomePontoOrigem}</Text>
+                            <Text style={{ fontWeight: "bold", alignSelf: "flex-start", marginLeft: 10, marginTop: 5, color: 'gray' }}>{item.user.name}</Text>
+                            <Text style={{ fontWeight: "400", alignSelf: "flex-start", marginLeft: 10, marginTop: 0, color: 'grey' }}>{item.nomePontoOrigem}</Text>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>

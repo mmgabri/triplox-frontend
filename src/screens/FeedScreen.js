@@ -29,7 +29,7 @@ const FeedScreen = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <Animatable.View
         animation="fadeInUpBig"
         style={[styles.footer, {
@@ -53,7 +53,7 @@ export default FeedScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387'
+    backgroundColor: '#993399'
   },
 
   footer: {

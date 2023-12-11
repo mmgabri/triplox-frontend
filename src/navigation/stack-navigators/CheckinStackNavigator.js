@@ -18,17 +18,17 @@ const Stack = createStackNavigator()
 const CheckinStackNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: '#009387',
-          height: 50,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: '400',
-          fontSize: 18
-        }
+    screenOptions={{
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#993399',
+        height: 58,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '400',
+        fontSize: 18
+      }
       }
       }>
       <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Checkin' }} />

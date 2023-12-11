@@ -14,6 +14,7 @@ import BoxInfo from '../../components/BoxInfo';
 const CriarTrajeto2Screen = ({ route, navigation }) => {
   const { colors } = useTheme();
   const [isFocus1, setIsFocus1] = useState(false);
+  const [isFocus2, setIsFocus2] = useState(false);
   const [pontosOrigemData, setPontosOrigemData] = useState([]);
   const { data1 } = route.params;
 
@@ -65,7 +66,7 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
 
 
     <View style={stylesCommon.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <ScrollView>
         <Animatable.View
           animation="fadeInUpBig"
@@ -88,7 +89,10 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
             placeholderStyle={stylesDropdown.placeholderStyle}
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
+            itemContainerStyle={stylesDropdown.itemContainerStyle}
+            itemTextStyle={stylesDropdown.itemTextStyle}
             iconStyle={stylesDropdown.iconStyle}
+            activeColor={stylesDropdown.activeColor}
             data={data.cidades}
             search
             maxHeight={300}
@@ -117,21 +121,22 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
 
 
           <Dropdown
-            style={[stylesDropdown.dropdown, isFocus1 && { borderColor: 'blue' }]}
+            style={[stylesDropdown.dropdown, isFocus2 && { borderColor: 'blue' }]}
             placeholderStyle={stylesDropdown.placeholderStyle}
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
+            itemTextStyle={stylesDropdown.itemTextStyle}
             data={pontosOrigemData}
             search
             maxHeight={300}
             labelField="nome"
             valueField="id"
-            placeholder={!isFocus1 ? 'Selecione o ponto de embarque' : '...'}
+            placeholder={!isFocus2 ? 'Selecione o ponto de embarque' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
-            onFocus={() => setIsFocus1(true)}
-            onBlur={() => setIsFocus1(false)}
+            onFocus={() => setIsFocus2(true)}
+            onBlur={() => setIsFocus2(false)}
             onChange={item => {
               setData({
                 ...data,
@@ -141,7 +146,7 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
                 pontoIdOrigem: item.id,
                 horarioPrevistoEmbarque: item.horarioPrevistoEmbarque
               });
-              setIsFocus1(false);
+              setIsFocus2(false);
             }}
           />
 

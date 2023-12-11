@@ -11,13 +11,13 @@ const ButtonTransparent = ({ text, onClick, top, value }) => {
             <TouchableOpacity
                 onPress={() => { onClick(value) }}
                 style={[stylesCommon.button_styte, {
-                    borderColor: '#009387',
+                    borderColor: '#993399',
                     borderWidth: 1,
                     marginTop: 2
                 }]}
             >
                 <Text style={[stylesCommon.button_text, {
-                    color: '#009387'
+                    color: '#993399'
                 }]}>{text}</Text>
             </TouchableOpacity>
         </View >

@@ -62,7 +62,7 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-    <Icon name="home" size={23} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="home" size={29} color={focused ? '#993399' : '#818185'} />,
   },
  
   {
@@ -72,7 +72,7 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-    <Icon name="check-circle-o" size={21} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="check-circle-o" size={29} color={focused ? '#993399' : '#818185'} />,
   },
 
   {
@@ -82,7 +82,7 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-    <Icon name="exchange" size={22} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="exchange" size={29} color={focused ? '#993399' : '#818185'} />,
   },
 
   {
@@ -92,7 +92,7 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-      <Icon name="user" size={23} color={focused ? '#009387' : '#818185'} />,
+      <Icon name="user" size={29} color={focused ? '#993399' : '#818185'} />,
   },
 
   {
@@ -102,7 +102,7 @@ export const routes = [
     showInTab: true,
     showInDrawer: false,
     icon: (focused) =>
-    <Icon name="home" size={21} color={focused ? '#009387' : '#818185'} />,
+    <Icon name="home" size={29} color={focused ? '#993399' : '#818185'} />,
   },
 
   
@@ -113,7 +113,7 @@ export const routes = [
     showInTab: false,
     showInDrawer: true,
     icon: (focused) =>
-      <Icon name="user" size={25} color={focused ? '#009387' : '#818185'} />,
+      <Icon name="user" size={25} color={focused ? '#993399' : '#818185'} />,
   },
   {
     name: screens.SignOutTab,

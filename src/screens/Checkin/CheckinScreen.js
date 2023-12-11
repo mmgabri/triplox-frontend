@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, } from 'react-native';
-import { addDays, subDays, format, getDate, isSameDay, startOfWeek } from 'date-fns';
+import { addDays, subDays, format, getDate, isSameDay, startOfWeek, sub } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import CheckinItem from './CheckinItems';
@@ -8,7 +9,7 @@ import stylesCommon from '../../components/stylesCommon'
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
 import { api } from '../../services/api';
-import BoxInfo from '../../components/BoxInfo';
+
 
 const CheckinScreen = ({ navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -25,10 +26,12 @@ const CheckinScreen = ({ navigation }) => {
     navigation.addListener('focus', () => setLoad(!load))
 
     //Carrega dos da semana
-    const dateNow = new Date()
-
+    const dateNowGMT = new Date()
+    const dateNow = sub(dateNowGMT, { hours: 3 });
+    
     //Formata data do dia
-    const dateFormatAux = format(dateNow, "dd'/'MM'/'yyyy")
+    const dateFormatAux = format(dateNow, "dd'/'MM'/'yyyy", { locale: ptBR })
+    
     setDateFormat(dateFormatAux)
 
     //Monta array dos dias da semana
@@ -45,9 +48,9 @@ const CheckinScreen = ({ navigation }) => {
   const getTrajetos = (data) => {
 
     if (data == null) {
-      dataAux = format(date, "yyyy'-'MM'-'dd")
+      dataAux = format(date, "yyyy'-'MM'-'dd", { locale: ptBR })
     } else {
-      dataAux = format(data, "yyyy'-'MM'-'dd")
+      dataAux = format(data, "yyyy'-'MM'-'dd", { locale: ptBR })
     }
 
     api.get('/trajetos/list/user-and-data/?user=' + user.id + '&data=' + dataAux)
@@ -76,7 +79,7 @@ const CheckinScreen = ({ navigation }) => {
     getTrajetos(value)
 
     setDate(value)
-    setDateFormat(format(value, "dd'/'MM'/'yyyy"))
+    setDateFormat(format(value, "dd'/'MM'/'yyyy", { locale: ptBR }))
   }
 
   //==> Altera semana
@@ -105,7 +108,7 @@ const CheckinScreen = ({ navigation }) => {
     for (let i = 0; i < 7; i++) {
       const date = addDays(start, i);
       final.push({
-        formatted: format(date, 'EEE'),
+        formatted: format(date, 'EEEEEE',{ locale: ptBR }),
         date,
         day: getDate(date),
       });
@@ -119,7 +122,7 @@ const CheckinScreen = ({ navigation }) => {
     console.log('trajetosData:', trajetosData)
     const obj = {
       userId: user.id,
-      data: format(date, "yyyy'-'MM'-'dd"),
+      data: format(date, "yyyy'-'MM'-'dd",{ locale: ptBR }),
       linhaId: linhaId,
       trajetoId: id,
       sentido: sentido,
@@ -159,7 +162,7 @@ const CheckinScreen = ({ navigation }) => {
 
   function onClickCheckinsRealizados(linhaId, sentido, nomeLinha, cidadeOrigem, cidadeDestino) {
     console.log('onClickCheckinsRealizados ==>', linhaId, sentido)
-    dataFormat = format(date, "yyyy'-'MM'-'dd")
+    dataFormat = format(date, "yyyy'-'MM'-'dd", { locale: ptBR })
 
     const data = {
       linhaId: linhaId,
@@ -184,11 +187,11 @@ const CheckinScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={stylesCommon.container2}>
-        <View style={[stylesCommon.button_calendar1]} >
+        <View style={[styles.button_back]} >
           <TouchableOpacity
             style={stylesCommon.button_styte}
             onPress={() => alterWeek('back')}>
-            <Icon name="step-backward" size={15} />
+            <Icon name="step-backward" size={22} />
           </TouchableOpacity>
         </View>
 
@@ -212,11 +215,11 @@ const CheckinScreen = ({ navigation }) => {
             </View>
           );
         })}
-        <View style={[stylesCommon.button_calendar2]} >
+        <View style={[styles.button_left]} >
           <TouchableOpacity
             style={stylesCommon.button_styte}
             onPress={() => alterWeek('next')}>
-            <Icon name="step-forward" size={15} />
+            <Icon name="step-forward" size={22} />
           </TouchableOpacity>
         </View>
       </View>
@@ -272,6 +275,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white"
 },
+button_back: {
+  alignItems: 'center',
+  marginRight: 3,
+  marginTop: 10
+},
+button_left: {
+  alignItems: 'center',
+  marginLeft: 3,
+  marginTop: 10
+},
+
 
 })
 

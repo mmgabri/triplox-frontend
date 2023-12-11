@@ -93,7 +93,7 @@ const DrawerNavigator = ({ nav }) => {
       screenOptions={({ navigation }) => ({
         headerStyle: {
           backgroundColor: theme,
-          height: 37,
+          height: 57,
         },
         headerRight: () => (
           <View style={styles.container}>
@@ -143,27 +143,27 @@ const styles = StyleSheet.create({
   //centraliza menu
   headerRight3: {
     marginRight: 15,
-    top: 45,
+    top: 63,
 
   },
 
   title: {
     fontFamily: 'Roboto-BoldItalic',
     fontSize: 20,
-    top: -5,
+    top: 5,
     color: '#f8f8ff'
 
   },
   title2: {
     fontFamily: 'Roboto-BoldItalic',
     fontSize: 20,
-    top: -5,
+    top: 5,
     color: '#000000'
   },
   title3: {
     fontFamily: 'Roboto-BoldItalic',
     fontSize: 21,
-    top: -5,
+    top: 5,
     color: '#ff0000'
   },
 

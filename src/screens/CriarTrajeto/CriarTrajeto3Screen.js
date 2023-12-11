@@ -12,6 +12,7 @@ import BoxInfo from '../../components/BoxInfo';
 const CriarTrajeto3Screen = ({ route, navigation }) => {
   const { colors } = useTheme();
   const [isFocus1, setIsFocus1] = useState(false);
+  const [isFocus2, setIsFocus2] = useState(false);
   const [pontosDestinoData, setPontosDestinoData] = useState([]);
   const { data2 } = route.params;
 
@@ -66,7 +67,7 @@ const CriarTrajeto3Screen = ({ route, navigation }) => {
   return (
 
     <View style={stylesCommon.container}>
-      <StatusBar backgroundColor='#009387' barStyle="light-content" />
+      <StatusBar backgroundColor='#993399' barStyle="light-content" />
       <ScrollView>
         <Animatable.View
           animation="fadeInUpBig"
@@ -90,6 +91,7 @@ const CriarTrajeto3Screen = ({ route, navigation }) => {
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
             iconStyle={stylesDropdown.iconStyle}
+            itemTextStyle={stylesDropdown.itemTextStyle}
             data={data.cidades}
             search
             maxHeight={300}
@@ -117,7 +119,7 @@ const CriarTrajeto3Screen = ({ route, navigation }) => {
 
 
           <Dropdown
-            style={[stylesDropdown.dropdown, isFocus1 && { borderColor: 'blue' }]}
+            style={[stylesDropdown.dropdown, isFocus2 && { borderColor: 'blue' }]}
             placeholderStyle={stylesDropdown.placeholderStyle}
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
@@ -127,13 +129,13 @@ const CriarTrajeto3Screen = ({ route, navigation }) => {
             maxHeight={300}
             labelField="nome"
             valueField="id"
-            placeholder={!isFocus1 ? 'Selecione o ponto de desembarque' : '...'}
+            placeholder={!isFocus2 ? 'Selecione o ponto de desembarque' : '...'}
             searchPlaceholder="Search..."
             value={'linha'}
-            onFocus={() => setIsFocus1(true)}
-            onBlur={() => setIsFocus1(false)}
+            onFocus={() => setIsFocus2(true)}
+            onBlur={() => setIsFocus2(false)}
             onChange={item => {
-              setIsFocus1(false);
+              setIsFocus2(false);
               setData({
                 ...data,
                 pontoIdDestino: item.id,

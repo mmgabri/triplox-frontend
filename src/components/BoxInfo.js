@@ -55,8 +55,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         fontSize: 15,
-        color: 'dimgray'
-
+        color: 'gray',
     },
 
     value: {
@@ -65,7 +64,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 10,
         fontSize: 15,
-        color: 'slategray'
+        color: 'gray',
+        fontWeight: 'bold'
     },
     InfBox2: {
         flexDirection: 'row',
@@ -75,25 +75,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    textBox1: {
-        marginLeft: 5,
-        marginTop: 5,
-        marginBottom: 5,
-        fontSize: 15,
-        color: '#1C1C1C'
-
-    },
-    textBox2: {
-        marginLeft: 5,
-        marginTop: -5,
-        marginBottom: 5,
-        fontSize: 15,
-        color: '#696969'
-    },
     textBox3: {
-        marginLeft: 5,
+        marginLeft: 7,
         marginTop: -4,
         fontSize: 15,
-        color: '#696969'
+        color: 'gray',
+        fontWeight: 'bold'
     },
 });
