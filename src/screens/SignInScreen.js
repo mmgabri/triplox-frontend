@@ -107,6 +107,13 @@ const SignInScreen = ({ navigation }) => {
 
   }
 
+  const esqueceuSenha = () => {
+
+    console.log("Esqueceu senha")
+    navigation.navigate('ForgotPasswordTab')
+
+  }
+
   return (
 
     <View style={styles.container}>
@@ -144,27 +151,29 @@ const SignInScreen = ({ navigation }) => {
         />
         {showMessageErrorPassword &&
           <Animatable.View animation="fadeInLeft" duration={5}>
-            <Text style={styles.errorMsg}>Informe sua senha.</Text>
+            <Text style={styles.errorMsg}>Informe uma senha.</Text>
           </Animatable.View>
         }
 
-        <View style={{ marginTop: 15 }}>
-          <TouchableOpacity>
-            <Text style={{ color: '#993399', marginTop: 15 }}>Esqueceu sua senha?</Text>
-          </TouchableOpacity>
-        </View>
 
         <Button
           text={'Login'}
           onClick={signInHandle}
-          top={-35}
+          top={15}
           flag={""}
         />
+
+        <View style={{ marginTop: -10 }}>
+          <TouchableOpacity onPress={() => { esqueceuSenha() }} >
+            <Text style={{ color: '#993399', marginTop: 15 }}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
+        </View>
+
 
         <ButtonTransparent
           text={'Criar conta'}
           onClick={criarConta}
-          top={15}
+          top={17}
         />
 
       </Animatable.View>

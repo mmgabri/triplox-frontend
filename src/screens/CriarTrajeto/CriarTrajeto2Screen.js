@@ -40,6 +40,19 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
 
   }, []);
 
+  function _onError(error) {
+    console.log('_onError: ', error)
+
+    if (error == 401) {
+      signOut()
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      navigation.navigate('SignInTab')
+    } else {
+      _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
+    }
+  }
+
+
   const continua = () => {
     data2 = data
 
@@ -57,7 +70,7 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
         //     setIsLoading(false)
         console.error('Erro na api listar pontos:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
   };
 
@@ -125,8 +138,10 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
             placeholderStyle={stylesDropdown.placeholderStyle}
             selectedTextStyle={stylesDropdown.selectedTextStyle}
             inputSearchStyle={stylesDropdown.inputSearchStyle}
-            iconStyle={stylesDropdown.iconStyle}
+            itemContainerStyle={stylesDropdown.itemContainerStyle}
             itemTextStyle={stylesDropdown.itemTextStyle}
+            iconStyle={stylesDropdown.iconStyle}
+            activeColor={stylesDropdown.activeColor}
             data={pontosOrigemData}
             search
             maxHeight={300}

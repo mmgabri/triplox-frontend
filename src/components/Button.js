@@ -2,19 +2,19 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import stylesCommon from '../components/stylesCommon';
-const Button = ({ anuncio, text, onClick, top, flag }) => {
+const Button = ({ anuncio, text, onClick, top, flag, paddingHor }) => {
     return (
         <View style={[stylesCommon.button, { marginTop: top }]} >
             {flag != null ?
 
                 <TouchableOpacity
-                    style={styles.button_styte}
+                    style={[styles.button_styte, {paddingHorizontal: paddingHor}]}
                     onPress={() => { onClick(anuncio) }}
                 >
 
                     <LinearGradient
                         colors={['#BA4DE3', '#BA4DE3']}
-                        style={styles.button_styte}
+                        style={[styles.button_styte, {paddingHorizontal: paddingHor}]}
                     >
                         <Text style={[styles.button_text, {
                             color: '#fff'
@@ -24,11 +24,12 @@ const Button = ({ anuncio, text, onClick, top, flag }) => {
                 </TouchableOpacity>
                 :
                 <TouchableOpacity
-                    style={styles.button_styte}
+                style={[styles.button_styte, {paddingHorizontal: paddingHor}]}
+                onPress={() => { onClick(anuncio) }}
                 >
                     <LinearGradient
                         colors={['#A9A9A9', '#A9A9A9']}
-                        style={styles.button_styte}
+                        style={[styles.button_styte, {paddingHorizontal: paddingHor}]}
                     >
                         <Text style={[styles.button_text, {
                             color: '#fff'
@@ -46,7 +47,6 @@ const styles = StyleSheet.create({
     button_styte: {
         width: '100%',
         height: 50,
-        paddingHorizontal: 30,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,

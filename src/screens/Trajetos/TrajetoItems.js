@@ -13,17 +13,11 @@ const TrajetoItems = ({ trajetosData, onClickNew, onClickDelete, onRefresh, isRe
             <View>
                 <View style={styles.container}>
                     <TouchableOpacity style={styles.icon} onPress={() => { onClickDelete(item.id) }}>
-                        <Icon name="remove" marginTop={-20} marginLeft={9} size={22} color="#A52A2A" />
+                        <Icon name="remove" marginTop={-10} marginLeft={15} size={22} color="#A52A2A" />
                         <Text style={styles.excluir} >excluir</Text>
                     </TouchableOpacity>
                     <View>
-                        <View style={styles.container_item}>
-                            <Text style={styles.text_title}>
-                                {item.nomeLinha}
-                            </Text>
-                        </View>
-
-                        <View marginTop={5} flexDirection="row">
+                        <View marginTop={8} marginBottom={8} flexDirection="row">
                             <Text style={styles.text_title}>
                                 {item.cidadeOrigem}
                             </Text>
@@ -36,22 +30,28 @@ const TrajetoItems = ({ trajetosData, onClickNew, onClickDelete, onRefresh, isRe
                             </Text>
                         </View>
 
+                        <View style={[styles.container_item, {marginTop:0}]}>
+                            <Text style={styles.text_title2}>
+                                {item.nomeLinha}
+                            </Text>
+                        </View>
+
                         <View marginTop={5} flexDirection="row">
-                            <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-in" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                            <TouchableOpacity style={styles.text_title2} >
+                                <Icon name="sign-in" marginBottom={3} marginLeft={0} marginRight={-14} size={20} color="gray" />
                             </TouchableOpacity>
 
-                            <Text style={styles.text_value}>
+                            <Text style={styles.text_title2}>
                                 {item.nomePontoOrigem} - {item.horarioPrevistoEmbarquePontoOrigem} hrs
                             </Text>
                         </View>
 
                         <View marginTop={5} flexDirection="row">
-                            <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-out" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                            <TouchableOpacity style={styles.text_title2} >
+                                <Icon name="sign-out" marginBottom={3} marginLeft={0} marginRight={-14} size={20} color="gray" />
                             </TouchableOpacity>
 
-                            <Text style={styles.text_value}>
+                            <Text style={[styles.text_title2, {marginBottom:15}]}>
                                 {item.nomePontoDestino}
                             </Text>
                         </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        marginTop: 15,
+        marginTop: 25,
         marginBottom: 12,
         flexDirection: "row",
         backgroundColor: "white"
@@ -135,14 +135,22 @@ const styles = StyleSheet.create({
     },
 
     text_title: {
-        marginLeft: 7,
+        marginLeft: 17,
+        marginTop: -5,
+        marginBottom: 0,
+        fontSize: 18,
+        color: 'gray',
+        fontWeight: 'bold'
+    },
+    text_title2: {
+        marginLeft: 25,
         marginTop: -5,
         marginBottom: 0,
         fontSize: 15,
         color: 'gray',
-        fontWeight: 'bold'
-
+        fontWeight: '500'
     },
+
     text_qtd: {
         marginLeft: 0,
         marginTop: 1,
@@ -189,7 +197,9 @@ const styles = StyleSheet.create({
     excluir: {
         fontSize: 13,
         fontWeight: '400',
-        color: "#A52A2A"
+        color: "#A52A2A",
+        marginLeft: 7
+
     },
 
 

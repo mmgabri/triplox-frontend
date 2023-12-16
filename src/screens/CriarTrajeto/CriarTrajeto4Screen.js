@@ -40,7 +40,19 @@ const CriarTrajeto4Screen = ({ route, navigation }) => {
 
   }, []);
 
- 
+  function _onError(error) {
+    console.log('_onError: ', error)
+
+    if (error == 401) {
+      signOut()
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      navigation.navigate('SignInTab')
+    } else {
+      _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
+    }
+  }
+
+
   const salvar = () => {
     console.log("===> salvar")
 
@@ -64,7 +76,8 @@ const CriarTrajeto4Screen = ({ route, navigation }) => {
       .catch((error) => {
         setIsLoading(false)
         console.error('Erro na api create trajeto:', error)
-        onError(error)
+        const statusCode = error.response?.status
+        _onError(statusCode)
       });
 
   };

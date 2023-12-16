@@ -107,6 +107,12 @@ const AuthProvider = ({ children, navigation }) => {
             });
     }
 
+    const dummy = () => {
+        console.log('dummy')
+
+    }
+
+
     const cancelConfirmSignup = () => {
         console.log('---- Entrou no cancelConfirmSignup ----')
         setIsLoading(false)
@@ -193,7 +199,6 @@ const AuthProvider = ({ children, navigation }) => {
         setIsAuthenticated(false)
     }
 
-
     function _showAlert(type, title, message, interval) {
         console.log('_showAlert:', message)
 
@@ -235,58 +240,33 @@ const AuthProvider = ({ children, navigation }) => {
                             value={confirmationCode}
                             onChangeText={changeConfirmationCode}
                         />
-                        {confirmationCodeInvalid ?
-                            <>
-                                <Animatable.View animation="fadeInLeft" duration={500}>
-                                    <Text style={stylesCommon.infoMsg}></Text>
-                                </Animatable.View>
-                                {enableButton ?
-                                    <Button
-                                        text={'Confirmar'}
-                                        onClick={confirmSignup}
-                                        top={15}
-                                        flag={""}
-                                    />
-                                    :
-                                    <ButtonDisable
-                                        text={'Confirmar'}
-                                        onClick={confirmSignup}
-                                        top={15}
-                                        flag={""}
-                                    />
-                                }
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={stylesCommon.infoMsg}></Text>
+                        </Animatable.View>
+                        {enableButton ?
 
-                                <Button
-                                    text={'Cancelar'}
-                                    onClick={cancelConfirmSignup}
-                                    top={15}
-                                />
-                            </>
+                            <Button
+                                text={'Confirmar'}
+                                onClick={confirmSignup}
+                                top={15}
+                                flag={""}
+                            />
+
                             :
-                            <>
-                                <Animatable.View animation="fadeInLeft" duration={500}>
-                                    <Text style={stylesCommon.infoMsg}></Text>
-                                </Animatable.View>
-                                {enableButton ?
-                                    <Button
-                                        text={'Confirmar'}
-                                        onClick={confirmSignup}
-                                        top={15}
-                                        flag={""}
-                                    />
-                                    :
-                                    <ButtonDisable
-                                        text={'Confirmar'}
-                                        onClick={confirmSignup}
-                                        top={15}
-                                        flag={""}
-                                    />
-                                }
 
-                            </>
-
+                            <ButtonDisable
+                                text={'Confirmar'}
+                                onClick={dummy}
+                                top={15}
+                                flag={""}
+                            />
 
                         }
+                        <Button
+                            text={'Cancelar'}
+                            onClick={cancelConfirmSignup}
+                            top={15}
+                        />
 
                     </Animatable.View>
                 </View>

@@ -15,11 +15,11 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                 <View style={styles.container}>
                     {item.checkinRealizado ?
                         <TouchableOpacity style={styles.icon} >
-                            <Icon name="chevron-circle-down" marginTop={0} marginLeft={1} size={22} color="gray" />
+                            <Icon name="chevron-circle-down" marginTop={10} marginLeft={1} size={30} color="seagreen" />
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.icon} >
-                            <Icon name="chevron-circle-down" marginTop={0} marginLeft={1} size={22} color="gray" />
+                            <Icon name="chevron-circle-down" marginTop={10} marginLeft={1} size={30} color="gray" />
                         </TouchableOpacity>
                     }
 
@@ -30,14 +30,15 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
                                 {item.cidadeOrigem}
                             </Text>
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="arrow-circle-right" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                                <Icon name="arrow-circle-right" marginBottom={3} marginLeft={-13} marginRight={-13} size={20} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_title2}>
                                 {item.cidadeDestino}
                             </Text>
                         </View>
-                        <View style={styles.container_item}>
+
+                        <View style={[styles.container_item, {marginTop:3}]}>
                             <Text style={styles.text_title}>
                                 {item.nomeLinha}
                             </Text>
@@ -45,7 +46,7 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
 
                         <View marginTop={5} flexDirection="row">
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-in" marginTop={4} marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                                <Icon name="sign-in" marginTop={2} marginBottom={3} marginLeft={0} marginRight={-15} size={20} color="gray" />
                             </TouchableOpacity>
 
                             <Text style={styles.text_value}>
@@ -55,10 +56,10 @@ const CheckinItem = ({ trajetosData, onClickNew, onClickCancel, onClickCheckinsR
 
                         <View marginTop={5} flexDirection="row">
                             <TouchableOpacity style={styles.icon_cidades} >
-                                <Icon name="sign-out" marginTop={4} marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
+                                <Icon name="sign-out" marginTop={0} marginBottom={3} marginLeft={0} marginRight={-15} size={20} color="gray" />
                             </TouchableOpacity>
 
-                            <Text style={styles.text_value}>
+                            <Text style={[styles.text_value, {marginTop:-5}]}>
                                 {item.nomePontoDestino}
                             </Text>
                         </View>
@@ -161,12 +162,12 @@ const styles = StyleSheet.create({
     icon_cidades: {
         marginTop: -3,
         marginBottom: 0,
-        marginLeft: 10,
+        marginLeft: 23,
         marginRight: 10,
     },
 
     text_title: {
-        marginLeft: 7,
+        marginLeft: 17,
         marginTop: 0,
         marginBottom: -3,
         fontSize: 15,
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
 
     text_value: {
         marginLeft: -10,
-        marginTop: 0,
+        marginTop: -3,
         marginBottom: 3,
         marginLeft: 15,
         fontSize: 15,
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
 
     text_value2: {
         fontStyle: 'italic',
-        marginTop: -2.5,
+        marginTop: -3,
         marginBottom: 3,
         marginLeft: 15,
         fontSize: 15,

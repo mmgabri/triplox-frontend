@@ -13,7 +13,7 @@ const ButtonDisable = ({ anuncio, text, onClick, top }) => {
                 onPress={() => { onClick(anuncio) }}
             >
                 <LinearGradient
-                    colors={['#86d6cc', '#86d6cc']}
+                    colors={['#9F5F9C', '#9F5F9C']}
                     style={stylesCommon.button_styte}
                 >
                     <Text style={[stylesCommon.button_text, {

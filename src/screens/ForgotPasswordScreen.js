@@ -4,24 +4,12 @@ import { useTheme } from 'react-native-paper';
 import { useAuth } from '../contexts/auth';
 import { decodeMessage } from '../services/decodeMessage'
 
-const FeedScreen = ({ navigation }) => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const [load, setLoad] = useState(true)
   const { colors } = useTheme();
   const { user, isAuthenticated, _showAlert } = useAuth();
 
   useEffect(() => {
-
-    navigation.addListener('focus', () => setLoad(!load))
-
-    console.log("user:", isAuthenticated)
-
-    if (!isAuthenticated) {
-      console.log('usuario não logado')
-      _showAlert('info', 'Ooops!', decodeMessage(401), 4000);
-      navigation.navigate('SignInTab')
-    }
-
-    console.log('usuario logado')
 
 
   }, [load, navigation])
@@ -38,7 +26,7 @@ const FeedScreen = ({ navigation }) => {
       >
         <Text style={[styles.text_footer, {
           color: 'gray'
-        }]}>Tela Feed em construção</Text>
+        }]}>Tela de recuperação de senha em construção</Text>
         <View style={styles.action}>
         </View>
 
@@ -48,7 +36,7 @@ const FeedScreen = ({ navigation }) => {
 
 };
 
-export default FeedScreen;
+export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({
   container: {

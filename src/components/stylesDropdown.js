@@ -51,6 +51,9 @@ const stylesCommon = StyleSheet.create({
         fontSize: 16,
         color: 'gray'
     },
+    itemTextStyle:{
+        color: 'gray'
+    },
     selectedTextStyle: {
         fontSize: 16,
         color: 'gray'

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, StatusBar, Dimensions, TextStyle } from 'react-native';
 import { addDays, subDays, format, getDate, isSameDay, startOfWeek, sub } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Lottie from "lottie-react-native";
 
 import CheckinItem from './CheckinItems';
 import stylesCommon from '../../components/stylesCommon'
@@ -17,8 +18,9 @@ const CheckinScreen = ({ navigation }) => {
   const [date, setDate] = useState();
   const [dateFormat, setDateFormat] = useState();
   const [trajetosData, setTrajetosData] = useState([]);
-  const { user, isAuthenticated, _showAlert } = useAuth();
+  const { user, _showAlert, signOut } = useAuth();
   const [load, setLoad] = useState(true)
+  const [isSucess, setIsSucess] = useState(false);
 
   //==> Carregamento inicial da tela
   useEffect(() => {
@@ -28,10 +30,10 @@ const CheckinScreen = ({ navigation }) => {
     //Carrega dos da semana
     const dateNowGMT = new Date()
     const dateNow = sub(dateNowGMT, { hours: 3 });
-    
+
     //Formata data do dia
     const dateFormatAux = format(dateNow, "dd'/'MM'/'yyyy", { locale: ptBR })
-    
+
     setDateFormat(dateFormatAux)
 
     //Monta array dos dias da semana
@@ -44,6 +46,20 @@ const CheckinScreen = ({ navigation }) => {
 
 
   }, [load, navigation])
+
+  function _onError(error) {
+    console.log('_onError: ', error)
+
+    if (error == 401) {
+      signOut()
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      navigation.navigate('SignInTab')
+    } else {
+      _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
+    }
+
+  }
+
 
   const getTrajetos = (data) => {
 
@@ -66,7 +82,7 @@ const CheckinScreen = ({ navigation }) => {
         setIsRefreshing(false)
         console.error('Erro na api listar trajetos:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
 
   };
@@ -108,7 +124,7 @@ const CheckinScreen = ({ navigation }) => {
     for (let i = 0; i < 7; i++) {
       const date = addDays(start, i);
       final.push({
-        formatted: format(date, 'EEEEEE',{ locale: ptBR }),
+        formatted: format(date, 'EEEEEE', { locale: ptBR }),
         date,
         day: getDate(date),
       });
@@ -116,13 +132,37 @@ const CheckinScreen = ({ navigation }) => {
     return final;
   }
 
+  function sleep(ms) {
+    console.log('------------------------------>> timeout')
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   function onClickNew(id, linhaId, sentido, nomePontoOrigem) {
     console.log('onClickNew ==>', id, linhaId)
     console.log('trajetosData:', trajetosData)
+
+    const dateNowGMT = new Date()
+    const dateNow = sub(dateNowGMT, { hours: 3 });
+    const dataNowFormatada = format(dateNow, 'yyyy-MM-dd');
+    const dataCheckinFormatada = format(date, 'yyyy-MM-dd');
+
+    console.log('Data agora: ', dataNowFormatada)
+    console.log('Data chekin: ', dataCheckinFormatada)
+
+    if (dataCheckinFormatada < dataNowFormatada) {
+      _showAlert('warning', "Ooops", 'Não é permitido fazer check-in no passado!', 6000);
+      return
+    }
+
+    diaSemana = format(date, 'EEEEEE', { locale: ptBR })
+    if (diaSemana == 'sab' || diaSemana == 'dom') {
+      _showAlert('warning', "Ooops", 'Não haverá viagem nesta data!', 6000);
+      return
+    }
+
     const obj = {
       userId: user.id,
-      data: format(date, "yyyy'-'MM'-'dd",{ locale: ptBR }),
+      data: format(date, "yyyy'-'MM'-'dd", { locale: ptBR }),
       linhaId: linhaId,
       trajetoId: id,
       sentido: sentido,
@@ -133,18 +173,33 @@ const CheckinScreen = ({ navigation }) => {
     api.post('/checkins', obj)
       .then((response) => {
         console.log('Retorno da api new checkin:', response.data)
-        _showAlert('success', "Obaa", 'Check-in realizado !', 6000);
+        setIsSucess(true)
+        sleep(1500).then(() => { setIsSucess(false) });
+        _showAlert('success', "Obaa", 'Check-in realizado !', 1500);
         getTrajetos(date)
       })
       .catch((error) => {
         console.error('Erro na api new checkin:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
   }
 
   function onClickCancel(id) {
     console.log('onClickCancel ==>', id)
+
+    const dateNowGMT = new Date()
+    const dateNow = sub(dateNowGMT, { hours: 3 });
+    const dataNowFormatada = format(dateNow, 'yyyy-MM-dd');
+    const dataCheckinFormatada = format(date, 'yyyy-MM-dd');
+
+
+    console.log('Data agora: ', dataNowFormatada)
+    console.log('Data chekin: ', dataCheckinFormatada)
+    if (dataCheckinFormatada < dataNowFormatada) {
+      _showAlert('warning', "Ooops", 'Não é permitido cancelar check-in de dias anteriores!', 6000);
+      return
+    }
 
     api.delete('/checkins/' + id)
       .then((response) => {
@@ -155,7 +210,7 @@ const CheckinScreen = ({ navigation }) => {
       .catch((error) => {
         console.error('Erro na api cancel checkin:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
   }
 
@@ -185,66 +240,72 @@ const CheckinScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={stylesCommon.container2}>
-        <View style={[styles.button_back]} >
-          <TouchableOpacity
-            style={stylesCommon.button_styte}
-            onPress={() => alterWeek('back')}>
-            <Icon name="step-backward" size={22} />
-          </TouchableOpacity>
+    isSucess ?
+    <SafeAreaView style={styles.centered}>
+    <Icon name="chevron-circle-down" size={70} color="white" />
+  </SafeAreaView >
+      :
+
+      <SafeAreaView style={styles.safe}>
+        <View style={stylesCommon.container2}>
+          <View style={[styles.button_back]} >
+            <TouchableOpacity
+              style={stylesCommon.button_styte}
+              onPress={() => alterWeek('back')}>
+              <Icon name="step-backward" size={22} color="gray" />
+            </TouchableOpacity>
+          </View>
+
+          {week.map((weekDay) => {
+            const textStyles = [stylesCommon.label];
+            const touchable = [stylesCommon.touchable];
+            const sameDay = isSameDay(weekDay.date, date);
+            if (sameDay) {
+              textStyles.push(stylesCommon.selectedLabel);
+              touchable.push(stylesCommon.selectedTouchable);
+            }
+
+            return (
+              <View style={stylesCommon.weekDayItem} key={weekDay.formatted}>
+                <Text style={stylesCommon.weekDayText}>{weekDay.formatted}</Text>
+                <TouchableOpacity
+                  onPress={() => selectedDate(weekDay.date)}
+                  style={touchable}>
+                  <Text style={textStyles}>{weekDay.day}</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+          <View style={[styles.button_left]} >
+            <TouchableOpacity
+              style={stylesCommon.button_styte}
+              onPress={() => alterWeek('next')}>
+              <Icon name="step-forward" size={22} color="gray" />
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {week.map((weekDay) => {
-          const textStyles = [stylesCommon.label];
-          const touchable = [stylesCommon.touchable];
-          const sameDay = isSameDay(weekDay.date, date);
-          if (sameDay) {
-            textStyles.push(stylesCommon.selectedLabel);
-            touchable.push(stylesCommon.selectedTouchable);
-          }
-
-          return (
-            <View style={stylesCommon.weekDayItem} key={weekDay.formatted}>
-              <Text style={stylesCommon.weekDayText}>{weekDay.formatted}</Text>
-              <TouchableOpacity
-                onPress={() => selectedDate(weekDay.date)}
-                style={touchable}>
-                <Text style={textStyles}>{weekDay.day}</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-        <View style={[styles.button_left]} >
-          <TouchableOpacity
-            style={stylesCommon.button_styte}
-            onPress={() => alterWeek('next')}>
-            <Icon name="step-forward" size={22} />
+        <View marginTop={5} flexDirection="row" backgroundColor="white" height={40}>
+          <TouchableOpacity style={styles.icon_cidades} >
+            <Icon name="calendar" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
           </TouchableOpacity>
+
+          <Text style={styles.text_value}>
+            {dateFormat}
+          </Text>
         </View>
-      </View>
-
-      <View marginTop={5} flexDirection="row" backgroundColor="white" height={40}>
-        <TouchableOpacity style={styles.icon_cidades} >
-          <Icon name="calendar" marginBottom={3} marginLeft={0} marginRight={-10} size={20} color="gray" />
-        </TouchableOpacity>
-
-        <Text style={styles.text_value}>
-          {dateFormat}
-        </Text>
-      </View>
 
 
-      <CheckinItem
-        trajetosData={trajetosData}
-        onClickNew={onClickNew}
-        onClickCancel={onClickCancel}
-        onClickCheckinsRealizados={onClickCheckinsRealizados}
-        onRefresh={onRefresh}
-        isRefreshing={isRefreshing}
-      />
+        <CheckinItem
+          trajetosData={trajetosData}
+          onClickNew={onClickNew}
+          onClickCancel={onClickCancel}
+          onClickCheckinsRealizados={onClickCheckinsRealizados}
+          onRefresh={onRefresh}
+          isRefreshing={isRefreshing}
+        />
 
-    </SafeAreaView>
+      </SafeAreaView>
 
   );
 
@@ -274,18 +335,27 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: "white"
-},
-button_back: {
-  alignItems: 'center',
-  marginRight: 3,
-  marginTop: 10
-},
-button_left: {
-  alignItems: 'center',
-  marginLeft: 3,
-  marginTop: 10
-},
-
+  },
+  safeSucess: {
+    flex: 1,
+    backgroundColor: "green"
+  },
+  button_back: {
+    alignItems: 'center',
+    marginRight: 3,
+    marginTop: 10
+  },
+  button_left: {
+    alignItems: 'center',
+    marginLeft: 3,
+    marginTop: 10
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "green",
+  },
 
 })
 

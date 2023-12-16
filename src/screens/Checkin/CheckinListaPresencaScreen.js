@@ -22,6 +22,18 @@ const CheckinListaPresencaScreen = ({ route, navigation }) => {
 
   }, [load, navigation])
 
+  function _onError(error) {
+    console.log('_onError: ', error)
+
+    if (error == 401) {
+      signOut()
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      navigation.navigate('SignInTab')
+    } else {
+      _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
+    }
+
+  }
 
   const getCheckins = () => {
     api.get('/checkins/list/data-linha-sentido?data=' + data.dataCheckin + '&linha=' + data.linhaId + '&sentido=' + data.sentido)
@@ -34,7 +46,7 @@ const CheckinListaPresencaScreen = ({ route, navigation }) => {
         setIsRefreshing(false)
         console.error('Erro na apionClickCheckinsRealizados:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode);
       });
   }
 

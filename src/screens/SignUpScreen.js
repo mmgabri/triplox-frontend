@@ -16,6 +16,7 @@ const SignUpScreen = () => {
   const [showMessageErrorPassword1, setShowMessageErrorPassword1] = useState(false);
   const [showMessageErrorPassword2, setShowMessageErrorPassword2] = useState(false);
   const [showMessageErrorPasswordConfirm, setShowMessageErrorPasswordConfirm] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [data, setData] = useState({
     username: '',
     email: '',
@@ -111,12 +112,12 @@ const SignUpScreen = () => {
       setShowMessageErrorName(true);
     }
 
-    if (data.password.length == 0) {
-      setShowMessageErrorPassword1(true);
-    } else {
-      if (data.password.length < 8) {
-        setShowMessageErrorPassword2(true);
-      }
+
+    if (data.password.length < 8) {
+      setShowMessageErrorPassword2(true);
+      setPasswordIsValid(false)
+    }else{
+      setPasswordIsValid(true)
     }
 
 
@@ -124,7 +125,7 @@ const SignUpScreen = () => {
       setShowMessageErrorPasswordConfirm(true);
     }
 
-    if (data.username && emailIsValid && data.password && data.confirm_password && data.confirm_password == data.password) {
+    if (data.username && emailIsValid && passwordIsValid && data.confirm_password && data.confirm_password == data.password) {
       let emailLowerCase = data.email.toLowerCase();
       let email = emailLowerCase.trim()
       signUp(email, data.password, data.username)
@@ -148,7 +149,7 @@ const SignUpScreen = () => {
             onChangeText={textInputNameChange}
             check_text={data.check_textInputNameChange}
             top={0}
-            onEndEditing={() => {}}
+            onEndEditing={() => { }}
           />
           {showMessageErrorName &&
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -156,14 +157,14 @@ const SignUpScreen = () => {
             </Animatable.View>
           }
 
-          <FieldFormWithIcon 
+          <FieldFormWithIcon
             text={'Email'}
             placeholder={'seu email'}
             icon='at'
             onChangeText={textInputEmailChange}
             check_text={data.check_textInputEmailChange}
             top={35}
-            onEndEditing={() => {}}
+            onEndEditing={() => { }}
           />
           {showMessageErrorEmail &&
             <Animatable.View animation="fadeInLeft" duration={500}>

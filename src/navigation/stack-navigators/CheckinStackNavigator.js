@@ -12,6 +12,8 @@ import CriarTrajeto1Screen from '../../screens/CriarTrajeto/CriarTrajeto1Screen'
 import CriarTrajeto2Screen from '../../screens/CriarTrajeto/CriarTrajeto2Screen'
 import CriarTrajeto3Screen from '../../screens/CriarTrajeto/CriarTrajeto3Screen'
 import CriarTrajeto4Screen from '../../screens/CriarTrajeto/CriarTrajeto4Screen'
+import SignOutScreen from '../../screens/SignOutScreen'
+import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen'
 
 const Stack = createStackNavigator()
 
@@ -31,14 +33,19 @@ const CheckinStackNavigator = () => {
       }
       }
       }>
-      <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Checkin' }} />
+      <Stack.Screen name={screens.CheckinTab} component={CheckinScreen} options={{ title: 'Check-in' }} />
       <Stack.Screen name={screens.CheckinListaPresencaTab} component={CheckinListaPresencaScreen} options={{ title: 'Lista de Presença' }} />
-      <Stack.Screen name={screens.SignOutTab} component={SignInScreen} />
       <Stack.Screen name={screens.CriarTrajeto0Tab} component={CriarTrajeto0Screen} />
       <Stack.Screen name={screens.CriarTrajeto1Tab} component={CriarTrajeto1Screen} />
       <Stack.Screen name={screens.CriarTrajeto2Tab} component={CriarTrajeto2Screen} />
       <Stack.Screen name={screens.CriarTrajeto3Tab} component={CriarTrajeto3Screen} />
       <Stack.Screen name={screens.CriarTrajeto4Tab} component={CriarTrajeto4Screen} />
+
+      <Stack.Screen name={screens.SignInTab} component={SignInScreen} />
+      <Stack.Screen name={screens.SignOutTab} component={SignOutScreen} />
+      <Stack.Screen name={screens.SignUpTab} component={SignUpScreen} />
+      <Stack.Screen name={screens.ForgotPassword} component={ForgotPasswordScreen} />
+
     </Stack.Navigator>
   )
 }

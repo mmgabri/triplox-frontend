@@ -37,6 +37,9 @@ export const screens = {
   SignOut: 'SignOut',
   SignOutTab: 'SignOutTab',
 
+  ForgotPassword: 'ForgotPassword',
+  ForgotPasswordTab: 'ForgotPasswordTab',
+
   Checkin: 'Checkin',
   CheckinTab: 'CheckinTab',
 
@@ -175,6 +178,13 @@ export const routes = [
   {
     name: screens.CriarTrajeto4Tab,
     focusedRoute: screens.CriarTrajeto4Tab,
+    showInTab: false,
+    showInDrawer: false,
+  },
+
+  {
+    name: screens.ForgotPasswordTab,
+    focusedRoute: screens.ForgotPasswordTab,
     showInTab: false,
     showInDrawer: false,
   },

@@ -35,6 +35,18 @@ const TrajetoScreen = ({ route, navigation }) => {
 
   }, [load, navigation])
 
+  function _onError(error) {
+    console.log('_onError: ', error)
+
+    if (error == 401) {
+      signOut()
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      navigation.navigate('SignInTab')
+    } else {
+      _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
+    }
+  }
+
   const getTrajetos = () => {
 
     console.log('trajetos...')
@@ -53,7 +65,7 @@ const TrajetoScreen = ({ route, navigation }) => {
         setIsRefreshing(false)
         console.error('Erro na api listar trajetos:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
 
   };
@@ -79,7 +91,7 @@ const TrajetoScreen = ({ route, navigation }) => {
         setIsRefreshing(false)
         console.error('Erro na api delete trajeto:', error)
         const statusCode = error.response?.status
-        _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);
+        _onError(statusCode)
       });
 
   }
