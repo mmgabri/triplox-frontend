@@ -114,11 +114,12 @@ const NewFeedScreen = ({ navigation }) => {
           text={text}
           onFocus={() => { setIsFocused(true) }}
           isFocused={isFocused}
-          placeholder={'digite post aqui'}
+          placeholder={'digite seu post aqui_'}
           multiline={true}
           numberOfLines={5}
           value={input}
           onChangeText={handleInputChange}
+          keyboardType={'default'}
         />
         <Animatable.View animation="fadeInLeft" duration={500}>
           <Text style={stylesCommon.infoMsg}>Até 500 caracteres</Text>

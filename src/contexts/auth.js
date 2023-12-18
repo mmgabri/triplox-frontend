@@ -233,6 +233,7 @@ const AuthProvider = ({ children, navigation }) => {
                             numberOfLines={1}
                             value={confirmationCode}
                             onChangeText={changeConfirmationCode}
+                            keyboardType={'numeric'}
                         />
                         <Animatable.View animation="fadeInLeft" duration={500}>
                             <Text style={stylesCommon.infoMsg}></Text>

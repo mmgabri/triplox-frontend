@@ -6,6 +6,7 @@ import stylesCommon from '../../components/stylesCommon'
 import { decodeMessage } from '../../services/decodeMessage'
 import { api } from '../../services/api';
 import { View } from 'react-native-animatable';
+import { useAuth } from '../../contexts/auth';
 0
 const CheckinListaPresencaScreen = ({ route, navigation }) => {
   const { data } = route.params;

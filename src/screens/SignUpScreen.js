@@ -102,7 +102,9 @@ const SignUpScreen = () => {
   }
 
   const signUpHandle = () => {
+    console.log('----- signUpHandle ----')
     const emailIsValid = validateEmail(data.email);
+
 
     if (!emailIsValid) {
       setShowMessageErrorEmail(true);
@@ -112,7 +114,6 @@ const SignUpScreen = () => {
       setShowMessageErrorName(true);
     }
 
-
     if (data.password.length < 6) {
       setShowMessageErrorPassword2(true);
       setPasswordIsValid(false)
@@ -120,12 +121,13 @@ const SignUpScreen = () => {
       setPasswordIsValid(true)
     }
 
-
     if (data.confirm_password != data.password) {
       setShowMessageErrorPasswordConfirm(true);
     }
 
-    if (data.username && emailIsValid && passwordIsValid && data.confirm_password && data.confirm_password == data.password) {
+
+    if (data.username && emailIsValid && data.password.length >= 6 && data.confirm_password && data.confirm_password == data.password) {
+      console.log('signUpHandle ----> 06')
       let emailLowerCase = data.email.toLowerCase();
       let email = emailLowerCase.trim()
       signUp(email, data.password, data.username)
