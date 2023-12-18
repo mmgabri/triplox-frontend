@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import LinearGradient from 'react-native-linear-gradient';
 import { SeparatorItemFlatList } from '../../components/SeparatorItemFlatList';
-import stylesCommon from '../../components/stylesCommon'
 
 const TrajetoItems = ({ trajetosData, onClickNew, onClickDelete, onRefresh, isRefreshing }) => {
 
@@ -13,8 +12,7 @@ const TrajetoItems = ({ trajetosData, onClickNew, onClickDelete, onRefresh, isRe
             <View>
                 <View style={styles.container}>
                     <TouchableOpacity style={styles.icon} onPress={() => { onClickDelete(item.id) }}>
-                        <Icon name="remove" marginTop={-10} marginLeft={15} size={22} color="#A52A2A" />
-                        <Text style={styles.excluir} >excluir</Text>
+                        <Icon name="trash" marginTop={-5} marginLeft={10} size={25} color="#A52A2A" />
                     </TouchableOpacity>
                     <View>
                         <View marginTop={8} marginBottom={8} flexDirection="row">
@@ -135,7 +133,7 @@ const styles = StyleSheet.create({
     },
 
     text_title: {
-        marginLeft: 17,
+        marginLeft: 14,
         marginTop: -5,
         marginBottom: 0,
         fontSize: 18,
@@ -143,7 +141,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     text_title2: {
-        marginLeft: 25,
+        marginLeft: 19,
         marginTop: -5,
         marginBottom: 0,
         fontSize: 15,

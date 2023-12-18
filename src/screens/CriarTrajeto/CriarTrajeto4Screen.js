@@ -11,10 +11,9 @@ import stylesCommon from '../../components/stylesCommon'
 import Button from '../../components/Button';
 import BoxInfo from '../../components/BoxInfo';
 
-
 const CriarTrajeto4Screen = ({ route, navigation }) => {
+  const {user, _showAlert, signOut } = useAuth();
   const { colors } = useTheme();
-  const { user, _showAlert } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const { data3 } = route.params;
 
@@ -45,7 +44,7 @@ const CriarTrajeto4Screen = ({ route, navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
@@ -68,7 +67,7 @@ const CriarTrajeto4Screen = ({ route, navigation }) => {
       .then((response) => {
         setIsLoading(false)
         console.log('Retorno da api listar pontos:', response.data)
-        _showAlert('success', "Obaa", 'Configurações salvas!', 3000);
+        _showAlert('success', "Sucesso !", 'Trajeto adicionado com sucesso.', 3000);
         navigation.dispatch(
           StackActions.popToTop('CriarTrajetoTrajetosTab', { refreshScreen: true })
       )

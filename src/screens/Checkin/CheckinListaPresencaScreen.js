@@ -12,6 +12,7 @@ const CheckinListaPresencaScreen = ({ route, navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [checkinsData, setCheckinsData] = useState([]);
   const [load, setLoad] = useState(true)
+  const {_showAlert, signOut } = useAuth();
 
   useEffect(() => {
 
@@ -27,7 +28,7 @@ const CheckinListaPresencaScreen = ({ route, navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);

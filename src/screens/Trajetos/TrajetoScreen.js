@@ -1,24 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
-
-import LinearGradient from 'react-native-linear-gradient';
+import React, { useState, useEffect, View, StatusBar, SafeAreaView } from 'react';
 import * as Animatable from 'react-native-animatable';
+import { StyleSheet } from 'react-native';
+import AwesomeLoading from 'react-native-awesome-loading';
 import { useTheme } from 'react-native-paper';
 import { useAuth } from '../../contexts/auth';
 import { decodeMessage } from '../../services/decodeMessage'
 import { api } from '../../services/api';
 import TrajetoItems from './TrajetoItems';
-import Button2 from '../../components/Button';
 import stylesCommon from '../../components/stylesCommon'
-
-
 
 const TrajetoScreen = ({ route, navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const { colors } = useTheme();
-  const { user, isAuthenticated, _showAlert } = useAuth();
+  const { user, isAuthenticated, _showAlert, signOut } = useAuth();
   const [trajetosData, setTrajetosData] = useState({});
   const [load, setLoad] = useState(true)
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const TrajetoScreen = ({ route, navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
@@ -48,6 +45,7 @@ const TrajetoScreen = ({ route, navigation }) => {
   }
 
   const getTrajetos = () => {
+    //  setIsLoading(true)
 
     console.log('trajetos...')
 
@@ -56,12 +54,13 @@ const TrajetoScreen = ({ route, navigation }) => {
         console.log('Retorno da api listar trajetos:', response.data)
         setIsRefreshing(false)
         setTrajetosData(response.data)
+        setIsLoading(false)
         if (response.data.length == 0) {
           navigation.navigate('CriarTrajeto0Tab')
         }
       })
       .catch((error) => {
-        //setIsLoading(false)
+        setIsLoading(false)
         setIsRefreshing(false)
         console.error('Erro na api listar trajetos:', error)
         const statusCode = error.response?.status
@@ -82,7 +81,7 @@ const TrajetoScreen = ({ route, navigation }) => {
     api.delete('/trajetos/?id=' + id + '&user=' + user.id)
       .then((response) => {
         console.log('Retorno da api delete trajeto:', response.data)
-        _showAlert('success', "Obaa", 'O trajeto foi excluido !', 3000);
+        _showAlert('success', "Sucesso !", 'O trajeto foi excluido.', 3000);
         getTrajetos()
         setIsRefreshing(false)
       })
@@ -103,17 +102,13 @@ const TrajetoScreen = ({ route, navigation }) => {
   }
 
   return (
-
-    <TrajetoItems
-      trajetosData={trajetosData}
-      onClickDelete={onClickDelete}
-      onClickNew={onClickNew}
-      onRefresh={onRefresh}
-      isRefreshing={isRefreshing}
-    />
-
-
-
+      <TrajetoItems
+        trajetosData={trajetosData}
+        onClickDelete={onClickDelete}
+        onClickNew={onClickNew}
+        onRefresh={onRefresh}
+        isRefreshing={isRefreshing}
+      />
   );
 
 };
@@ -150,11 +145,7 @@ const styles = StyleSheet.create({
   container5: {
     position: "absolute"
 
-
-
-
   },
-
 
 
   container_button: {

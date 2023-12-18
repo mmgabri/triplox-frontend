@@ -26,12 +26,10 @@ const AuthProvider = ({ children, navigation }) => {
     const [confirmationCode, setConfirmationCode] = useState('');
     const [enableButton, setEnableButton] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-    const [confirmationCodeInvalid, setconfirmationCodeInvalid] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isConfirmSignup, setConfirmSignup] = useState(false);
     const { colors } = useTheme();
-    const API_KEY = 'o7AwEAkgXH9WL667E4Y4LLrpPPC67UV4S5UdqXP4'
 
     useEffect(() => {
         console.log('---- useEffect - auth ----')
@@ -56,7 +54,6 @@ const AuthProvider = ({ children, navigation }) => {
     const changeConfirmationCode = (val) => {
         console.log('----------changeConfirmationCode------', val)
         setConfirmationCode(val);
-        setconfirmationCodeInvalid(false)
         if (val.length == 6) {
             setEnableButton(true)
         } else {
@@ -74,7 +71,6 @@ const AuthProvider = ({ children, navigation }) => {
             setIsLoading(false)
             setUserEmail(email)
             setUserPassword(password)
-            setconfirmationCodeInvalid(false)
             setConfirmSignup(true)
             setConfirmationCode('')
             setEnableButton(false)
@@ -94,13 +90,11 @@ const AuthProvider = ({ children, navigation }) => {
             .then((response) => {
                 console.log('Retorno da api confirmSignUp:', response.data)
                 setConfirmSignup(false)
-                setconfirmationCodeInvalid(false)
                 signIn(userEmail, userPassword)
             })
             .catch((error) => {
                 setIsLoading(false)
                 setConfirmSignup(true)
-                setconfirmationCodeInvalid(true)
                 console.error('Erro na api signup:', error)
                 const statusCode = error.response?.status
                 _showAlert('danger', 'Ooops!', decodeMessage(statusCode), 5000);

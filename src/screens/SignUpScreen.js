@@ -113,7 +113,7 @@ const SignUpScreen = () => {
     }
 
 
-    if (data.password.length < 8) {
+    if (data.password.length < 6) {
       setShowMessageErrorPassword2(true);
       setPasswordIsValid(false)
     }else{
@@ -188,7 +188,7 @@ const SignUpScreen = () => {
           }
           {showMessageErrorPassword2 &&
             <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={styles.errorMsg}>A senha deve ter 8 digitos ou mais</Text>
+              <Text style={styles.errorMsg}>A senha deve ter 6 digitos ou mais</Text>
             </Animatable.View>
           }
 

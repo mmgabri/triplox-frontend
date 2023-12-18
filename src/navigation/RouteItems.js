@@ -46,6 +46,9 @@ export const screens = {
   Feed: 'Feed',
   FeedTab: 'FeedTab',
 
+  NewFeed: 'NewFeed',
+  NewFeedTab: 'NewFeedTab',
+
   Profile: 'Profile',
   ProfileTab: 'ProfileTab',
 
@@ -66,6 +69,14 @@ export const routes = [
     showInDrawer: false,
     icon: (focused) =>
     <Icon name="home" size={29} color={focused ? '#993399' : '#818185'} />,
+  },
+
+  {
+    name: screens.NewFeedTab,
+    focusedRoute: screens.NewFeedTab,
+    title: 'Postar Feed',
+    showInTab: false,
+    showInDrawer: false,
   },
  
   {

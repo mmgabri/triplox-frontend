@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, StatusBar, Dime
 import { addDays, subDays, format, getDate, isSameDay, startOfWeek, sub } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Lottie from "lottie-react-native";
 
 import CheckinItem from './CheckinItems';
 import stylesCommon from '../../components/stylesCommon'
@@ -24,12 +23,14 @@ const CheckinScreen = ({ navigation }) => {
 
   //==> Carregamento inicial da tela
   useEffect(() => {
-    console.log('========================= Entro na tela checkin =========================')
+    console.log('========================= Entrou na tela checkin ========================= date: ', date)
     navigation.addListener('focus', () => setLoad(!load))
 
     //Carrega dos da semana
     const dateNowGMT = new Date()
     const dateNow = sub(dateNowGMT, { hours: 3 });
+
+    console.log('Data agora: ', dateNow)
 
     //Formata data do dia
     const dateFormatAux = format(dateNow, "dd'/'MM'/'yyyy", { locale: ptBR })
@@ -52,7 +53,7 @@ const CheckinScreen = ({ navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
@@ -71,7 +72,7 @@ const CheckinScreen = ({ navigation }) => {
 
     api.get('/trajetos/list/user-and-data/?user=' + user.id + '&data=' + dataAux)
       .then((response) => {
-        console.log('Retorno da api listar trajetos:', response.data)
+   //     console.log('Retorno da api listar trajetos:', response.data)
         if (response.data.length == 0) {
           navigation.navigate('CriarTrajeto0Tab')
         }
@@ -174,8 +175,8 @@ const CheckinScreen = ({ navigation }) => {
       .then((response) => {
         console.log('Retorno da api new checkin:', response.data)
         setIsSucess(true)
-        sleep(1500).then(() => { setIsSucess(false) });
-        _showAlert('success', "Obaa", 'Check-in realizado !', 1500);
+        sleep(1000).then(() => { setIsSucess(false) });
+        _showAlert('success', "Sucesso !", 'Check-in realizado.', 3000);
         getTrajetos(date)
       })
       .catch((error) => {
@@ -204,7 +205,7 @@ const CheckinScreen = ({ navigation }) => {
     api.delete('/checkins/' + id)
       .then((response) => {
         console.log('Retorno da api cancel checkin:', response.data)
-        _showAlert('success', "Obaa", 'Check-in cancelado !', 6000);
+        _showAlert('success', "Sucesso !", 'Check-in cancelado.', 6000);
         getTrajetos(date)
       })
       .catch((error) => {
@@ -343,11 +344,13 @@ const styles = StyleSheet.create({
   button_back: {
     alignItems: 'center',
     marginRight: 3,
+    marginLeft: 5,
     marginTop: 10
   },
   button_left: {
     alignItems: 'center',
     marginLeft: 3,
+    marginRight: 5,
     marginTop: 10
   },
   centered: {

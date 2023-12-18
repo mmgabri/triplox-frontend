@@ -8,10 +8,12 @@ import stylesCommon from '../../components/stylesCommon'
 import stylesDropdown from '../../components/stylesDropdown'
 import Button from '../../components/Button';
 import BoxInfo from '../../components/BoxInfo';
+import { useAuth } from '../../contexts/auth';
 
 
 
 const CriarTrajeto2Screen = ({ route, navigation }) => {
+  const {_showAlert, signOut } = useAuth();
   const { colors } = useTheme();
   const [isFocus1, setIsFocus1] = useState(false);
   const [isFocus2, setIsFocus2] = useState(false);
@@ -45,7 +47,7 @@ const CriarTrajeto2Screen = ({ route, navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);

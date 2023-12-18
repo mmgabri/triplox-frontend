@@ -14,7 +14,7 @@ import Button from '../../components/Button';
 
 const CriarTrajeto1Screen = ({ navigation }) => {
   const { colors } = useTheme();
-  const {isAuthenticated, _showAlert } = useAuth();
+  const {isAuthenticated, _showAlert, signOut } = useAuth();
   const [isFocus1, setIsFocus1] = useState(false);
   const [linhasData, setLinhasData] = useState([]);
   const [data, setData] = useState({
@@ -60,7 +60,7 @@ const CriarTrajeto1Screen = ({ navigation }) => {
 
     if (error == 401) {
       signOut()
-      _showAlert('warning', 'Ooops!', decodeMessage(error), 4000);
+      _showAlert('warning', 'Ooops!', decodeMessage(error), 7000);
       navigation.navigate('SignInTab')
     } else {
       _showAlert('danger', 'Ooops!', decodeMessage(error), 7000);
