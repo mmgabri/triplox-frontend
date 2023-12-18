@@ -14,7 +14,7 @@ const FeedScreen = ({ navigation }) => {
   const [feedsData, setFeedsData] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false)
   const { colors } = useTheme();
-  const { _showAlert } = useAuth();
+  const { _showAlert, signOut} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
