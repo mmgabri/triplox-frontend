@@ -174,8 +174,8 @@ const CheckinScreen = ({ navigation }) => {
     api.post('/checkins', obj)
       .then((response) => {
         console.log('Retorno da api new checkin:', response.data)
-        setIsSucess(true)
-        sleep(1000).then(() => { setIsSucess(false) });
+       // setIsSucess(true)
+       // sleep(1000).then(() => { setIsSucess(false) });
         _showAlert('success', "Sucesso !", 'Check-in realizado.', 3000);
         getTrajetos(date)
       })
